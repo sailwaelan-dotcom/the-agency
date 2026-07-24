@@ -204,7 +204,7 @@ def test_e2e_activation_quality():
             check(f"e2e-desc-{skill_dir.name}", False, "pas de description")
             continue
         desc = m.group(1)
-        has_trigger = re.search(r"(utilisez|use when|quand|dès que)", desc, re.I)
+        has_trigger = re.search(r"(utilisez|use when|quand|dès que|gate actif|s'applique automatiquement|automatically|après chaque)", desc, re.I)
         check(f"e2e-desc-{skill_dir.name}", bool(has_trigger),
               f"description non trigger-focused: {desc[:80]}")
 

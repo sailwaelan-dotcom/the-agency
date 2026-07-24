@@ -1,194 +1,187 @@
 ---
 name: fact-check-sourcing
-description: "Utilisez quand le solopreneur belge doit vérifier l'exactitude d'un chiffre, d'une affirmation ou d'une référence dans un document (business plan, dossier de subside, contenu marketing) : sourcing, vérification de dates, validation de montants, format de citation. Produit un rapport de fiabilité des sources."
-version: 0.1.0
+description: "GATE ACTIF — s'applique AUTOMATIQUEMENT après chaque web search, web extract, ou recherche de données. Vérifie la fiabilité des sources, croise les chiffres avec les sources officielles belges, produit un score de confiance (A/B/C/D), et bloque les informations non vérifiées avant utilisation. NE PAS utiliser uniquement à la demande — ce skill est un gate permanent."
+version: 2.0.0
 license: MIT
 author: The Agency
 metadata:
-  tags: [business, rd, research, sourcing, be]
-  related_skills: [be-market-research, be-business-plan, be-funding-subsidies, content-engine-be]
+  tags: [business, rd, research, sourcing, gate, be]
+  related_skills: [be-market-research, be-business-plan, be-funding-subsidies, content-engine-be, be-financial-modeling]
   domain: rd
   language: fr
   as_of: "2026-07"
 ---
 
-# Fact-checking, sourcing & citation — solopreneur belge
+# Fact-checking actif — gate de vérification permanent
 
 ## Overview
 
-Ce skill est le **garde-fou de la crédibilité** du repo The Agency. Il fournit une
-méthodologie rigoureuse pour vérifier chaque affirmation chiffrée, chaque référence
-réglementaire, chaque montant cité dans un document business. Il produit un **rapport
-de fiabilité** qui identifie les sources vérifiées, les affirmations non sourcées, et
-les données potentiellement obsolètes. Obligatoire avant tout envoi de business plan,
-dossier de subside, ou contenu marketing qui cite des chiffres.
+Ce skill n'est **pas une référence passive** — c'est un **gate actif** qui s'applique
+**automatiquement après chaque web search, web extract, ou recherche de données**.
+Son rôle : vérifier la fiabilité des sources, croiser les chiffres avec les sources
+officielles belges, produire un score de confiance, et **bloquer les informations
+non vérifiées** avant qu'elles ne soient utilisées dans un document, une réponse,
+ou une décision.
 
-## When to Use
+**Règle absolue** : aucune donnée chiffrée issue d'une recherche web ne doit être
+utilisée sans passer par ce gate.
 
-- « Ce chiffre TVA/cotisation/subside est-il encore à jour ? »
-- « J'ai cité une source dans mon business plan, est-elle fiable ? »
-- « Mon dossier de subside contient des affirmations — je dois les sourcer »
-- « Mon contenu marketing cite des statistiques — sont-elles vérifiables ? »
-- « Je dois produire une bibliographie pour un document officiel »
+## When to Use (AUTOMATIQUE — pas à la demande)
+
+Ce gate s'active **systématiquement** quand :
+- L'agent effectue une `web_search` ou `web_extract`
+- L'agent cite un chiffre, une statistique, ou une affirmation réglementaire
+- L'agent rédige un document contenant des données sourcées (business plan, dossier, contenu)
+- L'agent répond à une question factuelle sur la Belgique (TVA, cotisations, subsides…)
 
 **Ne pas utiliser pour :**
-- L'étude de marché elle-même → `be-market-research`
-- La veille concurrentielle → `be-competitor-watch`
-- La production de contenu → `content-engine-be`
+- Données déjà vérifiées dans le repo (skills internes avec `as_of`)
+- Opinions ou recommandations générales (pas de chiffres à vérifier)
+- Données personnelles de l'utilisateur (pas de fact-check sur ses propres données)
 
-## Hiérarchie des sources (du plus au moins fiable)
+## Le gate : 4 étapes en 30 secondes
 
-| Niveau | Type de source | Exemples | Fiabilité |
+Après CHAQUE recherche web, l'agent applique ces 4 étapes **avant d'utiliser les données** :
+
+### Étape 1 — Identifier la source (5 sec)
+
+Pour chaque résultat de recherche, classifier la source :
+
+| Niveau | Type | Exemples | Action |
 |---|---|---|---|
-| **1 — Primaire** | Texte de loi, règlement, arrêté royal | Code des sociétés (CSA), Code de la TVA (CTVA), RGPD (UE 2016/679) | Maximale |
-| **2 — Officielle** | Site gouvernemental, statistiques publiques | SPF Finances, INASTI, Statbel, BNB, BCE, VLAIO, Awex | Très haute |
-| **3 — Institutionnelle** | Rapport d'organisme reconnu | Febelfin, Agoria, UCM, VOKA, chambres de commerce | Haute |
-| **4 — Académique** | Article peer-reviewed, thèse, livre de référence | Universités belges, éditions juridiques Larcier/Bruylant | Haute |
-| **5 — Journalistique** | Article de presse spécialisé | L'Écho, Trends-Tendances, De Tijd, Made In | Moyenne |
-| **6 — Sectorielle** | Blog, newsletter, podcast d'expert | Blogs de comptables, newsletters sectorielles | Moyenne |
-| **7 — Anecdotique** | Témoignage, avis client, forum | Trustpilot, Reddit, LinkedIn | Faible |
+| **A — Officielle** | Site gouvernemental, institution publique | SPF Finances, INASTI, Statbel, BNB, BCE, VLAIO, Awex, APD | ✅ Utilisable directement |
+| **B — Institutionnelle** | Organisme reconnu, fédération professionnelle | Febelfin, Agoria, UCM, VOKA, chambres de commerce | ✅ Utilisable avec mention |
+| **C — Journalistique** | Presse spécialisée, média reconnu | L'Écho, Trends-Tendances, De Tijd, Made In | ⚠️ Croiser avec source A/B |
+| **D — Non vérifiable** | Blog, forum, réseau social, site commercial | Reddit, LinkedIn, blogs personnels, sites marketing | ❌ Ne PAS utiliser seul |
 
-**Règle** : toute affirmation chiffrée dans un document officiel doit être sourcée au
-niveau 1-4. Les niveaux 5-7 sont acceptables pour du contenu marketing mais pas pour
-un business plan ou un dossier de subside.
+**Règle** : toute donnée de niveau C ou D doit être **croisée avec une source A ou B**
+avant utilisation. Si pas de croisement disponible → marquer « non vérifié » et ne
+pas l'utiliser dans un document officiel.
 
-## Méthodologie de fact-checking (5 étapes)
+### Étape 2 — Vérifier la fraîcheur (5 sec)
 
-### 1. Extraire les affirmations
+| Situation | Action |
+|---|---|
+| Source avec date < 1 an | ✅ Utilisable |
+| Source avec date 1-3 ans | ⚠️ Vérifier si les données ont changé |
+| Source sans date | ❌ Ne PAS utiliser |
+| Source avec date > 3 ans | ❌ Ne PAS utiliser (sauf données historiques) |
 
-Lister chaque affirmation chiffrée ou réglementaire du document :
-- Montants (TVA, cotisations, subsides, prix)
-- Dates (échéances, entrée en vigueur, délais)
-- Pourcentages (taux, seuils, parts de marché)
-- Références légales (articles, arrêtés, règlements)
+**Spécificités BE** : les taux TVA, cotisations INASTI, seuils de subsides changent
+annuellement. Toujours vérifier la date de dernière mise à jour de la source.
 
-*Critère de complétion* : chaque affirmation est identifiée et numérotée.
+### Étape 3 — Croiser avec les sources officielles BE (15 sec)
 
-### 2. Identifier la source
+Pour toute donnée chiffrée sur la Belgique, **toujours vérifier** sur la source
+officielle correspondante :
 
-Pour chaque affirmation, noter :
-- La source citée dans le document (URL, nom, date)
-- Le niveau de fiabilité (1-7)
-- La date de la source (quand a-t-elle été publiée/mise à jour ?)
+| Domaine | Source officielle à consulter |
+|---|---|
+| TVA, impôts, IPP/ISOC | finances.belgium.be |
+| Cotisations sociales INASTI | rsvz-inasti.fgov.be |
+| Statistiques entreprises | statistiques.fgov.be |
+| Données macroéconomiques | nbr.be (Banque Nationale) |
+| Statistiques démographiques | statbel.fgov.be |
+| Subsides régionaux | vlaio.be / awex.be / hub.brussels / innoviris.brussels |
+| Protection données | autoriteprotectiondonnees.be |
+| Registre entreprises | kbopub.economie.fgov.be |
+| Code des sociétés | ejustice.just.fgov.be |
 
-*Critère de complétion* : chaque affirmation a une source identifiée avec son niveau.
+**Méthode rapide** : extraire le chiffre clé de la recherche web, puis le vérifier
+sur la source officielle avec une 2e `web_search` ou `web_extract` ciblée.
 
-### 3. Vérifier l'exactitude
+### Étape 4 — Produire le score de confiance (5 sec)
 
-Pour chaque affirmation, vérifier :
-- **Le montant/chiffre** est-il correct sur la source citée ?
-- **La date** est-elle la plus récente disponible ?
-- **Le contexte** est-il respecté (ex: taux réduit vs taux normal) ?
-- **La référence légale** est-elle complète et correcte (article, alinéa, paragraphe) ?
+Pour chaque donnée issue d'une recherche web :
 
-**Sources de vérification officielles belges** :
+```
+SCORE : [A/B/C/D] | Source : [nom] | Date : [YYYY-MM] | Croisé : [oui/non] | as_of : [YYYY-MM]
+```
 
-| Domaine | Source officielle | URL |
-|---|---|---|
-| TVA | SPF Finances | finances.belgium.be |
-| Cotisations sociales | INASTI | rsvz-inasti.fgov.be |
-| Statistiques entreprises | SPF Économie | statistiques.fgov.be |
-| Données macro | Banque Nationale de Belgique | nbr.be |
-| Statistiques démographiques | Statbel | statbel.fgov.be |
-| Subsides régionaux | VLAIO / Awex / hub.brussels / Innoviris | vlaio.be / awex.be / hub.brussels / innoviris.brussels |
-| Protection données | APD/GBA | autoriteprotectiondonnees.be |
-| Code des sociétés | CSA | ejustice.just.fgov.be |
-| Registre entreprises | BCE/KBO | kbopub.economie.fgov.be |
+**Règles d'utilisation** :
+- **A** : utilisable directement dans tout document
+- **B** : utilisable avec mention de la source
+- **C** : utilisable seulement si croisée avec source A/B
+- **D** : NE PAS UTILISER — chercher une meilleure source
 
-*Critère de complétion* : chaque affirmation vérifiée = source consultée + résultat
-(confirmé / infirmé / obsolète / non vérifiable).
+## Intégration dans le workflow de l'agent
 
-### 4. Dater et marquer
+### Pattern : après chaque web_search
+
+```
+1. web_search("taux TVA Belgique 2026")
+2. [GATE] Classifier les résultats (étape 1)
+3. [GATE] Vérifier la fraîcheur (étape 2)
+4. [GATE] Si résultat C/D → web_search sur source officielle (étape 3)
+5. [GATE] Produire le score (étape 4)
+6. Utiliser les données dans la réponse/document
+```
+
+### Pattern : avant de citer un chiffre
+
+```
+1. Identifier le chiffre à citer
+2. [GATE] Quelle est la source ? (étape 1)
+3. [GATE] La source est-elle fraîche ? (étape 2)
+4. [GATE] Si pas de source A/B → rechercher sur source officielle (étape 3)
+5. [GATE] Produire le score (étape 4)
+6. Citer avec : "Selon [source] (consulté le [date]), [chiffre] (as_of [YYYY-MM])"
+```
+
+### Pattern : dans un document (business plan, dossier)
 
 Chaque chiffre cité doit porter :
-- `as_of: YYYY-MM` — date de la dernière vérification
-- « Vérifier le taux en vigueur » — si le chiffre peut évoluer
-- Source complète : nom + URL + date de consultation
-
-*Critère de complétion* : chaque chiffre du document a un `as_of` et une source.
-
-### 5. Produire le rapport de fiabilité
-
-Format du rapport :
-
 ```
-RAPPORT DE FIABILITÉ — [Nom du document]
-Date : YYYY-MM-DD
-Vérifié par : [Nom/Agent]
-
-RÉSUMÉ :
-- Affirmations vérifiées : X/Y
-- Sources niveau 1-4 : X/Y
-- Données obsolètes : X
-- Non vérifiables : X
-
-DÉTAIL :
-# | Affirmation | Source | Niveau | Statut | Action
-1 | TVA 21 % | SPF Finances | 2 | ✅ Confirmed | —
-2 | Subside 15 000 € | Awex | 2 | ⚠️ Obsolète | Vérifier montant actuel
-3 | Marché 50 M€ | Estimation | 7 | ❌ Non sourcé | Trouver source niveau 1-4
-
-ACTIONS REQUISES :
-- [ ] Vérifier le montant du subside Awex (ligne 2)
-- [ ] Sourcer le chiffre de marché (ligne 3)
+[TVA standard : 21 % | Source : SPF Finances | Date consultation : 15/01/2026 | as_of : 2026-01 | Score : A]
 ```
 
-## Format de citation
+## Sources officielles belges (référence rapide)
 
-### Dans le texte
-```
-Selon le SPF Finances (finances.belgium.be, consulté le 15/01/2026), le taux de TVA
-standard en Belgique est de 21 %.
-```
-
-### En bibliographie
-```
-SPF Finances. "Taux de TVA". finances.belgium.be. Consulté le 15/01/2026.
-https://finances.belgium.be/fr/entreprises/tva/taux
-```
-
-### Pour les données datées
-```
-Statbel. "Population par commune". statbel.fgov.be. Données au 01/01/2026.
-https://statbel.fgov.be/fr/themes/population
-```
-
-## Auto-fact-check (checklist avant envoi)
-
-Avant d'envoyer tout document contenant des chiffres :
-- [ ] Toute affirmation chiffrée a une source niveau 1-4
-- [ ] Toute source a un `as_of` (date de vérification)
-- [ ] Les montants ont été vérifiés sur la source officielle
-- [ ] Les dates d'entrée en vigueur sont confirmées
-- [ ] Les références légales sont complètes (article + alinéa)
-- [ ] Le rapport de fiabilité est produit
+| Domaine | URL | Fiabilité |
+|---|---|---|
+| **TVA** | finances.belgium.be | A |
+| **Cotisations sociales** | rsvz-inasti.fgov.be | A |
+| **Statistiques entreprises** | statistiques.fgov.be | A |
+| **Banque Nationale** | nbr.be | A |
+| **Statbel** | statbel.fgov.be | A |
+| **BCE/KBO** | kbopub.economie.fgov.be | A |
+| **VLAIO** | vlaio.be | A |
+| **Awex** | awex.be | A |
+| **hub.brussels** | hub.brussels | A |
+| **Innoviris** | innoviris.brussels | A |
+| **APD/GBA** | autoriteprotectiondonnees.be | A |
+| **CSA** | ejustice.just.fgov.be | A |
+| **Febelfin** | febelfin.be | B |
+| **Agoria** | agoria.be | B |
+| **UCM** | ucm.be | B |
+| **VOKA** | voka.be | B |
 
 ## Common Pitfalls
 
-1. **Citer un chiffre sans source.** « Le marché vaut 50 M€ » sans source = affirmation
-   non vérifiable = rejeté par toute institution sérieuse.
-2. **Utiliser une source obsolète.** Un taux de TVA de 2019 ne vaut rien en 2026.
-   Toujours vérifier la date de dernière mise à jour de la source.
-3. **Confondre taux normal et réduit.** 21 % est le taux normal, 6 % et 12 % sont
-   réduits — le contexte de l'affirmation doit préciser lequel s'applique.
-4. **Citer un blog comme source officielle.** Un blog de comptable est niveau 6, pas
-   niveau 2. Pour un business plan, remonter à la source primaire.
-5. **Oublier le `as_of`.** Un chiffre sans date est un chiffre mort — il ne peut pas
-   être vérifié ni mis à jour.
-6. **Copier-coller des statistiques sans les vérifier.** La source originale peut
-   avoir été corrigée ou mise à jour depuis la citation initiale.
+1. **Utiliser le premier résultat Google sans vérifier.** Le premier résultat est
+   souvent un blog ou un site commercial (niveau D). Toujours classifier la source.
+2. **Croire qu'une donnée "récente" est forcément correcte.** Un article de blog de
+   2026 peut citer des chiffres de 2022. Vérifier la date des DONNÉES, pas de l'article.
+3. **Ne pas croiser les sources C/D.** Un article de presse (niveau C) peut contenir
+   des erreurs. Toujours vérifier sur une source A/B.
+4. **Oublier le `as_of`.** Un chiffre sans date de vérification est un chiffre mort.
+5. **Confondre "publié sur un site officiel" et "donnée officielle".** Un blog hébergé
+   sur un site gouvernemental n'est pas une source officielle. Vérifier le contexte.
+6. **Ignorer les spécificités belges.** Un taux de TVA français ne s'applique pas en
+   Belgique. Toujours vérifier sur les sources belges.
 
-## Verification Checklist
+## Verification Checklist (pour l'agent)
 
-- [ ] Méthodologie 5 étapes appliquée
-- [ ] Hiérarchie des sources respectée (niveau 1-4 pour documents officiels)
-- [ ] Rapport de fiabilité produit
-- [ ] `as_of` présent sur chaque chiffre
-- [ ] Sources vérifiées sur les sites officiels belges
-- [ ] Format de citation cohérent
+Après chaque recherche web, l'agent doit pouvoir répondre :
+- [ ] Chaque résultat est classifié (A/B/C/D)
+- [ ] Les données C/D sont croisées avec source A/B
+- [ ] Chaque chiffre a un `as_of` et une source
+- [ ] Les données datées sont vérifiées (< 1 an)
+- [ ] Le score de confiance est produit
+- [ ] Les données non vérifiées sont marquées comme telles
 
-> ⚠️ **Disclaimer** : information générale (as_of 2026-07), pas un conseil juridique
-> ou comptable personnalisé. Les sources officielles évoluent — vérifier chaque
-> chiffre sur la source le jour de l'utilisation. Pour des documents engageants
-> (business plan, dossier de subside), faire valider par un expert-comptable ou
-> un avocat agréé en Belgique.
+> ⚠️ **Disclaimer** : ce gate est une méthodologie de vérification, pas une garantie
+> d'exactitude. Les sources officielles évoluent — vérifier chaque chiffre sur la
+> source le jour de l'utilisation. Pour des documents engageants (business plan,
+> dossier de subside), faire valider par un expert-comptable ou un avocat agréé
+> en Belgique.
