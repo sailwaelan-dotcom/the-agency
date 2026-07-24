@@ -1,0 +1,10 @@
+_inventory_raw.json
+_research/
+.env
+.env.*
+*.pem
+*.key
+node_modules/
+__pycache__/
+.DS_Store
+Thumbs.db
