@@ -34,11 +34,13 @@ The agency/
 ├── adapters/
 │   └── link-skills.sh        # symlink vers .claude/.cursor/.hermes/…
 ├── scripts/
-│   ├── validate_skills.py    # validation structurelle
-│   └── security_scan.py      # scan anti-leak (exit 1 si bloquant)
+│   ├── validate_skills.py    # validation structurelle (frontmatter, sections, disclaimer)
+│   ├── security_scan.py      # scan anti-leak (secrets, chemins, injection, exfiltration)
+│   └── check_related_links.py # vérifie que tous les related_skills résolvent
 └── tests/
-    ├── test_scanner_selftest.py
-    └── ACTIVATION.md         # scénarios de test d'activation
+    ├── test_scanner_selftest.py   # 12 auto-tests du scanner
+    ├── test_validator_selftest.py # 7 auto-tests du validateur
+    └── ACTIVATION.md              # scénarios de test d'activation sémantique
 ```
 
 ## Installation dans ton harness
@@ -71,6 +73,20 @@ Ou manuellement : pointe ton harness vers `.agents/skills/<nom>/SKILL.md`.
    Pitfalls → Verification Checklist. 6-15k caractères ; le détail lourd part en `references/`.
 3. `python scripts/validate_skills.py && python scripts/security_scan.py` → les deux exit 0.
 4. Commit.
+
+## Vérification complète (5 gates)
+
+Avant chaque commit, les 5 gates doivent passer :
+
+```bash
+python scripts/validate_skills.py      # 12/12 skills valides
+python scripts/security_scan.py        # 0 leak bloquant
+python tests/test_scanner_selftest.py  # 12/12 auto-tests scanner
+python tests/test_validator_selftest.py # 7/7 auto-tests validateur
+python scripts/check_related_links.py  # 32 liens, 0 morts
+```
+
+Scénarios d'activation sémantique : voir [tests/ACTIVATION.md](tests/ACTIVATION.md).
 
 ## Disclaimer
 
