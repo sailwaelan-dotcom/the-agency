@@ -71,7 +71,9 @@ NOSEC_MARKER = re.compile(r"(#\s*nosec\b|<!--\s*nosec\b)", re.I)
 # Extensions à scanner
 SCAN_EXT = {".md", ".py", ".sh", ".yaml", ".yml", ".json", ".toml", ".txt", ".ps1", ".js", ".ts"}
 # Dirs à ignorer
-SKIP_DIRS = {".git", "node_modules", "__pycache__", ".venv", "venv", "dist", "build"}
+# NOTE: "tests" est exclu — les fixtures y contiennent VOLONTAIREMENT des payloads
+# (faux secrets, faux chemins) pour tester le scanner. Les scanner reviendrait en BLOCK.
+SKIP_DIRS = {".git", "node_modules", "__pycache__", ".venv", "venv", "dist", "build", "tests"}
 # Fichiers à ignorer (le scanner lui-même contient les patterns)
 SKIP_FILES = {"security_scan.py"}
 
