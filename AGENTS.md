@@ -18,7 +18,7 @@ Tu lis ce fichier parce qu'un harness t'a déposé ici. Voici les règles du jeu
    clients, pas de chemins machine (`C:\Users\<nom>`). Placeholders : `BE0123.456.789`,
    `[NOM_CLIENT]`, `<VOTRE_USER>`.
 2. **Zéro exécution non auditée** : aucun skill n'installe ni ne télécharge de code.
-   Référencer un outil existant, oui ; `curl | sh`, jamais.
+   Référencer un outil existant, oui ; lancer un script distant pipé dans un shell, jamais.
 3. **Exactitude réglementaire** : tout chiffre daté (TVA, cotisations, seuils) porte
    `as_of` + « vérifier le taux en vigueur ». Disclaimer comptable/avocat obligatoire
    sur les skills finance/legal.

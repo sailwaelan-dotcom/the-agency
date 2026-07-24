@@ -7,7 +7,7 @@ Il s'applique à tout contributeur (humain ou agent IA) qui ajoute ou modifie un
 
 ## 1. Zéro téléchargement non audité
 
-- **Aucun skill ne doit exécuter** `curl | sh`, `wget | sh`, `pip install`, `npm install -g`, ou tout téléchargement/exécution de code tiers au moment de son utilisation.
+- **Aucun skill ne doit exécuter** `curl | sh`, `wget | sh`, `pip install`, `npm install -g`, ou tout téléchargement/exécution de code tiers au moment de son utilisation. <!-- nosec : exemples documentaires de patterns à bannir -->
 - Les skills peuvent **référencer** des outils existants (ex: "si `himalaya` est installé…") mais ne les installent jamais eux-mêmes.
 - Recherche web autorisée en **lecture seule** vers des sources officielles (voir §4).
 
