@@ -138,7 +138,8 @@ officielles à vérifier au jour du dépôt.
 - [ ] Dossier relu par un accompagnateur du guichet avant dépôt
 - [ ] Obligations post-octroi lues et calées dans l'agenda
 
-> ⚠️ **Disclaimer** : information générale (as_of 2026-07), pas un conseil financier
-> ou juridique personnalisé. Les programmes, montants et critères changent chaque année
-> et par appel — vérifiez systématiquement sur le site officiel du guichet et faites
-> valider votre dossier par son accompagnement gratuit avant dépôt.
+> ⚠️ **Disclaimer** : information générale (as_of 2026-07), pas un conseil fiscal,
+> comptable ou juridique personnalisé. Les programmes, montants et critères changent
+> chaque année et par appel — vérifiez systématiquement sur le site officiel du guichet
+> et faites valider votre dossier par un expert-comptable ou un avocat agréé en Belgique
+> avant dépôt.
