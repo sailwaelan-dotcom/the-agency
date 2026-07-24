@@ -57,15 +57,20 @@ def test_description_is_active_gate():
     check("desc-auto-trigger", bool(has_auto),
           f"description ne mentionne pas le déclenchement automatique: {desc[:80]}")
 
-    # Le gate doit mentionner web search
-    has_web_search = re.search(r"(web.search|web.extract|recherche)", desc)
+    # Le gate doit mentionner web search (termes génériques, pas outils spécifiques)
+    has_web_search = re.search(r"(recherche.web|web.search|web.extract|extraction.*page|browsing|recherche.*données)", desc)
     check("desc-web-search", bool(has_web_search),
-          f"description ne mentionne pas web search: {desc[:80]}")
+          f"description ne mentionne pas la recherche web: {desc[:80]}")
 
     # Le gate doit être décrit comme actif, pas passif
     has_active = re.search(r"(gate|actif|active|vérif|crois|bloqu|score)", desc)
     check("desc-active", bool(has_active),
           f"description ne décrit pas un comportement actif: {desc[:80]}")
+
+    # Le gate doit être harness-agnostic (mentionne plusieurs plateformes)
+    has_platforms = re.search(r"(chatgpt|mistral|claude|cursor|gemini|perplexity|plateforme|harness.agnostic)", desc)
+    check("desc-platforms", bool(has_platforms),
+          f"description ne mentionne pas la portabilité multi-plateforme: {desc[:80]}")
 
 
 # === T4 : Sections obligatoires ===
@@ -129,8 +134,8 @@ def test_workflow_integration():
         return
     content = FACTCHECK_MD.read_text(encoding="utf-8").lower()
 
-    # Doit décrire le pattern après web_search
-    has_pattern = re.search(r"(web_search|web.extract|après chaque|pattern|workflow|étape)", content)
+    # Doit décrire le pattern après recherche web (termes génériques)
+    has_pattern = re.search(r"(après chaque|pattern|workflow|étape|recherche.web)", content)
     check("workflow-pattern", bool(has_pattern),
           "pattern d'intégration workflow non décrit")
 
@@ -138,6 +143,11 @@ def test_workflow_integration():
     has_steps = re.search(r"(étape|step|1\.|2\.|3\.|4\.)", content)
     check("workflow-steps", bool(has_steps),
           "étapes du gate non définies")
+
+    # Doit contenir une section d'adaptation par plateforme
+    has_platform_section = re.search(r"(adaptation.*plateforme|chatgpt|mistral|claude.cowork|cursor|gemini|perplexity)", content)
+    check("workflow-platforms", bool(has_platform_section),
+          "section adaptation par plateforme manquante")
 
 
 # === T8 : Produit un score de confiance ===

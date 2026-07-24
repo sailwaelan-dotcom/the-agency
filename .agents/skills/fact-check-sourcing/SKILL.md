@@ -1,38 +1,41 @@
 ---
 name: fact-check-sourcing
-description: "GATE ACTIF — s'applique AUTOMATIQUEMENT après chaque web search, web extract, ou recherche de données. Vérifie la fiabilité des sources, croise les chiffres avec les sources officielles belges, produit un score de confiance (A/B/C/D), et bloque les informations non vérifiées avant utilisation. NE PAS utiliser uniquement à la demande — ce skill est un gate permanent."
-version: 2.0.0
+description: "Utilisez automatiquement après chaque recherche web ou extraction de données — GATE ACTIF harness-agnostic (ChatGPT, Mistral, Claude Cowork, Claude Code, Cursor, Gemini, Perplexity). Vérifie la fiabilité des sources, croise avec sources officielles belges, produit un score A/B/C/D. Ce skill est permanent, pas à la demande."
+version: 3.0.0
 license: MIT
 author: The Agency
 metadata:
-  tags: [business, rd, research, sourcing, gate, be]
+  tags: [business, rd, research, sourcing, gate, be, harness-agnostic]
   related_skills: [be-market-research, be-business-plan, be-funding-subsidies, content-engine-be, be-financial-modeling]
   domain: rd
   language: fr
   as_of: "2026-07"
 ---
 
-# Fact-checking actif — gate de vérification permanent
+# Fact-checking actif — gate de vérification permanent (harness-agnostic)
 
 ## Overview
 
-Ce skill n'est **pas une référence passive** — c'est un **gate actif** qui s'applique
-**automatiquement après chaque web search, web extract, ou recherche de données**.
-Son rôle : vérifier la fiabilité des sources, croiser les chiffres avec les sources
-officielles belges, produire un score de confiance, et **bloquer les informations
-non vérifiées** avant qu'elles ne soient utilisées dans un document, une réponse,
-ou une décision.
+Ce skill est un **gate actif harness-agnostic** — il fonctionne sur **toutes les
+plateformes d'IA** : ChatGPT, Mistral (Le Chat), Claude Cowork, Claude Code, Cursor,
+Gemini, Perplexity, et toute autre plateforme capable de lire un SKILL.md.
+
+Son rôle : après **chaque** recherche web ou extraction de données, vérifier la
+fiabilité des sources, croiser les chiffres avec les sources officielles belges,
+produire un score de confiance (A/B/C/D), et **bloquer les informations non vérifiées**
+avant qu'elles ne soient utilisées.
 
 **Règle absolue** : aucune donnée chiffrée issue d'une recherche web ne doit être
-utilisée sans passer par ce gate.
+utilisée sans passer par ce gate, quelle que soit la plateforme.
 
 ## When to Use (AUTOMATIQUE — pas à la demande)
 
-Ce gate s'active **systématiquement** quand :
-- L'agent effectue une `web_search` ou `web_extract`
-- L'agent cite un chiffre, une statistique, ou une affirmation réglementaire
-- L'agent rédige un document contenant des données sourcées (business plan, dossier, contenu)
-- L'agent répond à une question factuelle sur la Belgique (TVA, cotisations, subsides…)
+Ce gate s'active **systématiquement** quand l'agent :
+- Effectue une **recherche web** (quel que soit l'outil : web_search, browsing, Google, Bing, Perplexity…)
+- **Extrait le contenu** d'une page web (web_extract, fetch, scrape, URL reader…)
+- **Cite un chiffre**, une statistique, ou une affirmation réglementaire
+- **Rédige un document** contenant des données sourcées (business plan, dossier, contenu)
+- **Répond à une question factuelle** sur la Belgique (TVA, cotisations, subsides…)
 
 **Ne pas utiliser pour :**
 - Données déjà vérifiées dans le repo (skills internes avec `as_of`)
@@ -88,7 +91,7 @@ officielle correspondante :
 | Code des sociétés | ejustice.just.fgov.be |
 
 **Méthode rapide** : extraire le chiffre clé de la recherche web, puis le vérifier
-sur la source officielle avec une 2e `web_search` ou `web_extract` ciblée.
+sur la source officielle avec une 2e recherche ciblée.
 
 ### Étape 4 — Produire le score de confiance (5 sec)
 
@@ -104,20 +107,73 @@ SCORE : [A/B/C/D] | Source : [nom] | Date : [YYYY-MM] | Croisé : [oui/non] | as
 - **C** : utilisable seulement si croisée avec source A/B
 - **D** : NE PAS UTILISER — chercher une meilleure source
 
-## Intégration dans le workflow de l'agent
+## Adaptation par plateforme
 
-### Pattern : après chaque web_search
+Ce gate fonctionne sur **toutes les plateformes**. Voici comment l'appliquer :
+
+### ChatGPT (Work / Teams / Enterprise)
 
 ```
-1. web_search("taux TVA Belgique 2026")
+1. Utiliser le browsing intégré (icône globe) pour rechercher
 2. [GATE] Classifier les résultats (étape 1)
 3. [GATE] Vérifier la fraîcheur (étape 2)
-4. [GATE] Si résultat C/D → web_search sur source officielle (étape 3)
+4. [GATE] Si C/D → nouvelle recherche sur source officielle (étape 3)
+5. [GATE] Produire le score (étape 4)
+```
+
+**Outils ChatGPT** : browsing, code interpreter, GPTs avec accès web.
+
+### Mistral (Le Chat / API)
+
+```
+1. Utiliser la recherche web intégrée (Le Chat) ou l'API web_search
+2. [GATE] Classifier les résultats (étape 1)
+3. [GATE] Vérifier la fraîcheur (étape 2)
+4. [GATE] Si C/D → nouvelle recherche sur source officielle (étape 3)
+5. [GATE] Produire le score (étape 4)
+```
+
+**Outils Mistral** : Le Chat avec recherche web, API avec web_search.
+
+### Claude Cowork / Claude Code
+
+```
+1. Utiliser la recherche web intégrée (Cowork) ou web_search (Code)
+2. [GATE] Classifier les résultats (étape 1)
+3. [GATE] Vérifier la fraîcheur (étape 2)
+4. [GATE] Si C/D → nouvelle recherche sur source officielle (étape 3)
+5. [GATE] Produire le score (étape 4)
+```
+
+**Outils Claude** : Cowork (recherche web intégrée), Code (web_search), Artifacts.
+
+### Cursor / Gemini / Perplexity / Autres
+
+```
+1. Utiliser l'outil de recherche disponible sur la plateforme
+2. [GATE] Classifier les résultats (étape 1)
+3. [GATE] Vérifier la fraîcheur (étape 2)
+4. [GATE] Si C/D → nouvelle recherche sur source officielle (étape 3)
+5. [GATE] Produire le score (étape 4)
+```
+
+**Principe universel** : quelle que soit la plateforme, le gate s'applique après
+chaque recherche web. L'outil change, la méthodologie reste identique.
+
+## Patterns d'intégration universels
+
+### Pattern 1 : après chaque recherche web
+
+```
+1. Effectuer une recherche web (quel que soit l'outil)
+2. [GATE] Classifier les résultats (étape 1)
+3. [GATE] Vérifier la fraîcheur (étape 2)
+4. [GATE] Si résultat C/D → rechercher sur source officielle (étape 3)
 5. [GATE] Produire le score (étape 4)
 6. Utiliser les données dans la réponse/document
 ```
 
-### Pattern : avant de citer un chiffre
+### Pattern 2 : avant de citer un chiffre
 
 ```
 1. Identifier le chiffre à citer
@@ -128,7 +184,7 @@ SCORE : [A/B/C/D] | Source : [nom] | Date : [YYYY-MM] | Croisé : [oui/non] | as
 6. Citer avec : "Selon [source] (consulté le [date]), [chiffre] (as_of [YYYY-MM])"
 ```
 
-### Pattern : dans un document (business plan, dossier)
+### Pattern 3 : dans un document (business plan, dossier)
 
 Chaque chiffre cité doit porter :
 ```
@@ -169,6 +225,8 @@ Chaque chiffre cité doit porter :
    sur un site gouvernemental n'est pas une source officielle. Vérifier le contexte.
 6. **Ignorer les spécificités belges.** Un taux de TVA français ne s'applique pas en
    Belgique. Toujours vérifier sur les sources belges.
+7. **Adapter le gate à la plateforme.** Le gate fonctionne partout — ne pas le limiter
+   à un seul outil. La méthodologie est universelle, seuls les outils changent.
 
 ## Verification Checklist (pour l'agent)
 
@@ -179,6 +237,7 @@ Après chaque recherche web, l'agent doit pouvoir répondre :
 - [ ] Les données datées sont vérifiées (< 1 an)
 - [ ] Le score de confiance est produit
 - [ ] Les données non vérifiées sont marquées comme telles
+- [ ] Le gate s'applique quelle que soit la plateforme utilisée
 
 > ⚠️ **Disclaimer** : ce gate est une méthodologie de vérification, pas une garantie
 > d'exactitude. Les sources officielles évoluent — vérifier chaque chiffre sur la
