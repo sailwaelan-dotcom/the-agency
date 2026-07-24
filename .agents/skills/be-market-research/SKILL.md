@@ -75,6 +75,10 @@ Grille minimale par concurrent (3-8 acteurs) :
 - Ce qu'**aucun** concurrent ne fait : c'est ton angle de différenciation — le noter
   explicitement, il nourrit le positionnement et le business plan.
 
+## Guide Mom Test (résumé)
+
+Voir [references/guide-mom-test.md](references/guide-mom-test.md) pour le script d'entretien détaillé, la rubrique de notation et les pièges à éviter.
+
 ## Validation terrain : interviews (Mom Test)
 
 Règles d'or pour 10-20 entretiens avant de construire :

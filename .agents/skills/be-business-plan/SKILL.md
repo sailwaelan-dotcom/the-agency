@@ -46,6 +46,10 @@ la preuve que l'apport suffit aux 2 premières années.
 7. **Plan financier** — le cœur normatif (voir ci-dessous).
 8. **Annexes** — CV, lettres d'intention, devis, preuves de traction.
 
+## Modèle de plan financier (résumé)
+
+Voir [references/modele-plan-financier-srl.md](references/modele-plan-financier-srl.md) pour le squelette complet du plan financier CSA avec commentaires.
+
 ## Le plan financier (norme CSA pour SRL)
 
 Le notaire exige pour la constitution d'une SRL un plan financier couvrant **au minimum 2 ans**, comprenant :

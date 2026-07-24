@@ -53,6 +53,15 @@ bash adapters/link-skills.sh -n
 bash adapters/link-skills.sh
 ```
 
+**Windows (PowerShell) :**
+```powershell
+# Prévisualiser (dry-run)
+powershell -File adapters/link-skills.ps1 -DryRun
+
+# Créer les junctions
+powershell -File adapters/link-skills.ps1
+```
+
 Ou manuellement : pointe ton harness vers `.agents/skills/<nom>/SKILL.md`.
 
 ## Domaines couverts (vague 1)
@@ -63,8 +72,8 @@ Ou manuellement : pointe ton harness vers `.agents/skills/<nom>/SKILL.md`.
 | 💰 Finance & compta | `be-accounting-basics`, `be-invoicing-peppol`, `be-bookkeeping-ops` |
 | ⚖️ Admin & légal | `be-company-setup`, `be-rgpd-compliance` |
 | 📣 Contenu | `content-engine-be`, `brand-voice-solopreneur` |
-| 📡 Veille | `social-listening-be` (lawful only : APIs officielles, RSS, exports manuels) |
-| 🗂 Ops & secrétariat | `secretary-ops` |
+| 📡 Veille | `social-listening-be` (lawful only : APIs officielles, RSS, exports manuels), `be-competitor-watch` |
+| 🗂 Ops & secrétariat | `secretary-ops`, `be-admin-deadlines` |
 
 ## Contribuer
 

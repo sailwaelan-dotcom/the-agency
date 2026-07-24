@@ -120,6 +120,10 @@ Toute facture belge (Peppol ou PDF) doit contenir :
 - *Critère de complétion* : facture émise (statut « envoyée » dans l'outil) + copie UBL
   archivée dans votre dossier comptable de l'année.
 
+## Mentions légales (résumé)
+
+Voir [references/mentions-legales-facture.md](references/mentions-legales-facture.md) pour la checklist complète avec fondement légal.
+
 ## Références belges
 
 - **SPF Finances** (finances.belgium.be) : obligations e-invoicing 2026, mentions légales

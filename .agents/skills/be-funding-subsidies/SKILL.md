@@ -70,6 +70,10 @@ officielles à vérifier au jour du dépôt.
   mais à connaître pour la suite.
 - **Plan Airbag et équivalents régionaux** : accompagnement à la reprise après échec.
 
+## Cartographie par région (résumé)
+
+Voir [references/subsides-par-region.md](references/subsides-par-region.md) pour le détail des guichets, montants et critères d'éligibilité par région.
+
 ## Types d'aide — ce que chacun implique
 
 | Type | Remboursable ? | Dilutif ? | Effort dossier | Quand pertinent |
