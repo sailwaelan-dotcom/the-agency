@@ -74,6 +74,10 @@ Ou manuellement : pointe ton harness vers `.agents/skills/<nom>/SKILL.md`.
 | 📣 Contenu | `content-engine-be`, `brand-voice-solopreneur` |
 | 📡 Veille | `social-listening-be` (lawful only : APIs officielles, RSS, exports manuels), `be-competitor-watch` |
 | 🗂 Ops & secrétariat | `secretary-ops`, `be-admin-deadlines` |
+| 🔍 Fact-check & sourcing | `fact-check-sourcing` |
+| 💼 Vente & prospection | `be-sales-outreach` |
+| 📊 Modélisation financière | `be-financial-modeling` |
+| 📝 Contrats & légal | `be-contracts-legal` |
 
 ## Contribuer
 
@@ -83,16 +87,23 @@ Ou manuellement : pointe ton harness vers `.agents/skills/<nom>/SKILL.md`.
 3. `python scripts/validate_skills.py && python scripts/security_scan.py` → les deux exit 0.
 4. Commit.
 
-## Vérification complète (5 gates)
+## Vérification complète (5 gates + TDD)
 
 Avant chaque commit, les 5 gates doivent passer :
 
 ```bash
-python scripts/validate_skills.py      # 12/12 skills valides
+python scripts/validate_skills.py      # 18/18 skills valides
 python scripts/security_scan.py        # 0 leak bloquant
 python tests/test_scanner_selftest.py  # 12/12 auto-tests scanner
 python tests/test_validator_selftest.py # 7/7 auto-tests validateur
-python scripts/check_related_links.py  # 32 liens, 0 morts
+python scripts/check_related_links.py  # 53 liens, 0 morts
+```
+
+**Tests TDD** (écrits avant le code) :
+```bash
+python tests/test_factcheck_tdd.py     # 8/8 tests fact-check-sourcing
+python tests/test_vague3_tdd.py        # 18/18 tests vague 3
+python tests/test_e2e.py               # 26/26 tests E2E workflow
 ```
 
 Scénarios d'activation sémantique : voir [tests/ACTIVATION.md](tests/ACTIVATION.md).
