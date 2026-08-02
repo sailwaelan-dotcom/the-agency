@@ -108,6 +108,31 @@ python tests/test_e2e.py               # 26/26 tests E2E workflow
 
 Scénarios d'activation sémantique : voir [tests/ACTIVATION.md](tests/ACTIVATION.md).
 
+## Pour les incubateurs
+
+The Agency est un outil **open source** (MIT) que vous pouvez proposer à vos bénéficiaires :
+
+### Valeur ajoutée pour vos entrepreneurs
+- **18 skills** couvrant tout le cycle d'entrepreneuriat (R&D, finance, admin, contenu, veille, prospection, contrats)
+- **Harness-agnostic** : fonctionne sur ChatGPT, Mistral, Claude, Cursor, Gemini — pas de lock-in
+- **Données belges sourcées** : chaque chiffre a un `as_of` et une source officielle (SPF Finances, INASTI, BCE, VLAIO…)
+- **Sécurisé** : 89 tests, 0 leak, gate actif de fact-checking
+- **Gratuit** : licence MIT, réutilisable, modifiable
+
+### Comment intégrer
+1. **Partager le lien GitHub** avec vos bénéficiaires
+2. **Recommander** les skills pertinents selon leur étape (création → `be-company-setup`, facturation → `be-invoicing-peppol`, etc.)
+3. **Contribuer** : proposer des skills spécifiques à votre région ou votre secteur via CONTRIBUTING.md
+4. **Adapter** : fork le repo et personnalisez pour votre incubateur
+
+### Incubateurs partenaires (à compléter)
+| Incubateur | Région | Contact |
+|---|---|---|
+| *Votre incubateur ici ?* | *Région* | *Ouvrir une issue GitHub* |
+
+### Licence
+MIT — libre de réutiliser, modifier, et distribuer. Voir [LICENSE](LICENSE).
+
 ## Disclaimer
 
 Contenu informatif général (dates `as_of` indiquées). Pas du conseil fiscal, comptable ou
