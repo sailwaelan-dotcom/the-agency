@@ -1,7 +1,7 @@
 ---
 name: fact-check-sourcing
 description: "Utilisez automatiquement après chaque recherche web ou extraction de données — GATE ACTIF harness-agnostic (ChatGPT, Mistral, Claude Cowork, Claude Code, Cursor, Gemini, Perplexity). Vérifie la fiabilité des sources, croise avec sources officielles belges, produit un score A/B/C/D. Ce skill est permanent, pas à la demande."
-version: 3.0.0
+version: 3.1.0
 license: MIT
 author: The Agency
 metadata:
@@ -107,89 +107,37 @@ SCORE : [A/B/C/D] | Source : [nom] | Date : [YYYY-MM] | Croisé : [oui/non] | as
 - **C** : utilisable seulement si croisée avec source A/B
 - **D** : NE PAS UTILISER — chercher une meilleure source
 
-## Adaptation par plateforme
+## Adaptation par plateforme (une seule et même méthode)
 
-Ce gate fonctionne sur **toutes les plateformes**. Voici comment l'appliquer :
+Le gate est identique partout : seule change la façon de chercher. Repérer
+l'outil de recherche de la plateforme, puis appliquer les 4 étapes telles quelles.
 
-### ChatGPT (Work / Teams / Enterprise)
+| Plateforme | Outil de recherche web | Note |
+|---|---|---|
+| ChatGPT (Work/Teams) | browsing intégré, GPTs avec accès web | code interpreter pour les calculs |
+| Mistral (Le Chat / API) | recherche web intégrée / `web_search` | — |
+| Claude (Cowork / Code) | recherche web intégrée / `web_search` | — |
+| Cursor / Gemini / Perplexity | outil de recherche natif | Perplexity : citer la source sous-jacente, pas Perplexity |
 
-```
-1. Utiliser le browsing intégré (icône globe) pour rechercher
-2. [GATE] Classifier les résultats (étape 1)
-3. [GATE] Vérifier la fraîcheur (étape 2)
-4. [GATE] Si C/D → nouvelle recherche sur source officielle (étape 3)
-5. [GATE] Produire le score (étape 4)
-```
+**Principe universel** : l'outil change, la méthodologie non. Si la plateforme
+ne permet pas de recroiser un résultat C/D (pas de seconde recherche possible),
+la donnée est marquée « non vérifiée » et sort du document.
 
-**Outils ChatGPT** : browsing, code interpreter, GPTs avec accès web.
+## Intégration dans le workflow
 
-### Mistral (Le Chat / API)
+Deux points d'insertion suffisent :
 
-```
-1. Utiliser la recherche web intégrée (Le Chat) ou l'API web_search
-2. [GATE] Classifier les résultats (étape 1)
-3. [GATE] Vérifier la fraîcheur (étape 2)
-4. [GATE] Si C/D → nouvelle recherche sur source officielle (étape 3)
-5. [GATE] Produire le score (étape 4)
-```
+1. **Après chaque recherche web** : appliquer les 4 étapes dans l'ordre
+   (étapes 1 → 4) avant d'utiliser la moindre donnée.
+2. **Avant de citer un chiffre** : pas de chiffre sans score. Format de citation
+   dans un document (business plan, dossier de subside, article) :
 
-**Outils Mistral** : Le Chat avec recherche web, API avec web_search.
-
-### Claude Cowork / Claude Code
-
-```
-1. Utiliser la recherche web intégrée (Cowork) ou web_search (Code)
-2. [GATE] Classifier les résultats (étape 1)
-3. [GATE] Vérifier la fraîcheur (étape 2)
-4. [GATE] Si C/D → nouvelle recherche sur source officielle (étape 3)
-5. [GATE] Produire le score (étape 4)
-```
-
-**Outils Claude** : Cowork (recherche web intégrée), Code (web_search), Artifacts.
-
-### Cursor / Gemini / Perplexity / Autres
-
-```
-1. Utiliser l'outil de recherche disponible sur la plateforme
-2. [GATE] Classifier les résultats (étape 1)
-3. [GATE] Vérifier la fraîcheur (étape 2)
-4. [GATE] Si C/D → nouvelle recherche sur source officielle (étape 3)
-5. [GATE] Produire le score (étape 4)
-```
-
-**Principe universel** : quelle que soit la plateforme, le gate s'applique après
-chaque recherche web. L'outil change, la méthodologie reste identique.
-
-## Patterns d'intégration universels
-
-### Pattern 1 : après chaque recherche web
-
-```
-1. Effectuer une recherche web (quel que soit l'outil)
-2. [GATE] Classifier les résultats (étape 1)
-3. [GATE] Vérifier la fraîcheur (étape 2)
-4. [GATE] Si résultat C/D → rechercher sur source officielle (étape 3)
-5. [GATE] Produire le score (étape 4)
-6. Utiliser les données dans la réponse/document
-```
-
-### Pattern 2 : avant de citer un chiffre
-
-```
-1. Identifier le chiffre à citer
-2. [GATE] Quelle est la source ? (étape 1)
-3. [GATE] La source est-elle fraîche ? (étape 2)
-4. [GATE] Si pas de source A/B → rechercher sur source officielle (étape 3)
-5. [GATE] Produire le score (étape 4)
-6. Citer avec : "Selon [source] (consulté le [date]), [chiffre] (as_of [YYYY-MM])"
-```
-
-### Pattern 3 : dans un document (business plan, dossier)
-
-Chaque chiffre cité doit porter :
 ```
 [TVA standard : 21 % | Source : SPF Finances | Date consultation : 15/01/2026 | as_of : 2026-01 | Score : A]
 ```
+
+Et à l'oral ou dans la réponse : « Selon [source] (consulté le [date]), [chiffre]
+(as_of [YYYY-MM]) ».
 
 ## Sources officielles belges (référence rapide)
 
