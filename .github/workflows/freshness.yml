@@ -1,0 +1,45 @@
+name: freshness
+
+on:
+  schedule:
+    # Mensuel : le 1er du mois à 09h07 UTC (éviter les minutes rondes)
+    - cron: "7 9 1 * *"
+  workflow_dispatch:
+
+permissions:
+  issues: write
+
+jobs:
+  freshness:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Installer les dépendances
+        run: pip install pyyaml
+
+      - name: Rapport de fraîcheur
+        id: rapport
+        run: python scripts/freshness_report.py --fail-after-months 6 --markdown > freshness_report.md
+
+      - name: Ouvrir une issue si des skills sont à rafraîchir
+        if: failure()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          TITRE="Revue réglementaire : skills à rafraîchir"
+          EXISTANTE=$(gh issue list --state open --search "in:title \"$TITRE\"" --json title --jq "map(.title) | index(\"$TITRE\")")
+          if [ "$EXISTANTE" != "null" ]; then
+            echo "Une issue ouverte porte déjà ce titre, rien à créer."
+            exit 0
+          fi
+          gh label create "outdated-data" --description "Donnée obsolète (taux, seuil, procédure)" --color "D93F0B" 2>/dev/null || true
+          gh issue create --title "$TITRE" --body-file freshness_report.md --label "outdated-data"
+        shell: bash

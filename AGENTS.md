@@ -11,6 +11,10 @@ Tu lis ce fichier parce qu'un harness t'a déposé ici. Voici les règles du jeu
 - `SECURITY.md` — **à lire avant d'écrire quoi que ce soit** dans ce dépôt.
 - `scripts/validate_skills.py` — validation structurelle (exit 0 requis avant commit).
 - `scripts/security_scan.py` — scan anti-leak (exit 0 requis avant commit).
+- `scripts/build_index.py` — régénère `INDEX.md` + `catalog.json` (à relancer après tout
+  ajout/retrait de skill).
+- `scripts/check_doc_sync.py` — vérifie que les chiffres du README matchent le repo.
+- `scripts/freshness_report.py` — âge des `as_of` ; un skill > 6 mois doit être revu.
 
 ## Règles absolues
 
@@ -30,11 +34,14 @@ Tu lis ce fichier parce qu'un harness t'a déposé ici. Voici les règles du jeu
 
 ## Workflow de contribution
 
-1. Copier `_template/SKILL.md` → nouveau dossier sous `.agents/skills/<nom>/`.
+1. Copier `_template/SKILL.md` → nouveau dossier sous `.agents/skills/<nom>/`
+   (le skill `skill-forge` décrit ce processus en détail).
 2. Écrire (deep > shallow : sections Overview / When to Use / Workflow / Pitfalls / Checklist).
 3. `python scripts/validate_skills.py` → exit 0.
 4. `python scripts/security_scan.py` → exit 0.
-5. Commit atomique : un skill = un commit, ou un lot cohérent par domaine.
+5. Rituel doc (skill `agency-doc-keeper`) : `build_index.py`, compteurs README,
+   `check_doc_sync.py`, CHANGELOG.
+6. Commit atomique : un skill = un commit, ou un lot cohérent par domaine.
 
 ## Disclaimer global
 

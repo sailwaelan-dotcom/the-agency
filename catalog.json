@@ -1,0 +1,375 @@
+{
+  "generated_at": "2026-08-03",
+  "generator": "scripts/build_index.py",
+  "count": 20,
+  "skills": [
+    {
+      "name": "agency-doc-keeper",
+      "description": "Utilisez quand le repo The Agency a changé — ajout, modification ou suppression d'un skill, changement de scripts ou de tests, ou avant une release. Produit une documentation resynchronisée : INDEX.md et catalog.json régénérés, compteurs README à jour, CHANGELOG complété, as_of revus, gates au vert.",
+      "domain": "meta",
+      "tags": [
+        "meta",
+        "documentation",
+        "maintenance"
+      ],
+      "related_skills": [
+        "skill-forge",
+        "fact-check-sourcing"
+      ],
+      "as_of": "2026-08",
+      "version": "1.0.0"
+    },
+    {
+      "name": "be-accounting-basics",
+      "description": "Utilisez quand le solopreneur belge pose une question TVA (régime normal/franchise/forfait, déclarations, délais), impôt (IPP vs ISOC), précompte professionnel, cotisations sociales INASTI, ou veut comprendre ses obligations comptables de base. Produits : réponse chiffrée avec as_of + renvoi officiel, calendrier des échéances.",
+      "domain": "finance",
+      "tags": [
+        "finance",
+        "accounting",
+        "tax",
+        "tva",
+        "be"
+      ],
+      "related_skills": [
+        "be-invoicing-peppol",
+        "be-bookkeeping-ops"
+      ],
+      "as_of": "2026-07",
+      "version": "0.1.0"
+    },
+    {
+      "name": "be-admin-deadlines",
+      "description": "Utilisez quand le solopreneur belge veut un calendrier fiscal annuel complet (TVA, INASTI, IPP/ISOC, BNB, listings), vérifier ses prochaines échéances, ou configurer des rappels automatiques. Produit un calendrier personnalisé selon le régime et la forme juridique.",
+      "domain": "admin",
+      "tags": [
+        "admin",
+        "finance",
+        "tax",
+        "calendar",
+        "be"
+      ],
+      "related_skills": [
+        "be-accounting-basics",
+        "be-bookkeeping-ops",
+        "be-company-setup"
+      ],
+      "as_of": "2026-07",
+      "version": "0.1.0"
+    },
+    {
+      "name": "be-bookkeeping-ops",
+      "description": "Utilisez quand le solopreneur belge doit organiser sa comptabilité courante : rituel mensuel de collecte des pièces, rapprochement bancaire, suivi des factures impayées et relances clients, préparation du dossier pour le comptable, ou archivage légal (7 ans).",
+      "domain": "finance",
+      "tags": [
+        "finance",
+        "accounting",
+        "bookkeeping",
+        "ops",
+        "be"
+      ],
+      "related_skills": [
+        "be-accounting-basics",
+        "be-invoicing-peppol"
+      ],
+      "as_of": "2026-07",
+      "version": "0.1.0"
+    },
+    {
+      "name": "be-business-plan",
+      "description": "Utilisez quand le solopreneur belge doit rédiger un business plan (banque, subside, notaire pour SRL), construire son plan financier prévisionnel (obligatoire au CSA pour SRL), évaluer son breakeven, ou préparer un dossier de financement. Produit un plan structuré prêt à faire valider.",
+      "domain": "rd",
+      "tags": [
+        "business",
+        "finance",
+        "rd",
+        "strategy",
+        "be"
+      ],
+      "related_skills": [
+        "be-market-research",
+        "be-funding-subsidies",
+        "be-company-setup",
+        "be-accounting-basics"
+      ],
+      "as_of": "2026-07",
+      "version": "0.1.0"
+    },
+    {
+      "name": "be-company-setup",
+      "description": "Utilisez quand le futur solopreneur belge doit choisir sa forme juridique (personne physique vs SRL), créer son entreprise (inscription BCE, guichet d'entreprises, acte notarié, activation TVA, caisse d'assurances sociales), ou accomplir les démarches post-création (compte pro, assurances, premier outil de facturation).",
+      "domain": "admin",
+      "tags": [
+        "legal",
+        "admin",
+        "compliance",
+        "company",
+        "be"
+      ],
+      "related_skills": [
+        "be-accounting-basics",
+        "be-business-plan",
+        "be-invoicing-peppol"
+      ],
+      "as_of": "2026-07",
+      "version": "0.1.0"
+    },
+    {
+      "name": "be-competitor-watch",
+      "description": "Utilisez quand le solopreneur belge veut cartographier ses concurrents directs (3-8 acteurs), surveiller leurs mouvements (prix, offres, recrutement, contenu), ou préparer un dossier de différenciation. Produit une grille concurrentielle vivante alimentée par des méthodes 100% légales.",
+      "domain": "rd",
+      "tags": [
+        "business",
+        "rd",
+        "strategy",
+        "intel",
+        "be"
+      ],
+      "related_skills": [
+        "be-market-research",
+        "social-listening-be",
+        "content-engine-be"
+      ],
+      "as_of": "2026-07",
+      "version": "0.1.0"
+    },
+    {
+      "name": "be-contracts-legal",
+      "description": "Utilisez quand le solopreneur belge doit rédiger ou vérifier un contrat (prestation, partenariat, NDA), des conditions générales de vente (CGV), des mentions légales de site web, ou un accord de confidentialité. Fournit des templates et une checklist de vérification — ne remplace pas un avocat.",
+      "domain": "legal",
+      "tags": [
+        "business",
+        "legal",
+        "contracts",
+        "compliance",
+        "be"
+      ],
+      "related_skills": [
+        "be-rgpd-compliance",
+        "be-company-setup",
+        "be-sales-outreach"
+      ],
+      "as_of": "2026-07",
+      "version": "0.1.0"
+    },
+    {
+      "name": "be-financial-modeling",
+      "description": "Utilisez quand le solopreneur belge doit modéliser un projet d'investissement, calculer une valorisation (DCF, multiples), analyser la sensibilité de ses hypothèses, ou stress-tester un business plan avec Monte Carlo. Produit des modèles financiers avec scénarios et graphiques de sensibilité.",
+      "domain": "finance",
+      "tags": [
+        "business",
+        "finance",
+        "modeling",
+        "valuation",
+        "be"
+      ],
+      "related_skills": [
+        "be-business-plan",
+        "be-market-research",
+        "be-funding-subsidies",
+        "fact-check-sourcing"
+      ],
+      "as_of": "2026-07",
+      "version": "0.1.0"
+    },
+    {
+      "name": "be-funding-subsidies",
+      "description": "Utilisez quand le solopreneur belge cherche un financement non-dilutif (subside, prime, prêt d'honneur, microcrédit), veut savoir à quel guichet s'adresser selon sa région (VLAIO, SPW/Awex, Innoviris/hub.brussels), ou prépare un dossier de subside. Produit une cartographie des guichets pertinents + checklist d'éligibilité.",
+      "domain": "rd",
+      "tags": [
+        "business",
+        "finance",
+        "rd",
+        "funding",
+        "be"
+      ],
+      "related_skills": [
+        "be-business-plan",
+        "be-market-research",
+        "be-company-setup"
+      ],
+      "as_of": "2026-07",
+      "version": "0.1.0"
+    },
+    {
+      "name": "be-invoicing-peppol",
+      "description": "Utilisez quand le solopreneur doit émettre une facture B2B en Belgique (Peppol obligatoire depuis janvier 2026), choisir un logiciel/Access Point, vérifier les mentions légales d'une facture, ou comprendre la différence entre facture PDF et facture électronique structurée.",
+      "domain": "finance",
+      "tags": [
+        "finance",
+        "accounting",
+        "invoicing",
+        "peppol",
+        "be"
+      ],
+      "related_skills": [
+        "be-accounting-basics",
+        "be-bookkeeping-ops"
+      ],
+      "as_of": "2026-07",
+      "version": "0.1.0"
+    },
+    {
+      "name": "be-market-research",
+      "description": "Utilisez quand le solopreneur belge doit valider une idée (étude de marché), dimensionner son marché (TAM/SAM/SOM), analyser la concurrence locale, ou interviewer des clients potentiels avant de construire. Produit des données sourcées prêtes pour le business plan.",
+      "domain": "rd",
+      "tags": [
+        "business",
+        "rd",
+        "strategy",
+        "market",
+        "be"
+      ],
+      "related_skills": [
+        "be-business-plan",
+        "be-funding-subsidies"
+      ],
+      "as_of": "2026-07",
+      "version": "0.1.0"
+    },
+    {
+      "name": "be-rgpd-compliance",
+      "description": "Utilisez quand le solopreneur belge collecte des données personnelles (formulaire de contact, newsletter, clients), doit rédiger une politique de confidentialité, gérer des cookies, répondre à une demande d'accès RGPD, ou évaluer sa conformité de base avec l'APD.",
+      "domain": "admin",
+      "tags": [
+        "admin",
+        "rgpd",
+        "compliance",
+        "privacy",
+        "be"
+      ],
+      "related_skills": [
+        "be-company-setup",
+        "secretary-ops",
+        "social-listening-be"
+      ],
+      "as_of": "2026-07",
+      "version": "0.1.0"
+    },
+    {
+      "name": "be-sales-outreach",
+      "description": "Utilisez quand le solopreneur belge doit structurer sa prospection B2B : cold outreach (email, LinkedIn), qualification de leads, scripts de vente, propositions commerciales, suivi pipeline. Produit un système de prospection tenable à côté de l'activité principale.",
+      "domain": "sales",
+      "tags": [
+        "business",
+        "sales",
+        "outreach",
+        "be"
+      ],
+      "related_skills": [
+        "be-market-research",
+        "be-competitor-watch",
+        "content-engine-be",
+        "brand-voice-solopreneur"
+      ],
+      "as_of": "2026-07",
+      "version": "0.1.0"
+    },
+    {
+      "name": "brand-voice-solopreneur",
+      "description": "Utilisez quand le solopreneur belge doit définir ou appliquer son ton d'écriture (site, LinkedIn, emails, devis) : charte de voix, mots bannis, niveau de formalité, exemples avant/après. Produit une charte d'une page + une méthode pour garder un ton cohérent.",
+      "domain": "content",
+      "tags": [
+        "content",
+        "brand",
+        "be"
+      ],
+      "related_skills": [
+        "content-engine-be",
+        "be-market-research"
+      ],
+      "as_of": "2026-07",
+      "version": "0.1.0"
+    },
+    {
+      "name": "content-engine-be",
+      "description": "Utilisez quand le solopreneur belge doit produire du contenu régulièrement (LinkedIn, blog, newsletter) sans y passer ses semaines : pipeline de production, calendrier éditorial, repurposing d'un contenu en plusieurs formats, SEO de base francophone. Produit un système de contenu hebdomadaire tenable à côté de l'activité.",
+      "domain": "content",
+      "tags": [
+        "content",
+        "marketing",
+        "be"
+      ],
+      "related_skills": [
+        "brand-voice-solopreneur",
+        "be-market-research",
+        "social-listening-be"
+      ],
+      "as_of": "2026-07",
+      "version": "0.1.0"
+    },
+    {
+      "name": "fact-check-sourcing",
+      "description": "Utilisez automatiquement après chaque recherche web ou extraction de données — GATE ACTIF harness-agnostic (ChatGPT, Mistral, Claude Cowork, Claude Code, Cursor, Gemini, Perplexity). Vérifie la fiabilité des sources, croise avec sources officielles belges, produit un score A/B/C/D. Ce skill est permanent, pas à la demande.",
+      "domain": "rd",
+      "tags": [
+        "business",
+        "rd",
+        "research",
+        "sourcing",
+        "gate",
+        "be",
+        "harness-agnostic"
+      ],
+      "related_skills": [
+        "be-market-research",
+        "be-business-plan",
+        "be-funding-subsidies",
+        "content-engine-be",
+        "be-financial-modeling"
+      ],
+      "as_of": "2026-07",
+      "version": "3.0.0"
+    },
+    {
+      "name": "secretary-ops",
+      "description": "Utilisez quand le solopreneur belge croule sous l'administratif quotidien : tri des emails, gestion d'agenda, préparation de rendez-vous clients, relances administratives, rappels d'échéances, classement documentaire. Produit des rituels et templates pour récupérer 3-5h/semaine.",
+      "domain": "ops",
+      "tags": [
+        "ops",
+        "admin",
+        "productivity",
+        "be"
+      ],
+      "related_skills": [
+        "be-bookkeeping-ops",
+        "be-rgpd-compliance",
+        "content-engine-be"
+      ],
+      "as_of": "2026-07",
+      "version": "0.1.0"
+    },
+    {
+      "name": "skill-forge",
+      "description": "Utilisez quand un agent IA doit créer un nouveau skill ou en étendre un existant dans ce repo (The Agency) — ou dans tout dépôt de skills au format agentskills.io. Produit un SKILL.md conforme aux standards du repo : frontmatter canonique, structure deep, règles de sécurité, gates de validation et test TDD de la vague.",
+      "domain": "meta",
+      "tags": [
+        "meta",
+        "contribution",
+        "tooling"
+      ],
+      "related_skills": [
+        "agency-doc-keeper",
+        "fact-check-sourcing"
+      ],
+      "as_of": "2026-08",
+      "version": "1.0.0"
+    },
+    {
+      "name": "social-listening-be",
+      "description": "Utilisez quand le solopreneur belge veut surveiller sa réputation en ligne, suivre des concurrents, ou repérer des sujets de contenu via les réseaux sociaux — en méthodes 100% légales : APIs officielles, alertes, RSS, exports manuels. Jamais de scraping, contournement de CAPTCHA, ou collecte non autorisée.",
+      "domain": "content",
+      "tags": [
+        "content",
+        "intel",
+        "be"
+      ],
+      "related_skills": [
+        "content-engine-be",
+        "be-market-research",
+        "be-rgpd-compliance"
+      ],
+      "as_of": "2026-07",
+      "version": "0.1.0"
+    }
+  ]
+}

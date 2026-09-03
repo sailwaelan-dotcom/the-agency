@@ -1,0 +1,38 @@
+name: gates
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  gates:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Installer les dépendances
+        run: pip install pyyaml
+
+      - name: Validation structurelle des skills
+        run: python scripts/validate_skills.py
+
+      - name: Scan anti-leak
+        run: python scripts/security_scan.py
+
+      - name: Vérification des liens related_skills
+        run: python scripts/check_related_links.py
+
+      - name: Tests
+        run: |
+          for f in tests/test_*.py; do
+            echo "=== $f ==="
+            python "$f" || exit 1
+          done
+        shell: bash

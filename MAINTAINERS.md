@@ -1,5 +1,13 @@
 # Mainteneurs — The Agency
 
+## Mainteneur principal
+
+- **Nom** : `<VOTRE_NOM>`
+- **GitHub** : [`<VOTRE_USER>`](https://github.com/<VOTRE_USER>)
+
+> À personnaliser après le premier push : remplacer `<VOTRE_NOM>` et `<VOTRE_USER>`
+> par les informations réelles du mainteneur principal.
+
 ## Équipe de maintenance
 
 | Rôle | Responsabilité |
