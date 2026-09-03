@@ -31,7 +31,7 @@ def check(label: str, content: str, expect_block: bool, expect_category: str | N
 
 
 # 1. Chemin Windows réel dans du texte brut → BLOCK
-check("win-path", "Mon projet vit dans C:\\Users\\dupont\\projets vibe coding\\", True, "win-user-path")
+check("win-path", "Mon projet vit dans C:\\Users\\dupont\\projets\\", True, "win-user-path")
 check("win-path-forward", "Voir C:/Users/dupont/projets/", True, "win-user-path-forward")
 check("msys-path", "cd /c/Users/dupont/projets", True, "msys-user-path")
 
