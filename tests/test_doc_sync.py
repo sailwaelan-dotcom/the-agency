@@ -128,6 +128,49 @@ with fresh_repo() as tmp:
     code, out = run(Path(tmp))
     check("template-ignore", code == 0, f"exit={code}, out={out!r}")
 
+
+def git(root: Path, *args: str) -> int:
+    import subprocess
+    proc = subprocess.run(["git", "-C", str(root), *args],
+                          capture_output=True, text=True)
+    return proc.returncode
+
+
+def repo_with_git(root: Path) -> None:
+    import subprocess
+    subprocess.run(["git", "init", "-q"], cwd=root, check=True)
+    # identité minimale : git add suffit (aucun commit requis pour ls-files)
+    subprocess.run(["git", "config", "core.autocrlf", "false"], cwd=root, check=True)
+
+
+# 7. Copie harness trackée dans git → exit 1 avec le chemin du fichier
+with fresh_repo() as tmp:
+    root = Path(tmp)
+    repo_with_git(root)
+    stale = root / ".claude" / "skills" / "skill-a" / "SKILL.md"
+    stale.parent.mkdir(parents=True)
+    stale.write_text("copie figée", encoding="utf-8")
+    git(root, "add", ".claude/skills/skill-a/SKILL.md")
+    code, out = run(root)
+    check("harness-tracke-exit1", code == 1, f"exit={code}, out={out!r}")
+    check("harness-tracke-message", "harness" in out.lower() and ".claude" in out,
+          f"message incomplet: {out!r}")
+
+# 8. Copie harness présente sur disque mais NON trackée → exit 0
+with fresh_repo() as tmp:
+    root = Path(tmp)
+    repo_with_git(root)
+    stale = root / ".cursor" / "skills" / "skill-a" / "SKILL.md"
+    stale.parent.mkdir(parents=True)
+    stale.write_text("copie locale non suivie", encoding="utf-8")
+    code, out = run(root)
+    check("harness-non-tracke-exit0", code == 0, f"exit={code}, out={out!r}")
+
+# 9. Pas de repo git (fixture sans .git) → pas de faux positif
+with fresh_repo() as tmp:
+    code, out = run(Path(tmp))
+    check("sans-git-exit0", code == 0, f"exit={code}, out={out!r}")
+
 if FAILURES:
     print("ÉCHECS:")
     for f in FAILURES:

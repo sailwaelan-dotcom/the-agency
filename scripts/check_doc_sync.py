@@ -5,18 +5,26 @@ Vérifie que les chiffres du README.md racine correspondent à la réalité :
 - « N skills » / « N/N skills valides » ↔ nombre réel de dossiers skills (hors _template)
 - « N liens » ↔ nombre réel de liens related_skills (même calcul que check_related_links.py)
 - tableau « | Domaine | Skills | » ↔ ensemble réel des skills
+- copies harness (.claude/.cursor/.hermes/.kilocode) ↔ aucun fichier tracké par git
 
 Usage: python scripts/check_doc_sync.py [--root DIR]
 Exit 0 si synchronisé, 1 en listant chaque divergence (motif, valeur README, valeur réelle).
 """
 import argparse
 import re
+import subprocess
 import sys
 from pathlib import Path
 
 import yaml
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
+
+# Dossiers de copies harness : créés après le clone par adapters/link-skills,
+# jamais commités (.gitignore). Un fichier tracké ici = copie figée en double
+# de la source canonique .agents/skills/.
+HARNESS_DIRS = (".claude/skills", ".cursor/skills", ".hermes/skills",
+                ".kilocode/skills")
 
 # Motifs tolérants : « 18 skills », « 18/18 skills valides », « 53 liens »
 SKILLS_RATIO_RE = re.compile(r"(\d+)\s*/\s*(\d+)\s*skills\b")
@@ -54,6 +62,23 @@ def count_related_links(root: Path) -> int:
         meta = fm.get("metadata") or {}
         total += len(meta.get("related_skills") or [])
     return total
+
+
+def harness_tracked_files(root: Path) -> list[str]:
+    """Fichiers de copies harness trackés par git (attendu : aucun).
+
+    Retourne [] si git est absent ou si root n'est pas un dépôt — le check
+    ne doit jamais créer de faux positif hors d'un contexte git réel.
+    """
+    try:
+        proc = subprocess.run(
+            ["git", "-C", str(root), "ls-files", "--", *HARNESS_DIRS],
+            capture_output=True, text=True)
+    except FileNotFoundError:
+        return []
+    if proc.returncode != 0:
+        return []
+    return [line for line in proc.stdout.splitlines() if line.strip()]
 
 
 def check_readme(root: Path) -> list[str]:
@@ -123,6 +148,15 @@ def check_readme(root: Path) -> list[str]:
         if unknown:
             divergences.append(
                 f"[tableau des domaines]: skills listés inexistants: {', '.join(unknown)}")
+
+    # --- Copies harness trackées par git (attendu : aucune) ---
+    tracked = harness_tracked_files(root)
+    if tracked:
+        echantillon = ", ".join(tracked[:3])
+        divergences.append(
+            f"[copies harness]: {len(tracked)} fichier(s) tracké(s) sous "
+            f"{HARNESS_DIRS[0]}/{HARNESS_DIRS[1]}/… (gitignorés attendus) — "
+            f"ex: {echantillon} — corriger avec: git rm -r --cached .claude .cursor .hermes .kilocode")
 
     return divergences
 

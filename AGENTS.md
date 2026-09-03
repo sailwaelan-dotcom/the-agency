@@ -13,7 +13,8 @@ Tu lis ce fichier parce qu'un harness t'a déposé ici. Voici les règles du jeu
 - `scripts/security_scan.py` — scan anti-leak (exit 0 requis avant commit).
 - `scripts/build_index.py` — régénère `INDEX.md` + `catalog.json` (à relancer après tout
   ajout/retrait de skill).
-- `scripts/check_doc_sync.py` — vérifie que les chiffres du README matchent le repo.
+- `scripts/check_doc_sync.py` — vérifie que les chiffres du README matchent le repo
+  et qu'aucune copie harness (.claude/.cursor/.hermes/.kilocode) n'est trackée.
 - `scripts/freshness_report.py` — âge des `as_of` ; un skill > 6 mois doit être revu.
 
 ## Règles absolues

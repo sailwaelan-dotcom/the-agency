@@ -49,7 +49,7 @@ The agency/
 │   ├── check_related_links.py # vérifie que tous les related_skills résolvent
 │   ├── build_index.py         # régénère INDEX.md + catalog.json (--check pour la CI)
 │   ├── freshness_report.py    # rapport de fraîcheur réglementaire des as_of
-│   └── check_doc_sync.py      # vérifie que les chiffres du README sont à jour
+│   └── check_doc_sync.py      # chiffres du README synchronisés + copies harness non trackées
 ├── examples/                  # walkthroughs de sorties réelles (anonymisées)
 └── tests/                     # selftests, TDD par vague, E2E, activation sémantique
 ```
@@ -117,7 +117,7 @@ python scripts/validate_skills.py       # 20/20 skills valides
 python scripts/security_scan.py         # 0 leak bloquant
 python scripts/check_related_links.py   # 58 liens, 0 morts
 python scripts/build_index.py --check   # INDEX.md + catalog.json à jour
-python scripts/check_doc_sync.py        # chiffres du README synchronisés
+python scripts/check_doc_sync.py        # chiffres du README + copies harness non trackées
 python scripts/freshness_report.py      # fraîcheur réglementaire (seuil 6 mois)
 ```
 
