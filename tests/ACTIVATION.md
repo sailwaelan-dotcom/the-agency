@@ -34,11 +34,11 @@ qui le charge en cascade).
 ## Test 2 : validation structurelle automatique
 
 ```bash
-python scripts/validate_skills.py    # exit 0 = 12/12 valides
+python scripts/validate_skills.py    # exit 0 = 20/20 valides
 python scripts/security_scan.py     # exit 0 = aucun leak bloquant
 python tests/test_scanner_selftest.py  # 12/12 auto-tests
 python tests/test_validator_selftest.py # 7/7 auto-tests
-python scripts/check_related_links.py  # 32 liens, 0 morts
+python scripts/check_related_links.py  # 58 liens, 0 morts
 ```
 
 ---
