@@ -1,6 +1,6 @@
 # The Agency 🇧🇪
 
-![gates](https://github.com/<VOTRE_USER>/the-agency/actions/workflows/ci.yml/badge.svg)
+![gates](https://github.com/sailwaelan-dotcom/the-agency/actions/workflows/ci.yml/badge.svg)
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
 
 > Boîte à outils de **skills et d'agents IA harness-agnostic** pour solopreneurs en Belgique.
@@ -81,6 +81,10 @@ et la saute ; `-f` / `-Force` la remplace par un lien propre.
 
 Ou manuellement : pointe ton harness vers `.agents/skills/<nom>/SKILL.md`.
 
+**Premier pas après l'installation** : dans ton harness, lance « **Activate the agency** » —
+le skill `activate-agency` conduit l'onboarding (interview 8 questions, profil persistant
+`AGENCY_PROFILE.md` hors du repo, shortlist de skills prioritaires, plan 30 jours).
+
 ## Domaines couverts
 
 | Domaine | Skills |
@@ -95,7 +99,7 @@ Ou manuellement : pointe ton harness vers `.agents/skills/<nom>/SKILL.md`.
 | 💼 Vente & prospection | `be-sales-outreach` |
 | 📊 Modélisation financière | `be-financial-modeling` |
 | 📝 Contrats & légal | `be-contracts-legal` |
-| 🛠 Meta & maintenance | `skill-forge` (créer un skill conforme), `agency-doc-keeper` (tenir la doc à jour) |
+| 🛠 Meta & maintenance | `activate-agency` (onboarding et personnalisation), `skill-forge` (créer un skill conforme), `agency-doc-keeper` (tenir la doc à jour) |
 
 ## Contribuer
 
@@ -113,9 +117,9 @@ Dépendance de dev unique : `pip install -r requirements.txt` (PyYAML).
 Les gates tournent en CI sur chaque push/PR (`.github/workflows/ci.yml`) :
 
 ```bash
-python scripts/validate_skills.py       # 20/20 skills valides
+python scripts/validate_skills.py       # 21/21 skills valides
 python scripts/security_scan.py         # 0 leak bloquant
-python scripts/check_related_links.py   # 58 liens, 0 morts
+python scripts/check_related_links.py   # 61 liens, 0 morts
 python scripts/build_index.py --check   # INDEX.md + catalog.json à jour
 python scripts/check_doc_sync.py        # chiffres du README + copies harness non trackées
 python scripts/freshness_report.py      # fraîcheur réglementaire (seuil 6 mois)
@@ -128,10 +132,11 @@ python tests/test_validator_selftest.py  # 7/7 auto-tests validateur
 python tests/test_factcheck_tdd.py       # 10/10 tests fact-check-sourcing
 python tests/test_vague3_tdd.py          # 18/18 tests vague 3
 python tests/test_vague4_tdd.py          # tests vague 4 (skill-forge, agency-doc-keeper)
+python tests/test_vague5_tdd.py          # tests vague 5 (activate-agency)
 python tests/test_build_index.py         # auto-tests build_index
 python tests/test_freshness_report.py    # auto-tests freshness_report
 python tests/test_doc_sync.py            # auto-tests check_doc_sync
-python tests/test_activation.py          # 36/36 scénarios d'activation sémantique
+python tests/test_activation.py          # 39/39 scénarios d'activation sémantique
 python tests/test_e2e.py                 # 26/26 tests E2E workflow
 ```
 
@@ -142,10 +147,10 @@ Scénarios d'activation sémantique : voir [tests/ACTIVATION.md](tests/ACTIVATIO
 The Agency est un outil **open source** (MIT) que vous pouvez proposer à vos bénéficiaires :
 
 ### Valeur ajoutée pour vos entrepreneurs
-- **20 skills** couvrant tout le cycle d'entrepreneuriat (R&D, finance, admin, contenu, veille, prospection, contrats)
+- **21 skills** couvrant tout le cycle d'entrepreneuriat (R&D, finance, admin, contenu, veille, prospection, contrats), avec un onboarding guidé (`activate-agency`) qui personnalise l'outil en une session
 - **Harness-agnostic** : fonctionne sur ChatGPT, Mistral, Claude, Cursor, Gemini — pas de lock-in
 - **Données belges sourcées** : chaque chiffre a un `as_of` et une source officielle (SPF Finances, INASTI, BCE, VLAIO…), avec veille de fraîcheur automatisée en CI
-- **Sécurisé** : 10 suites de tests automatisées, 0 leak, gate actif de fact-checking
+- **Vérifié en CI** : 11 suites de tests automatisées (structure des skills, cohérence documentaire, activation sémantique) et un scan anti-leak (0 fuite bloquante). Les tests valident la structure et la cohérence, pas la qualité des sorties : jugez sur pièce avec [examples/](examples/)
 - **Gratuit** : licence MIT, réutilisable, modifiable
 
 ### Comment intégrer

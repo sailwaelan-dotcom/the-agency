@@ -22,11 +22,28 @@ et ce projet adhère au [Versionnage sémantique](https://semver.org/lang/fr/).
   enchaînant ops, vente, facturation et contenu.
 - Test d'activation automatisé des descriptions de skills.
 - Dossier `examples/` d'exemples d'utilisation.
+- Skill `activate-agency` : onboarding et personnalisation — interview 8 questions,
+  profil persistant `AGENCY_PROFILE.md` (écrit hors du repo, jamais commité),
+  shortlist de skills prioritaires, plan 30 jours avec phrase de handoff.
+- Tests TDD vague 5 (`test_vague5_tdd.py`, 10 familles) et 3 scénarios d'activation
+  pour `activate-agency` (39 scénarios au total).
+- `check_doc_sync` détecte désormais les copies harness trackées par git
+  (.claude/.cursor/.hermes/.kilocode doivent rester hors du dépôt).
+
+### Modifié
+
+- `fact-check-sourcing` v3.1.0 : section « Adaptation par plateforme » dédupliquée
+  (une table au lieu de 4 blocs identiques) et patterns d'intégration condensés —
+  même méthodologie, un tiers de moins à lire.
 
 ### Corrigé
 
 - Réparation de la distribution harness via les adapters (`link-skills.sh` /
   `link-skills.ps1`).
+- Les copies harness (.claude/.cursor/.hermes/.kilocode) sont dé-trackées : le
+  README annonçait des liens créés après le clone, mais des copies figées étaient
+  encore commitées — source de dérive copie vs canonique.
+- Badge CI du README pointé vers le dépôt réel (au lieu du placeholder `<VOTRE_USER>`).
 
 ## [0.1.0]
 

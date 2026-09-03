@@ -25,6 +25,7 @@ la section "When to Use") et vérifier qu'un agent charge le bon skill.
 | `brand-voice-solopreneur` | « Mes textes ne se ressemblent pas » | « Comment je sonne professionnel sans être pompeux ? » | « Corrige ce post pour qu'il me ressemble » |
 | `social-listening-be` | « Je veux savoir ce qu'on dit de moi en ligne » | « Comment suivre mes concurrents sur LinkedIn ? » | « Je cherche des sujets de contenu pour mon secteur » |
 | `secretary-ops` | « Je passe mes matinées dans ma boîte mail » | « J'ai raté une échéance administrative » | « Je cherche un document pendant 20 minutes » |
+| `activate-agency` | « Je viens d'installer The Agency, par où commencer ? » | « Quels skills sont faits pour moi ? » | « Personnalise l'agence pour mon activité » |
 
 **Résultat attendu** : chaque requête charge le skill correspondant (ou un agent persona
 qui le charge en cascade).
@@ -34,11 +35,11 @@ qui le charge en cascade).
 ## Test 2 : validation structurelle automatique
 
 ```bash
-python scripts/validate_skills.py    # exit 0 = 20/20 valides
+python scripts/validate_skills.py    # exit 0 = 21/21 valides
 python scripts/security_scan.py     # exit 0 = aucun leak bloquant
 python tests/test_scanner_selftest.py  # 12/12 auto-tests
 python tests/test_validator_selftest.py # 7/7 auto-tests
-python scripts/check_related_links.py  # 58 liens, 0 morts
+python scripts/check_related_links.py  # 61 liens, 0 morts
 ```
 
 ---

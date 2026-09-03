@@ -1,8 +1,27 @@
 {
-  "generated_at": "2026-08-03",
+  "generated_at": "2026-09-03",
   "generator": "scripts/build_index.py",
-  "count": 20,
+  "count": 21,
   "skills": [
+    {
+      "name": "activate-agency",
+      "description": "Utilisez quand un solopreneur installe The Agency pour la première fois, lance « activate the agency », demande « par où commencer ? » ou « quels skills sont faits pour moi ? », ou veut personnaliser l'agence pour son activité. Conduit l'interview d'onboarding (stade, forme juridique, TVA, objectifs), écrit le profil persistant AGENCY_PROFILE.md hors du repo, puis produit la shortlist des skills prioritaires et le plan 30 jours avec handoff.",
+      "domain": "meta",
+      "tags": [
+        "meta",
+        "onboarding",
+        "configuration",
+        "profil",
+        "be"
+      ],
+      "related_skills": [
+        "be-company-setup",
+        "be-admin-deadlines",
+        "fact-check-sourcing"
+      ],
+      "as_of": "2026-09",
+      "version": "1.0.0"
+    },
     {
       "name": "agency-doc-keeper",
       "description": "Utilisez quand le repo The Agency a changé — ajout, modification ou suppression d'un skill, changement de scripts ou de tests, ou avant une release. Produit une documentation resynchronisée : INDEX.md et catalog.json régénérés, compteurs README à jour, CHANGELOG complété, as_of revus, gates au vert.",
@@ -318,7 +337,7 @@
         "be-financial-modeling"
       ],
       "as_of": "2026-07",
-      "version": "3.0.0"
+      "version": "3.1.0"
     },
     {
       "name": "secretary-ops",

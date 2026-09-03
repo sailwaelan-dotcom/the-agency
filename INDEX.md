@@ -1,7 +1,7 @@
 # Index des skills — The Agency
 
 > Généré par scripts/build_index.py — ne pas éditer à la main.
-> Généré le 2026-08-03 — 20 skills.
+> Généré le 2026-09-03 — 21 skills.
 
 ## admin
 
@@ -38,6 +38,7 @@
 
 | Skill | Déclencheur | as_of | Skills liés |
 |---|---|---|---|
+| [activate-agency](.agents/skills/activate-agency/SKILL.md) | Utilisez quand un solopreneur installe The Agency pour la première fois, lance « activate the agency », demande « par o… | 2026-09 | be-company-setup, be-admin-deadlines, fact-check-sourcing |
 | [agency-doc-keeper](.agents/skills/agency-doc-keeper/SKILL.md) | Utilisez quand le repo The Agency a changé — ajout, modification ou suppression d'un skill, changement de scripts ou de… | 2026-08 | skill-forge, fact-check-sourcing |
 | [skill-forge](.agents/skills/skill-forge/SKILL.md) | Utilisez quand un agent IA doit créer un nouveau skill ou en étendre un existant dans ce repo (The Agency) — ou dans to… | 2026-08 | agency-doc-keeper, fact-check-sourcing |
 
