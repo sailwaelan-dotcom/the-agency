@@ -5,12 +5,20 @@
 # Usage:
 #   bash adapters/link-skills.sh          # applique les liens
 #   bash adapters/link-skills.sh -n       # dry-run : affiche sans écrire
+#   bash adapters/link-skills.sh -f       # force : remplace les copies figées par des liens
 #
 # Idempotent : relancer ne duplique rien. Les liens existants corrects sont conservés.
 set -euo pipefail
 
 DRY_RUN=0
-[[ "${1:-}" == "-n" ]] && DRY_RUN=1
+FORCE=0
+for arg in "$@"; do
+  case "$arg" in
+    -n) DRY_RUN=1 ;;
+    -f|--force) FORCE=1 ;;
+    *) echo "Usage: bash adapters/link-skills.sh [-n] [-f|--force]" >&2; exit 1 ;;
+  esac
+done
 
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 SRC="$REPO_ROOT/.agents/skills"
@@ -53,9 +61,14 @@ for target_dir in "${TARGETS[@]}"; do
       continue
     fi
     if [[ -e "$link" ]]; then
-      echo "WARN: $link existe (pas un symlink) — laissé tel quel"
-      ((skipped++)) || true
-      continue
+      if [[ $FORCE -eq 1 ]]; then
+        # Copie figée périmée → remplacée par un lien
+        run "rm -rf '$link'"
+      else
+        echo "WARN: $link existe (pas un symlink) — laissé tel quel (-f pour forcer)"
+        ((skipped++)) || true
+        continue
+      fi
     fi
     # Lien relatif → portable si le repo bouge
     run "ln -s '../../.agents/skills/$skill_name' '$link'"

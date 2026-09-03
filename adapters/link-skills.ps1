@@ -1,4 +1,4 @@
-# link-skills.ps1 — Lie les skills canoniques (.agents/skills/) vers les dossiers
+﻿# link-skills.ps1 — Lie les skills canoniques (.agents/skills/) vers les dossiers
 # natifs des harness (.claude/skills/, .cursor/skills/, .hermes/skills/, .kilocode/skills/).
 #
 # Crée des JUNCTIONS NTFS (pas des symlinks) — fonctionne sans droits admin.
@@ -7,9 +7,11 @@
 # Usage:
 #   powershell -File adapters/link-skills.ps1          # applique les liens
 #   powershell -File adapters/link-skills.ps1 -DryRun   # dry-run : affiche sans écrire
+#   powershell -File adapters/link-skills.ps1 -Force    # force : remplace les copies figées par des junctions
 
 param(
-    [switch]$DryRun
+    [switch]$DryRun,
+    [switch]$Force
 )
 
 $ErrorActionPreference = "Stop"
@@ -56,8 +58,15 @@ foreach ($targetDir in $Targets) {
                 # C'est déjà une junction — on ne touche pas
                 $skipped++
                 continue
+            } elseif ($Force) {
+                # Copie figée périmée → remplacée par une junction
+                if ($DryRun) {
+                    Write-Host "[dry-run] supprimer $link (copie figée)"
+                } else {
+                    Remove-Item $link -Recurse -Force
+                }
             } else {
-                Write-Host "WARN: $link existe (pas une junction) — laissé tel quel"
+                Write-Host "WARN: $link existe (pas une junction) — laissé tel quel (-Force pour forcer)"
                 $skipped++
                 continue
             }
