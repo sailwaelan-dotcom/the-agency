@@ -25,14 +25,33 @@ Le serveur `agency-be-mcp` résout ces problèmes en injectant des **outils dét
 | `calc_inasti_provision` | Local (offline) | INASTI | Simulation des cotisations sociales provisionnelles trimestrielles selon les tranches légales et plafonds en vigueur. |
 | `check_vat_vies` | API REST | Commission Européenne (VIES) | Validation en temps réel d'un numéro de TVA intracommunautaire (nom officiel et adresse enregistrée). |
 | `lookup_peppol_participant` | API REST | OpenPeppol Directory | Vérification de l'enregistrement d'un numéro d'entreprise pour la réception de factures électroniques Peppol. |
+| `generate_peppol_ubl` | Local (offline) | Norme EN 16931 | Génération d'une facture électronique structurée au format Peppol BIS Billing 3.0 (UBL 2.1 XML). |
+| `validate_peppol_ubl` | Local (offline) | Peppol Schematron | Audit de conformité Schematron d'un fichier XML UBL (CustomizationID, identifiants 0208, réconciliation mathématique). |
 
 ---
 
-## 🔒 Principes de sécurité et robustesse
+## 📚 Ressources MCP (`resources/read`)
 
-1. **Zéro dépendance externe** : Implémenté à 100 % en Python standard (`urllib.request`, `json`, `math`, `datetime`). Aucun package tiers risqué, aucune surface d'attaque superflue.
-2. **APIs officielles et passives uniquement** : Aucun scraping agressif, aucun contournement de CAPTCHA, aucun stockage d'identifiants.
-3. **Zéro fuite de données privées** : Les outils n'écrivent jamais sur le disque sans instruction explicite et ne journalisent aucune donnée confidentielle. Les numéros de test utilisent des placeholders factices comme `0202.239.951` (modulo valide) ou `BE0123.456.789`.
+Le serveur expose des données de référence en lecture directe sans consommer d'appel d'outil :
+
+- `belgian-tax://2026/rates` : Grille officielle des taux de TVA (21 %, 12 %, 6 %, 0 %), franchise Art. 56bis (25 000 €) et autoliquidation.
+- `inasti://2026/brackets` : Barème des tranches de cotisations sociales indépendant (seuil minimum 16 861,46 €, premier plafond 77 015,17 €, plafond max 107 300 €).
+- `cir92://deductibility/rules` : Règles de déductibilité des frais professionnels (CIR 92) : restaurant 69 %, réceptions 50 %, cadeaux d'affaires, bureau à domicile.
+
+---
+
+## 💬 Prompts MCP (`prompts/get`)
+
+- `audit_client_peppol` : Workflow d'audit de conformité complet d'un client professionnel belge avant contractualisation (BCE Modulo 97 + TVA VIES + éligibilité Peppol).
+- `prepare_quarterly_tax_closing` : Cadrage des déclarations TVA, versements anticipés (VA) et cotisations INASTI d'un trimestre donné.
+
+---
+
+## 🛡️ Guardrails d'Exécution & Intercepteur Runtime
+
+1. **Pre-flight Policy Gate** : Intercepte les appels d'outils opérationnels et bloque toute action basée sur un numéro d'entreprise mathématiquement corrompu (Modulo 97 invalide) ou un taux de TVA non conforme en Belgique.
+2. **Post-flight Sanitizer** : Désensibilisation automatique des numéros de registre national (NISS) et des chemins machine locaux dans les échanges JSON-RPC.
+3. **Zéro dépendance externe** : Implémenté à 100 % en Python standard (`xml.etree.ElementTree`, `urllib.request`, `json`, `math`, `datetime`).
 
 ---
 

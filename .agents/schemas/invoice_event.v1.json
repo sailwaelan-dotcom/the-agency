@@ -1,0 +1,48 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "InvoiceEventSchema",
+  "description": "Schéma de l'événement de facturation Peppol émis par le persona comptable-be.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "invoice_number",
+    "quote_ref",
+    "peppol_ready",
+    "totals",
+    "status"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "enum": ["1.0"]
+    },
+    "invoice_number": {
+      "type": "string",
+      "description": "Numéro de facture séquentiel conforme."
+    },
+    "quote_ref": {
+      "type": "string",
+      "description": "Référence du devis validé."
+    },
+    "peppol_ready": {
+      "type": "boolean"
+    },
+    "peppol_participant_id": {
+      "type": "string",
+      "description": "Identifiant Peppol standard (ex: iso6523-actorid-upis::0208:...)."
+    },
+    "totals": {
+      "type": "object",
+      "required": ["htva", "tva", "ttc"],
+      "properties": {
+        "htva": {"type": "number"},
+        "tva": {"type": "number"},
+        "ttc": {"type": "number"}
+      }
+    },
+    "status": {
+      "type": "string",
+      "enum": ["draft", "ubl_generated", "sent_peppol", "paid", "disputed"]
+    }
+  }
+}

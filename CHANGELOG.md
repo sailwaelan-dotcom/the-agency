@@ -9,6 +9,13 @@ et ce projet adhère au [Versionnage sémantique](https://semver.org/lang/fr/).
 
 ### Ajouté
 
+- **Architecture Enterprise 2.0 (Top 5 Améliorations Critiques)** :
+  - **Spécification MCP 2024-11-05 complète** : Ajout des endpoints `resources/list`, `resources/read`, `prompts/list`, et `prompts/get`. Fournit 3 URIs métier belges (`belgian-tax://2026/rates`, `inasti://2026/brackets`, `cir92://deductibility/rules`) et 2 templates de prompts guidés (`audit_client_peppol`, `prepare_quarterly_tax_closing`).
+  - **Moteur Peppol BIS 3.0 UBL 2.1 XML natif** : Générateur pur Python (`generate_peppol_ubl`) conforme EN 16931 et validateur Schematron/mathématique (`validate_peppol_ubl`) garantissant la conformité fiscale Peppol obligatoire en Belgique.
+  - **Execution Guardrails & Policy Interceptor** : Intercepteur pré-vol (validation Modulo 97 stricte sur BCE/TVA, blocage des numéros invalides) et assainisseur post-vol (masquage NISS/registre national, anonymisation des chemins locaux utilisateur `C:\Users\...`).
+  - **Protocole A2A (Agent-to-Agent) & Schémas stricts** : Spécifications JSON Schema v1 (`quote_draft`, `contract_terms`, `invoice_event`) et machine à états documentée (`.agents/workflows/a2a_pipeline.md`) pour une collaboration inter-agents typée et auditable sans dérive de contexte.
+  - **Suite d'évaluation EDD (Eval-Driven Development)** : 40 scénarios belges dorés (`evals/dataset/belgian_golden_evals.json`) couvrant TVA, INASTI, Peppol, RGPD, déductibilité CIR 92, statuts de société et contrats, avec runner automatisé (`evals/eval_runner.py`) certifiant exactitude factuelle, citations juridiques et zéro hallucination.
+
 - **Couche MCP & APIs belges (`agency-be-mcp`)** :
   - Serveur Model Context Protocol standardisé (JSON-RPC 2.0 stdio, zéro dépendance tierce) pour assister les agents IA en temps réel.
   - Outils déterministes belges : `validate_bce_number` (Modulo 97 officiel SPF Economie), `get_be_tax_calendar` (calendrier dynamique TVA Intervat, VA1-VA4 SPF Finances, INASTI avec alertes J-14/J-3), `calc_inasti_provision` (barèmes et tranches légales INASTI).

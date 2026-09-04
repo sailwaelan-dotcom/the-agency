@@ -63,13 +63,15 @@ def test_mcp_stdio_e2e():
         # 2. tools/list
         tools_res = send_rpc("tools/list", {})
         tools = tools_res.get("result", {}).get("tools", [])
-        assert len(tools) == 5
+        assert len(tools) >= 5
         tool_names = {t["name"] for t in tools}
         assert "validate_bce_number" in tool_names
         assert "get_be_tax_calendar" in tool_names
         assert "calc_inasti_provision" in tool_names
         assert "check_vat_vies" in tool_names
         assert "lookup_peppol_participant" in tool_names
+        assert "generate_peppol_ubl" in tool_names
+        assert "validate_peppol_ubl" in tool_names
 
         # 3. tools/call: validate_bce_number
         bce_call = send_rpc("tools/call", {

@@ -88,13 +88,18 @@ Ou manuellement : pointe ton harness vers `.agents/skills/<nom>/SKILL.md`.
 le skill `activate-agency` conduit l'onboarding (interview 8 questions, profil persistant
 `AGENCY_PROFILE.md` hors du repo, shortlist de skills prioritaires, plan 30 jours).
 
-## Couche MCP & APIs belges (`agency-be-mcp`)
+## Couche MCP & Architecture d'Agents (`agency-be-mcp`)
 
-Pour aller au-delà des prompts et des fichiers de contextes statiques, The Agency embarque son propre serveur **Model Context Protocol (MCP)** standardisé et zéro dépendance (`mcp/`) :
+Pour aller au-delà des prompts et des fichiers de contextes statiques, The Agency embarque son propre serveur **Model Context Protocol (MCP)** standardisé et zéro dépendance (`mcp/`) ainsi qu'une architecture d'exécution de pointe :
 
-- **Outils déterministes** : validation Modulo 97 BCE/KBO (`validate_bce_number`), simulation cotisations provisionnelles INASTI (`calc_inasti_provision`), calendrier fiscal dynamique TVA/VA/INASTI avec alertes J-14/J-3 (`get_be_tax_calendar`).
+- **Outils déterministes (Tools)** : validation Modulo 97 BCE/KBO (`validate_bce_number`), simulation cotisations provisionnelles INASTI (`calc_inasti_provision`), calendrier fiscal dynamique TVA/VA/INASTI avec alertes J-14/J-3 (`get_be_tax_calendar`), générateur UBL 2.1 XML (`generate_peppol_ubl`) et validateur Schematron Peppol BIS 3.0 (`validate_peppol_ubl`).
+- **Ressources en lecture directe (Resources)** : consultation des barèmes légaux sans surcoût d'outil (`belgian-tax://2026/rates`, `inasti://2026/brackets`, `cir92://deductibility/rules`).
+- **Prompts serveurs déclaratifs (Prompts)** : chaînes de travail prêtes à l'emploi (`audit_client_peppol`, `prepare_quarterly_tax_closing`).
 - **APIs officielles en direct** : vérification TVA intracommunautaire UE VIES (`check_vat_vies`), annuaire d'éligibilité facturation électronique OpenPeppol Directory (`lookup_peppol_participant`).
-- **Configurations prêtes à l'emploi** : configurations pour Claude Code, Cursor, Hermes et Kilocode fournies dans `mcp/configs/`. Voir [mcp/README.md](mcp/README.md) pour le guide complet.
+- **Guardrails & Assainissement** : intercepteur pré-vol bloquant les numéros BCE corrompus et taux fiscaux non conformes, avec masquage automatique des PII et chemins locaux.
+- **Protocole A2A & Machine à états** : schémas JSON stricts (`.agents/schemas/`) pour orchestrer le passage fluide Devis ➔ Contrat ➔ Facture Peppol sans perte de contexte.
+- **Suite d'évaluation EDD (40 Cas d'Or)** : benchmark automatisé (`evals/`) validant la conformité légale et traquant les hallucinations étrangères (France).
+- **Configurations prêtes à l'emploi** : pour Claude Code, Cursor, Hermes et Kilocode dans `mcp/configs/`. Voir [mcp/README.md](mcp/README.md) pour le guide technique.
 
 ## Domaines couverts
 

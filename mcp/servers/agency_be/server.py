@@ -7,16 +7,30 @@ import json
 import sys
 from typing import Any, Dict, List
 
+from agency_be.guardrails import sanitize_postflight, validate_preflight
+from agency_be.prompts import get_server_prompts, handle_get_prompt
+from agency_be.resources import get_server_resources, handle_read_resource
 from agency_be.tools.bce import validate_bce_number
 from agency_be.tools.inasti import calc_inasti_provision
 from agency_be.tools.peppol import lookup_peppol_participant
 from agency_be.tools.tax_calendar import get_be_tax_calendar
+from agency_be.tools.ubl_generator import generate_peppol_ubl_xml
+from agency_be.tools.ubl_validator import validate_peppol_ubl_xml
 from agency_be.tools.vies import check_vat_vies
 
 SERVER_INFO = {
     "name": "agency-be-mcp",
     "version": "1.0.0",
 }
+
+
+def get_server_capabilities() -> Dict[str, Any]:
+    """Retourne les capacités officielles du serveur MCP."""
+    return {
+        "tools": {"listChanged": False},
+        "resources": {"subscribe": False, "listChanged": False},
+        "prompts": {"listChanged": False},
+    }
 
 
 def get_server_tools() -> List[Dict[str, Any]]:
@@ -131,38 +145,97 @@ def get_server_tools() -> List[Dict[str, Any]]:
                 "required": ["annual_net_income"],
             },
         },
+        {
+            "name": "generate_peppol_ubl",
+            "description": (
+                "Génère une facture électronique conforme Peppol BIS Billing 3.0 (norme EN 16931 / format UBL 2.1). "
+                "Structure le flux XML complet avec schémas d'identifiants d'entreprise belges (0208), ventilation de taxe et totaux."
+            ),
+            "inputSchema": {
+                "type": "object",
+                "properties": {
+                    "invoice_data": {
+                        "type": "object",
+                        "description": (
+                            "Données complètes de la facture : invoice_number, issue_date, due_date, "
+                            "supplier (bce_number, name, street, postal_code, city, iban), "
+                            "customer (bce_number, name, street, postal_code, city), "
+                            "lines (id, name, description, quantity, unit_price, vat_rate)."
+                        ),
+                    }
+                },
+                "required": ["invoice_data"],
+            },
+        },
+        {
+            "name": "validate_peppol_ubl",
+            "description": (
+                "Valide un document XML de facturation électronique selon les règles Schematron de Peppol BIS Billing 3.0. "
+                "Contrôle la présence des balises requises, les identifiants d'acteurs (scheme 0208) et la cohérence mathématique des montants."
+            ),
+            "inputSchema": {
+                "type": "object",
+                "properties": {
+                    "xml_content": {
+                        "type": "string",
+                        "description": "Contenu du document XML UBL 2.1 à auditer.",
+                    }
+                },
+                "required": ["xml_content"],
+            },
+        },
     ]
 
 
 def handle_call_tool(name: str, arguments: Dict[str, Any]) -> Any:
     """
-    Exécute l'outil demandé avec ses arguments et retourne le résultat brut.
+    Exécute l'outil demandé avec ses arguments et retourne le résultat brut assaini.
+    Applique le guardrail pré-vol pour bloquer les erreurs de Modulo 97 et les taux fiscaux non conformes.
     """
+    is_allowed, error_msg = validate_preflight(name, arguments)
+    if not is_allowed:
+        raise ValueError(error_msg)
+
     if name == "validate_bce_number":
         bce_number = arguments.get("bce_number", "")
-        return validate_bce_number(bce_number)
+        res = validate_bce_number(bce_number)
+        return sanitize_postflight(res)
 
     if name == "check_vat_vies":
         vat_number = arguments.get("vat_number", "")
         country_code = arguments.get("country_code", "BE")
-        return check_vat_vies(vat_number=vat_number, country_code=country_code)
+        res = check_vat_vies(vat_number=vat_number, country_code=country_code)
+        return sanitize_postflight(res)
 
     if name == "lookup_peppol_participant":
         bce_number = arguments.get("bce_number", "")
-        return lookup_peppol_participant(bce_number=bce_number)
+        res = lookup_peppol_participant(bce_number=bce_number)
+        return sanitize_postflight(res)
 
     if name == "get_be_tax_calendar":
         year = int(arguments.get("year", 2026))
         regime = arguments.get("regime", "trimestriel")
-        return get_be_tax_calendar(year=year, regime=regime)
+        res = get_be_tax_calendar(year=year, regime=regime)
+        return sanitize_postflight(res)
 
     if name == "calc_inasti_provision":
         annual_net_income = float(arguments.get("annual_net_income", 0.0))
         is_starter = bool(arguments.get("is_starter", False))
         year = int(arguments.get("year", 2026))
-        return calc_inasti_provision(
+        res = calc_inasti_provision(
             annual_net_income=annual_net_income, is_starter=is_starter, year=year
         )
+        return sanitize_postflight(res)
+
+    if name == "generate_peppol_ubl":
+        invoice_data = arguments.get("invoice_data", {})
+        res = generate_peppol_ubl_xml(invoice_data)
+        return sanitize_postflight(res)
+
+    if name == "validate_peppol_ubl":
+        xml_content = arguments.get("xml_content", "")
+        res = validate_peppol_ubl_xml(xml_content)
+        return sanitize_postflight(res)
 
     raise ValueError(f"Outil inconnu : {name}")
 
@@ -198,9 +271,7 @@ def run_stdio_server() -> None:
                 "result": {
                     "protocolVersion": "2024-11-05",
                     "serverInfo": SERVER_INFO,
-                    "capabilities": {
-                        "tools": {"listChanged": False},
-                    },
+                    "capabilities": get_server_capabilities(),
                 },
             })
         elif method == "notifications/initialized":
@@ -239,6 +310,61 @@ def run_stdio_server() -> None:
                     "id": msg_id,
                     "error": {
                         "code": -32603,
+                        "message": str(err),
+                    },
+                })
+        elif method == "resources/list":
+            _send_response({
+                "jsonrpc": "2.0",
+                "id": msg_id,
+                "result": {
+                    "resources": get_server_resources(),
+                },
+            })
+        elif method == "resources/read":
+            uri = params.get("uri", "")
+            try:
+                content = handle_read_resource(uri)
+                _send_response({
+                    "jsonrpc": "2.0",
+                    "id": msg_id,
+                    "result": {
+                        "contents": [content],
+                    },
+                })
+            except Exception as err:
+                _send_response({
+                    "jsonrpc": "2.0",
+                    "id": msg_id,
+                    "error": {
+                        "code": -32602,
+                        "message": str(err),
+                    },
+                })
+        elif method == "prompts/list":
+            _send_response({
+                "jsonrpc": "2.0",
+                "id": msg_id,
+                "result": {
+                    "prompts": get_server_prompts(),
+                },
+            })
+        elif method == "prompts/get":
+            prompt_name = params.get("name", "")
+            prompt_args = params.get("arguments", {})
+            try:
+                prompt_res = handle_get_prompt(prompt_name, prompt_args)
+                _send_response({
+                    "jsonrpc": "2.0",
+                    "id": msg_id,
+                    "result": prompt_res,
+                })
+            except Exception as err:
+                _send_response({
+                    "jsonrpc": "2.0",
+                    "id": msg_id,
+                    "error": {
+                        "code": -32602,
                         "message": str(err),
                     },
                 })

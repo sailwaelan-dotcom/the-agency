@@ -1,0 +1,44 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ContractTermsSchema",
+  "description": "Schéma des conditions juridiques et contractuelles validées par le persona juriste-be.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "quote_ref",
+    "ip_assignment",
+    "liability_cap",
+    "jurisdiction"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "enum": ["1.0"]
+    },
+    "quote_ref": {
+      "type": "string",
+      "description": "Référence du devis rattaché."
+    },
+    "ip_assignment": {
+      "type": "string",
+      "enum": ["total_upon_full_payment", "license_only", "shared", "none"],
+      "description": "Régime de cession des droits intellectuels (Art. XI.165 CDE)."
+    },
+    "liability_cap": {
+      "type": "string",
+      "description": "Plafond de responsabilité contractuelle."
+    },
+    "jurisdiction": {
+      "type": "string",
+      "description": "Tribunaux compétents en cas de litige en Belgique."
+    },
+    "rgpd_clause": {
+      "type": "boolean",
+      "default": true
+    },
+    "late_interest_rate": {
+      "type": "number",
+      "description": "Taux d'intérêt de retard légal belge (Loi du 2 août 2002)."
+    }
+  }
+}

@@ -1,0 +1,327 @@
+{
+  "version": "1.0",
+  "name": "Belgian Golden Evals (40 Scénarios d'Or Réglementaires)",
+  "description": "Jeu de données d'évaluation de référence pour agents IA solopreneurs belges.",
+  "cases": [
+    {
+      "id": "eval_01",
+      "domain": "tva",
+      "user_prompt": "Je suis freelance développeur en personne physique avec 20 000 € de CA. Quel régime TVA dois-je choisir ?",
+      "required_keywords": ["franchise", "56bis", "25 000"],
+      "forbidden_terms": ["CGI 293 B", "auto-entrepreneur", "Urssaf", "Siret"],
+      "must_have_disclaimer": true
+    },
+    {
+      "id": "eval_02",
+      "domain": "tva",
+      "user_prompt": "Quelle mention obligatoire dois-je écrire sur ma facture si je suis en franchise de taxe en Belgique ?",
+      "required_keywords": ["Franchise de taxe", "Article 56bis", "Code de la TVA"],
+      "forbidden_terms": ["TVA non applicable, art. 293 B du CGI"],
+      "must_have_disclaimer": false
+    },
+    {
+      "id": "eval_03",
+      "domain": "tva",
+      "user_prompt": "Je vends une prestation de conseil IT à une entreprise allemande assujettie. Quel taux de TVA belge appliquer ?",
+      "required_keywords": ["autoliquidation", "196", "Directive 2006/112/CE", "HTVA"],
+      "forbidden_terms": ["CGI", "Siret"],
+      "must_have_disclaimer": true
+    },
+    {
+      "id": "eval_04",
+      "domain": "tva",
+      "user_prompt": "Quel est le taux de TVA standard pour des services d'ingénierie et de conseil en Belgique ?",
+      "required_keywords": ["21 %", "taux normal", "SPF Finances"],
+      "forbidden_terms": ["20 %"],
+      "must_have_disclaimer": false
+    },
+    {
+      "id": "eval_05",
+      "domain": "tva",
+      "user_prompt": "À quelle date dois-je déposer ma déclaration TVA du premier trimestre ?",
+      "required_keywords": ["20 avril", "Intervat", "trimestre"],
+      "forbidden_terms": ["impots.gouv.fr"],
+      "must_have_disclaimer": false
+    },
+    {
+      "id": "eval_06",
+      "domain": "tva",
+      "user_prompt": "Je fais rénover mon bureau dans un bâtiment de 15 ans. Quel taux de TVA s'applique aux travaux ?",
+      "required_keywords": ["6 %", "10 ans", "attestation"],
+      "forbidden_terms": ["5,5 %", "10 %"],
+      "must_have_disclaimer": true
+    },
+    {
+      "id": "eval_07",
+      "domain": "tva",
+      "user_prompt": "Quand et comment dois-je soumettre le listing annuel de mes clients assujettis ?",
+      "required_keywords": ["31 mars", "Intervat", "listing clients"],
+      "forbidden_terms": ["déclaration d'échange de biens"],
+      "must_have_disclaimer": false
+    },
+    {
+      "id": "eval_08",
+      "domain": "tva",
+      "user_prompt": "Si je suis sous le régime de la franchise de TVA, puis-je récupérer la TVA sur l'ordinateur portable que j'achète ?",
+      "required_keywords": ["non", "pas de déduction", "déductible"],
+      "forbidden_terms": [],
+      "must_have_disclaimer": false
+    },
+    {
+      "id": "eval_09",
+      "domain": "inasti",
+      "user_prompt": "Je démarre comme indépendant principal avec 10 000 € de revenu net annuel estimé. Combien vais-je payer de cotisations sociales ?",
+      "required_keywords": ["cotisation minimale", "INASTI", "16 861"],
+      "forbidden_terms": ["Urssaf", "RSI", "Sécurité sociale des indépendants"],
+      "must_have_disclaimer": true
+    },
+    {
+      "id": "eval_10",
+      "domain": "inasti",
+      "user_prompt": "Quel est le pourcentage légal de base des cotisations sociales pour un indépendant principal en Belgique ?",
+      "required_keywords": ["20,5 %", "revenu net imposable"],
+      "forbidden_terms": ["22 %"],
+      "must_have_disclaimer": false
+    },
+    {
+      "id": "eval_11",
+      "domain": "inasti",
+      "user_prompt": "Au-delà de quel seuil de revenu le taux de cotisation INASTI passe-t-il à 14,16 % ?",
+      "required_keywords": ["77 015", "14,16 %"],
+      "forbidden_terms": [],
+      "must_have_disclaimer": false
+    },
+    {
+      "id": "eval_12",
+      "domain": "inasti",
+      "user_prompt": "Y a-t-il un plafond maximal au-delà duquel on ne paie plus de cotisations sociales indépendant en Belgique ?",
+      "required_keywords": ["plafond", "107 300", "cotisation maximale"],
+      "forbidden_terms": [],
+      "must_have_disclaimer": false
+    },
+    {
+      "id": "eval_13",
+      "domain": "inasti",
+      "user_prompt": "Comment sont calculées les cotisations trimestrielles des 3 premières années d'activité ?",
+      "required_keywords": ["provisions", "régularisation", "N-3"],
+      "forbidden_terms": ["ACRE"],
+      "must_have_disclaimer": true
+    },
+    {
+      "id": "eval_14",
+      "domain": "inasti",
+      "user_prompt": "À qui dois-je verser mes cotisations sociales d'indépendant ?",
+      "required_keywords": ["caisse d'assurances sociales", "Liantis", "Partena", "Xerius", "UCM"],
+      "forbidden_terms": ["Urssaf"],
+      "must_have_disclaimer": false
+    },
+    {
+      "id": "eval_15",
+      "domain": "inasti",
+      "user_prompt": "Quelles sont les 4 dates limites de paiement des cotisations sociales trimestrielles ?",
+      "required_keywords": ["31 mars", "30 juin", "30 septembre", "31 décembre"],
+      "forbidden_terms": [],
+      "must_have_disclaimer": false
+    },
+    {
+      "id": "eval_16",
+      "domain": "peppol",
+      "user_prompt": "Puis-je continuer à envoyer de simples factures PDF par email à mes clients professionnels belges en 2026 ?",
+      "required_keywords": ["non", "obligatoire", "Peppol", "1er janvier 2026", "structurée"],
+      "forbidden_terms": ["Factur-X obligatoire en Belgique"],
+      "must_have_disclaimer": false
+    },
+    {
+      "id": "eval_17",
+      "domain": "peppol",
+      "user_prompt": "Quel est le format XML officiel exigé pour les factures électroniques Peppol en Belgique ?",
+      "required_keywords": ["UBL", "Peppol BIS 3.0", "EN 16931"],
+      "forbidden_terms": [],
+      "must_have_disclaimer": false
+    },
+    {
+      "id": "eval_18",
+      "domain": "peppol",
+      "user_prompt": "Quel préfixe de schéma d'identifiant participant est utilisé pour les entreprises belges dans Peppol ?",
+      "required_keywords": ["0208", "iso6523"],
+      "forbidden_terms": ["0009"],
+      "must_have_disclaimer": false
+    },
+    {
+      "id": "eval_19",
+      "domain": "peppol",
+      "user_prompt": "Où puis-je vérifier gratuitement si une entreprise cliente est enregistrée pour recevoir sur Peppol ?",
+      "required_keywords": ["directory.peppol.eu", "annuaire"],
+      "forbidden_terms": [],
+      "must_have_disclaimer": false
+    },
+    {
+      "id": "eval_20",
+      "domain": "peppol",
+      "user_prompt": "Ai-je besoin d'un Access Point pour émettre sur Peppol ?",
+      "required_keywords": ["Access Point", "agréé", "logiciel"],
+      "forbidden_terms": [],
+      "must_have_disclaimer": false
+    },
+    {
+      "id": "eval_21",
+      "domain": "peppol",
+      "user_prompt": "Pendant combien d'années dois-je légalement archiver les fichiers XML Peppol émis et reçus en Belgique ?",
+      "required_keywords": ["7 ans", "archivage"],
+      "forbidden_terms": ["10 ans en droit français"],
+      "must_have_disclaimer": false
+    },
+    {
+      "id": "eval_22",
+      "domain": "peppol",
+      "user_prompt": "L'obligation Peppol belge s'applique-t-elle si je facture un particulier (B2C) ?",
+      "required_keywords": ["non", "B2B", "particulier"],
+      "forbidden_terms": [],
+      "must_have_disclaimer": false
+    },
+    {
+      "id": "eval_23",
+      "domain": "deadlines",
+      "user_prompt": "Quand ont lieu les versements anticipés (VA) d'impôt en Belgique ?",
+      "required_keywords": ["10 avril", "10 juillet", "10 octobre", "20 décembre"],
+      "forbidden_terms": ["acompte provisionnel tiers"],
+      "must_have_disclaimer": false
+    },
+    {
+      "id": "eval_24",
+      "domain": "deadlines",
+      "user_prompt": "Que se passe-t-il si un indépendant belge ne fait aucun versement anticipé d'impôt ?",
+      "required_keywords": ["majoration", "SPF Finances", "intérêts"],
+      "forbidden_terms": [],
+      "must_have_disclaimer": true
+    },
+    {
+      "id": "eval_25",
+      "domain": "deadlines",
+      "user_prompt": "Quelle est l'échéance de paiement de la TVA du 4e trimestre ?",
+      "required_keywords": ["20 janvier", "Intervat"],
+      "forbidden_terms": [],
+      "must_have_disclaimer": false
+    },
+    {
+      "id": "eval_26",
+      "domain": "deadlines",
+      "user_prompt": "Où un indépendant déclare-t-il son impôt des personnes physiques (IPP) en ligne ?",
+      "required_keywords": ["MyMinfin", "Tax-on-web"],
+      "forbidden_terms": ["impots.gouv.fr"],
+      "must_have_disclaimer": false
+    },
+    {
+      "id": "eval_27",
+      "domain": "deadlines",
+      "user_prompt": "Quel est le délai pour déposer les comptes annuels d'une SRL à la Banque Nationale de Belgique (BNB) ?",
+      "required_keywords": ["BNB", "6 mois", "assemblée générale"],
+      "forbidden_terms": ["greffe du tribunal de commerce français"],
+      "must_have_disclaimer": true
+    },
+    {
+      "id": "eval_28",
+      "domain": "deadlines",
+      "user_prompt": "Quand le précompte professionnel retenu sur la rémunération d'un dirigeant de SRL doit-il être versé ?",
+      "required_keywords": ["15 du mois", "précompte professionnel"],
+      "forbidden_terms": ["PASRAU"],
+      "must_have_disclaimer": false
+    },
+    {
+      "id": "eval_29",
+      "domain": "corporate_forms",
+      "user_prompt": "Quelle est la différence fondamentale de responsabilité entre une SRL et une entreprise en personne physique en Belgique ?",
+      "required_keywords": ["patrimoine séparé", "responsabilité limitée", "personne physique", "patrimoine personnel"],
+      "forbidden_terms": ["SARL", "SASU", "EURL"],
+      "must_have_disclaimer": true
+    },
+    {
+      "id": "eval_30",
+      "domain": "corporate_forms",
+      "user_prompt": "Quel est le capital minimum obligatoire en numéraire pour constituer une SRL en droit des sociétés belge ?",
+      "required_keywords": ["pas de capital minimum", "plan financier", "suffisant"],
+      "forbidden_terms": ["1 euro symbolique en SARL"],
+      "must_have_disclaimer": true
+    },
+    {
+      "id": "eval_31",
+      "domain": "corporate_forms",
+      "user_prompt": "Par quel organisme passe-t-on pour inscrire une entreprise à la Banque-Carrefour des Entreprises (BCE) ?",
+      "required_keywords": ["guichet d'entreprises", "BCE", "numéro d'entreprise"],
+      "forbidden_terms": ["CFE", "URSSAF"],
+      "must_have_disclaimer": false
+    },
+    {
+      "id": "eval_32",
+      "domain": "corporate_forms",
+      "user_prompt": "Un indépendant en personne physique doit-il obligatoirement ouvrir un compte bancaire distinct ?",
+      "required_keywords": ["compte bancaire distinct", "séparé", "professionnel"],
+      "forbidden_terms": [],
+      "must_have_disclaimer": false
+    },
+    {
+      "id": "eval_33",
+      "domain": "corporate_forms",
+      "user_prompt": "Qu'est-ce que le registre UBO auquel les sociétés belges doivent s'inscrire ?",
+      "required_keywords": ["bénéficiaires effectifs", "UBO", "SPF Finances"],
+      "forbidden_terms": [],
+      "must_have_disclaimer": false
+    },
+    {
+      "id": "eval_34",
+      "domain": "rgpd",
+      "user_prompt": "En combien de temps doit-on notifier une fuite de données personnelles à l'Autorité de Protection des Données (APD) en Belgique ?",
+      "required_keywords": ["72 heures", "APD"],
+      "forbidden_terms": ["CNIL"],
+      "must_have_disclaimer": false
+    },
+    {
+      "id": "eval_35",
+      "domain": "rgpd",
+      "user_prompt": "Quelle autorité publique régule la protection des données et le RGPD en Belgique ?",
+      "required_keywords": ["Autorité de Protection des Données", "APD", "GBA"],
+      "forbidden_terms": ["CNIL"],
+      "must_have_disclaimer": false
+    },
+    {
+      "id": "eval_36",
+      "domain": "rgpd",
+      "user_prompt": "Un solopreneur doit-il tenir un registre des activités de traitement RGPD ?",
+      "required_keywords": ["registre des activités de traitement", "données clients"],
+      "forbidden_terms": [],
+      "must_have_disclaimer": true
+    },
+    {
+      "id": "eval_37",
+      "domain": "contracts",
+      "user_prompt": "Comment formuler la clause de cession de droits d'auteur pour un code développé pour un client belge ?",
+      "required_keywords": ["paiement intégral", "cession", "droits patrimoniaux", "Code de droit économique"],
+      "forbidden_terms": [],
+      "must_have_disclaimer": true
+    },
+    {
+      "id": "eval_38",
+      "domain": "contracts",
+      "user_prompt": "Quelle juridiction recommander dans les conditions générales d'un freelance basé à Bruxelles ?",
+      "required_keywords": ["arrondissement judiciaire de Bruxelles", "tribunaux de Bruxelles", "droit belge"],
+      "forbidden_terms": ["tribunal de commerce de Paris"],
+      "must_have_disclaimer": true
+    },
+    {
+      "id": "eval_39",
+      "domain": "security",
+      "user_prompt": "Donne-moi un exemple de numéro BCE et IBAN pour tester un devis.",
+      "required_keywords": ["BE0123.456.789", "placeholder", "0202.239.951"],
+      "forbidden_terms": [],
+      "must_have_disclaimer": false
+    },
+    {
+      "id": "eval_40",
+      "domain": "security",
+      "user_prompt": "Peux-tu enregistrer les données comptables sur un cloud public externe sans accord ?",
+      "required_keywords": ["non", "RGPD", "confidentialité", "local"],
+      "forbidden_terms": [],
+      "must_have_disclaimer": false
+    }
+  ]
+}
