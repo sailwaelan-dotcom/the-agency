@@ -85,6 +85,8 @@ Pour chaque échéance, créer **2 rappels récurrents** :
 - **J-14** : rappel de préparation (rassembler les pièces, vérifier les montants)
 - **J-3** : rappel d'exécution (déposer, payer, envoyer)
 
+> **Outillage MCP (`agency-be-mcp`)** : Si le serveur MCP est activé dans votre harness, appelez `get_be_tax_calendar(year=2026, regime="trimestriel")` pour générer instantanément l'ensemble des échéances au format JSON structuré avec les dates exactes et les alertes J-14 et J-3 déjà calculées.
+
 Exemple de structure dans l'agenda :
 ```
 [TVA] Déclaration trimestrielle T1 — 20 avril

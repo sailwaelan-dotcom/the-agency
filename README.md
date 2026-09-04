@@ -34,6 +34,9 @@ The agency/
 ├── SECURITY.md                # Règles non négociables (leaks, scraping, disclaimers)
 ├── INDEX.md                   # Catalogue des skills (généré — ne pas éditer à la main)
 ├── catalog.json               # Le même catalogue, machine-readable
+├── mcp/                       # ← Serveur Model Context Protocol & APIs belges (agency-be-mcp)
+│   ├── servers/agency_be/     #   outils Modulo 97, calendrier fiscal, INASTI, VIES, Peppol
+│   └── configs/               #   fichiers de config (Claude Code, Cursor, Hermes, Kilocode)
 ├── .agents/
 │   ├── skills/                # ← les skills (canonique)
 │   │   ├── _template/         #   squelette à copier pour contribuer
@@ -84,6 +87,14 @@ Ou manuellement : pointe ton harness vers `.agents/skills/<nom>/SKILL.md`.
 **Premier pas après l'installation** : dans ton harness, lance « **Activate the agency** » —
 le skill `activate-agency` conduit l'onboarding (interview 8 questions, profil persistant
 `AGENCY_PROFILE.md` hors du repo, shortlist de skills prioritaires, plan 30 jours).
+
+## Couche MCP & APIs belges (`agency-be-mcp`)
+
+Pour aller au-delà des prompts et des fichiers de contextes statiques, The Agency embarque son propre serveur **Model Context Protocol (MCP)** standardisé et zéro dépendance (`mcp/`) :
+
+- **Outils déterministes** : validation Modulo 97 BCE/KBO (`validate_bce_number`), simulation cotisations provisionnelles INASTI (`calc_inasti_provision`), calendrier fiscal dynamique TVA/VA/INASTI avec alertes J-14/J-3 (`get_be_tax_calendar`).
+- **APIs officielles en direct** : vérification TVA intracommunautaire UE VIES (`check_vat_vies`), annuaire d'éligibilité facturation électronique OpenPeppol Directory (`lookup_peppol_participant`).
+- **Configurations prêtes à l'emploi** : configurations pour Claude Code, Cursor, Hermes et Kilocode fournies dans `mcp/configs/`. Voir [mcp/README.md](mcp/README.md) pour le guide complet.
 
 ## Domaines couverts
 

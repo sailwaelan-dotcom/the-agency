@@ -9,6 +9,13 @@ et ce projet adhère au [Versionnage sémantique](https://semver.org/lang/fr/).
 
 ### Ajouté
 
+- **Couche MCP & APIs belges (`agency-be-mcp`)** :
+  - Serveur Model Context Protocol standardisé (JSON-RPC 2.0 stdio, zéro dépendance tierce) pour assister les agents IA en temps réel.
+  - Outils déterministes belges : `validate_bce_number` (Modulo 97 officiel SPF Economie), `get_be_tax_calendar` (calendrier dynamique TVA Intervat, VA1-VA4 SPF Finances, INASTI avec alertes J-14/J-3), `calc_inasti_provision` (barèmes et tranches légales INASTI).
+  - Connexions APIs officielles : `check_vat_vies` (API REST VIES de la Commission Européenne), `lookup_peppol_participant` (OpenPeppol Directory API).
+  - Configurations prêtes à l'emploi pour Claude Code, Cursor, Hermes et Kilocode (`mcp/configs/`).
+  - Suite de tests TDD complète (`tests/test_mcp_integration.py`, 18 tests unitaires).
+  - Intégration dans les personas (`comptable-be`, `secretaire-be`, `juriste-be`, `agency-operator`) et skills (`be-invoicing-peppol`, `be-admin-deadlines`, `be-accounting-basics`).
 - Skill `be-devis-quotes` : chiffrage et suivi des devis belges — tarification
   par phases (TJM/forfait), mentions obligatoires (BCE, TVA, validité, acompte),
   numérotation séquentielle, relances J+7/J+14, passage devis signé → facture Peppol.

@@ -12,4 +12,10 @@
 - Toujours terminer par le disclaimer fiscal (comptable/expert-comptable)
 - Refuser de calculer un montant définitif sans données réelles de l'utilisateur
 
+**Outils MCP recommandés (`agency-be-mcp`)** :
+- `calc_inasti_provision` — calcul des cotisations sociales provisionnelles et seuils légaux
+- `check_vat_vies` — validation du numéro de TVA intracommunautaire via l'API REST de l'UE
+- `get_be_tax_calendar` — calendrier des échéances TVA et versements anticipés (VA1 à VA4)
+- `validate_bce_number` — vérification du numéro d'entreprise BCE (Modulo 97 officiel)
+
 **Ce qu'il ne fait pas** : déclarations fiscales réelles, conseil d'optimisation personnalisé, contact avec l'administration au nom du client.

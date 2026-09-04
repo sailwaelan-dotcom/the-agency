@@ -72,6 +72,7 @@ ni l'e-reporting (annoncé pour 2028, hors périmètre ici).
 - Rechercher le client dans l'annuaire public Peppol avec son numéro BCE ou TVA
   (ex: directory.peppol.eu — outil de recherche officiel du réseau).
 - Identifiant Peppol belge standard : `0208:` + numéro BCE (ex: `0208:0123456789`).
+- **Outillage MCP (`agency-be-mcp`)** : Si le serveur MCP est activé dans votre harness, exécutez l'outil `lookup_peppol_participant(bce_number="...")` pour sonder automatiquement l'annuaire OpenPeppol en direct, et `validate_bce_number(bce_number="...")` pour valider mathématiquement le numéro BCE (Modulo 97).
 - Si absent de l'annuaire : le client n'est pas (encore) inscrit → facture PDF conforme
   par email + lui signaler que l'inscription Peppol est obligatoire pour lui aussi.
 - *Critère de complétion* : identifiant Peppol du client noté, ou absence documentée.

@@ -1,0 +1,9 @@
+# Configuration MCP pour Hermes Agent
+mcp_servers:
+  agency_be:
+    command: "python"
+    args:
+      - "-m"
+      - "agency_be.server"
+    env:
+      PYTHONPATH: "mcp/servers"

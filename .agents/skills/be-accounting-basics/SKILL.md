@@ -63,6 +63,7 @@ les bonnes questions et évite les oublis coûteux.
   avec minimums pour débutants et plafonds.
 - Statuts : activité principale, complémentaire, étudiant-indépendant, pensionné actif —
   chacun a ses seuils d'exonération. Le choix du statut change tout le calcul.
+- **Outillage MCP (`agency-be-mcp`)** : Utilisez `calc_inasti_provision(annual_net_income=...)` pour calculer immédiatement les provisions trimestrielles exactes, les frais de caisse estimés et vérifier si les seuils planchers ou plafonds s'appliquent.
 
 ### Impôt
 

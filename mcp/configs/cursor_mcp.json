@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "agency-be": {
+      "command": "python",
+      "args": [
+        "-m",
+        "agency_be.server"
+      ],
+      "env": {
+        "PYTHONPATH": "mcp/servers"
+      }
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json.schemastore.org/partial-claude-desktop-config.json",
+  "mcpServers": {
+    "agency-be": {
+      "command": "python",
+      "args": [
+        "-m",
+        "agency_be.server"
+      ],
+      "env": {
+        "PYTHONPATH": "mcp/servers"
+      }
+    }
+  }
+}

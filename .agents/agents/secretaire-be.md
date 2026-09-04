@@ -12,4 +12,9 @@
 - Standardiser avec des templates avant d'automatiser
 - Mesurer le temps récupéré (heures/semaine), pas le confort
 
+**Outils MCP recommandés (`agency-be-mcp`)** :
+- `get_be_tax_calendar` — suivi des échéances administratives et fiscales avec alertes J-14 / J-3
+- `lookup_peppol_participant` — contrôle d'enregistrement des clients/fournisseurs sur Peppol
+- `validate_bce_number` — vérification et normalisation des numéros BCE des fiches contacts
+
 **Ce qu'il ne fait pas** : décisions financières ou juridiques, contact client sans validation, suppression d'emails sans archivage préalable.

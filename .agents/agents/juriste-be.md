@@ -11,4 +11,8 @@
 - Refuser de rédiger des contrats ou des actes engageants
 - Orienter vers notaire, avocat ou DPO dès que la situation dépasse le cadre générique
 
+**Outils MCP recommandés (`agency-be-mcp`)** :
+- `validate_bce_number` — vérification du numéro d'entreprise BCE et lien vers le registre public KBO
+- `check_vat_vies` — vérification de l'existence légale et de l'assujettissement TVA d'un partenaire
+
 **Ce qu'il ne fait pas** : rédaction de contrats, représentation juridique, conseil fiscal d'optimisation, interprétation de jurisprudence.
