@@ -1,0 +1,136 @@
+{
+  "skills": [
+    {
+      "name": "activate-agency",
+      "trigger": "un solopreneur installe The Agency pour la première fois, lance « activate the agency », demande « par où commencer ? » ou « quels skills sont faits pour moi ? », ou veut personnaliser l'agence pour son activité",
+      "role": "Conduit l'interview d'onboarding (stade, forme juridique, TVA, objectifs), écrit le profil persistant AGENCY_PROFILE.md hors du repo, puis produit la shortlist des skills prioritaires et le plan 30 jours avec handoff.",
+      "as_of": "2026-09"
+    },
+    {
+      "name": "agency-doc-keeper",
+      "trigger": "le repo The Agency a changé — ajout, modification ou suppression d'un skill, changement de scripts ou de tests, ou avant une release",
+      "role": "Produit une documentation resynchronisée : INDEX.md et catalog.json régénérés, compteurs README à jour, CHANGELOG complété, as_of revus, gates au vert.",
+      "as_of": "2026-08"
+    },
+    {
+      "name": "be-accounting-basics",
+      "trigger": "le solopreneur belge pose une question TVA (régime normal/franchise/forfait, déclarations, délais), impôt (IPP vs ISOC), précompte professionnel, cotisations sociales INASTI, ou veut comprendre ses obligations comptables de base",
+      "role": "Produits : réponse chiffrée avec as_of + renvoi officiel, calendrier des échéances.",
+      "as_of": "2026-07"
+    },
+    {
+      "name": "be-admin-deadlines",
+      "trigger": "le solopreneur belge veut un calendrier fiscal annuel complet (TVA, INASTI, IPP/ISOC, BNB, listings), vérifier ses prochaines échéances, ou configurer des rappels automatiques",
+      "role": "Produit un calendrier personnalisé selon le régime et la forme juridique.",
+      "as_of": "2026-07"
+    },
+    {
+      "name": "be-bookkeeping-ops",
+      "trigger": "le solopreneur belge doit organiser sa comptabilité courante : rituel mensuel de collecte des pièces, rapprochement bancaire, suivi des factures impayées et relances clients, préparation du dossier pour le comptable, ou archivage légal (7 ans)",
+      "role": "Utilisez quand le solopreneur belge doit organiser sa comptabilité courante : rituel mensuel de collecte des pièces, rapprochement bancaire, suivi des",
+      "as_of": "2026-07"
+    },
+    {
+      "name": "be-business-plan",
+      "trigger": "le solopreneur belge doit rédiger un business plan (banque, subside, notaire pour SRL), construire son plan financier prévisionnel (obligatoire au CSA pour SRL), évaluer son breakeven, ou préparer un dossier de financement",
+      "role": "Produit un plan structuré prêt à faire valider.",
+      "as_of": "2026-07"
+    },
+    {
+      "name": "be-company-setup",
+      "trigger": "le futur solopreneur belge doit choisir sa forme juridique (personne physique vs SRL), créer son entreprise (inscription BCE, guichet d'entreprises, acte notarié, activation TVA, caisse d'assurances sociales), ou accomplir les démarches post-création (compte pro, assurances, premier outil de facturation)",
+      "role": "Utilisez quand le futur solopreneur belge doit choisir sa forme juridique (personne physique vs SRL), créer son entreprise (inscription BCE, guichet d",
+      "as_of": "2026-07"
+    },
+    {
+      "name": "be-competitor-watch",
+      "trigger": "le solopreneur belge veut cartographier ses concurrents directs (3-8 acteurs), surveiller leurs mouvements (prix, offres, recrutement, contenu), ou préparer un dossier de différenciation",
+      "role": "Produit une grille concurrentielle vivante alimentée par des méthodes 100% légales.",
+      "as_of": "2026-07"
+    },
+    {
+      "name": "be-contracts-legal",
+      "trigger": "le solopreneur belge doit rédiger ou vérifier un contrat (prestation, partenariat, NDA), des conditions générales de vente (CGV), des mentions légales de site web, ou un accord de confidentialité",
+      "role": "Fournit des templates et une checklist de vérification — ne remplace pas un avocat.",
+      "as_of": "2026-07"
+    },
+    {
+      "name": "be-devis-quotes",
+      "trigger": "le solopreneur belge doit chiffrer et envoyer un devis : tarification (TJM, forfait, par phase), structure du document, mentions légales (BCE, TVA), numérotation, validité, acompte, relance d'un devis sans réponse, ou transformation d'un devis accepté en facture Peppol",
+      "role": "Produit un devis conforme prêt à envoyer et un suivi des devis émis.",
+      "as_of": "2026-09"
+    },
+    {
+      "name": "be-financial-modeling",
+      "trigger": "le solopreneur belge doit modéliser un projet d'investissement, calculer une valorisation (DCF, multiples), analyser la sensibilité de ses hypothèses, ou stress-tester un business plan avec Monte Carlo",
+      "role": "Produit des modèles financiers avec scénarios et graphiques de sensibilité.",
+      "as_of": "2026-07"
+    },
+    {
+      "name": "be-funding-subsidies",
+      "trigger": "le solopreneur belge cherche un financement non-dilutif (subside, prime, prêt d'honneur, microcrédit), veut savoir à quel guichet s'adresser selon sa région (VLAIO, SPW/Awex, Innoviris/hub",
+      "role": "brussels), ou prépare un dossier de subside. Produit une cartographie des guichets pertinents + checklist d'éligibilité.",
+      "as_of": "2026-07"
+    },
+    {
+      "name": "be-invoicing-peppol",
+      "trigger": "le solopreneur doit émettre une facture B2B en Belgique (Peppol obligatoire depuis janvier 2026), choisir un logiciel/Access Point, vérifier les mentions légales d'une facture, ou comprendre la différence entre facture PDF et facture électronique structurée",
+      "role": "Utilisez quand le solopreneur doit émettre une facture B2B en Belgique (Peppol obligatoire depuis janvier 2026), choisir un logiciel/Access Point, vér",
+      "as_of": "2026-07"
+    },
+    {
+      "name": "be-market-research",
+      "trigger": "le solopreneur belge doit valider une idée (étude de marché), dimensionner son marché (TAM/SAM/SOM), analyser la concurrence locale, ou interviewer des clients potentiels avant de construire",
+      "role": "Produit des données sourcées prêtes pour le business plan.",
+      "as_of": "2026-07"
+    },
+    {
+      "name": "be-rgpd-compliance",
+      "trigger": "le solopreneur belge collecte des données personnelles (formulaire de contact, newsletter, clients), doit rédiger une politique de confidentialité, gérer des cookies, répondre à une demande d'accès RGPD, ou évaluer sa conformité de base avec l'APD",
+      "role": "Utilisez quand le solopreneur belge collecte des données personnelles (formulaire de contact, newsletter, clients), doit rédiger une politique de conf",
+      "as_of": "2026-07"
+    },
+    {
+      "name": "be-sales-outreach",
+      "trigger": "le solopreneur belge doit structurer sa prospection B2B : cold outreach (email, LinkedIn), qualification de leads, scripts de vente, propositions commerciales, suivi pipeline",
+      "role": "Produit un système de prospection tenable à côté de l'activité principale.",
+      "as_of": "2026-07"
+    },
+    {
+      "name": "brand-voice-solopreneur",
+      "trigger": "le solopreneur belge doit définir ou appliquer son ton d'écriture (site, LinkedIn, emails, devis) : charte de voix, mots bannis, niveau de formalité, exemples avant/après",
+      "role": "Produit une charte d'une page + une méthode pour garder un ton cohérent.",
+      "as_of": "2026-07"
+    },
+    {
+      "name": "content-engine-be",
+      "trigger": "le solopreneur belge doit produire du contenu régulièrement (LinkedIn, blog, newsletter) sans y passer ses semaines : pipeline de production, calendrier éditorial, repurposing d'un contenu en plusieurs formats, SEO de base francophone",
+      "role": "Produit un système de contenu hebdomadaire tenable à côté de l'activité.",
+      "as_of": "2026-07"
+    },
+    {
+      "name": "fact-check-sourcing",
+      "trigger": "Utilisez automatiquement après chaque recherche web ou extraction de données — GATE ACTIF harness-ag",
+      "role": "Utilisez automatiquement après chaque recherche web ou extraction de données — GATE ACTIF harness-agnostic (ChatGPT, Mistral, Claude Cowork, Claude Code, Cursor, Gemini, Perplexity). Vérifie la fiabilité des sources, croise avec sources officielles belges, produit un score A/B/C/D. Ce skill est permanent, pas à la demande.",
+      "as_of": "2026-07"
+    },
+    {
+      "name": "secretary-ops",
+      "trigger": "le solopreneur belge croule sous l'administratif quotidien : tri des emails, gestion d'agenda, préparation de rendez-vous clients, relances administratives, rappels d'échéances, classement documentaire",
+      "role": "Produit des rituels et templates pour récupérer 3-5h/semaine.",
+      "as_of": "2026-07"
+    },
+    {
+      "name": "skill-forge",
+      "trigger": "un agent IA doit créer un nouveau skill ou en étendre un existant dans ce repo (The Agency) — ou dans tout dépôt de skills au format agentskills",
+      "role": "io. Produit un SKILL.md conforme aux standards du repo : frontmatter canonique, structure deep, règles de sécurité, gates de validation et test TDD de la vague.",
+      "as_of": "2026-08"
+    },
+    {
+      "name": "social-listening-be",
+      "trigger": "le solopreneur belge veut surveiller sa réputation en ligne, suivre des concurrents, ou repérer des sujets de contenu via les réseaux sociaux — en méthodes 100% légales : APIs officielles, alertes, RSS, exports manuels",
+      "role": "Jamais de scraping, contournement de CAPTCHA, ou collecte non autorisée.",
+      "as_of": "2026-07"
+    }
+  ]
+}

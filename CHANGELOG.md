@@ -9,6 +9,13 @@ et ce projet adhère au [Versionnage sémantique](https://semver.org/lang/fr/).
 
 ### Ajouté
 
+- **Architecture Enterprise 2.0 (Améliorations Finales 6 à 10)** :
+  - **Micro-moteur SQLite KBO / BCE Hors-Ligne** : Module `kbo_db.py`, script d'indexation `build_bce_index.py` et outil MCP `search_bce_by_name` permettant la recherche instantanée (< 1 ms) d'entreprises belges sans quota ni dépendance réseau.
+  - **Watchdog de Dérive Réglementaire** : Script d'audit `scripts/regulatory_monitor.py` et workflow GitHub Actions `.github/workflows/regulatory-monitor.yml` surveillant automatiquement les seuils légaux du dépôt contre les sources officielles du Moniteur Belge et SPF Finances.
+  - **Context Engineering à Deux Niveaux & Prompt-Caching** : Script `scripts/build_lite_catalog.py` générant `catalog_lite.json` (~2 300 tokens), outil MCP `load_skill_context` pour chargement on-demand (Tier 2), et guide d'optimisation de cache de préfixe (`.agents/CONTEXT_OPTIMIZATION.md`).
+  - **Vault RGPD & Mémoire Épistémique Locale** : Module `agency/vault.py` et outils MCP (`vault_save_client`, `vault_get_client`, `vault_list_clients`, `vault_delete_client`) isolés hors-dépôt (`~/.agency/vault/`) avec conformité stricte APD / droit à l'oubli.
+  - **CLI Solopreneur Zéro-Config** : Package exécutable `python -m agency` avec commandes dédiées `bce` (Modulo 97 + KBO), `inasti` (simulation cotisations trimestrielles), `deadlines` (calendrier fiscal dynamique), `check-client` (audit 3-en-1 BCE/VIES/Peppol) et `vault`.
+
 - **Architecture Enterprise 2.0 (Top 5 Améliorations Critiques)** :
   - **Spécification MCP 2024-11-05 complète** : Ajout des endpoints `resources/list`, `resources/read`, `prompts/list`, et `prompts/get`. Fournit 3 URIs métier belges (`belgian-tax://2026/rates`, `inasti://2026/brackets`, `cir92://deductibility/rules`) et 2 templates de prompts guidés (`audit_client_peppol`, `prepare_quarterly_tax_closing`).
   - **Moteur Peppol BIS 3.0 UBL 2.1 XML natif** : Générateur pur Python (`generate_peppol_ubl`) conforme EN 16931 et validateur Schematron/mathématique (`validate_peppol_ubl`) garantissant la conformité fiscale Peppol obligatoire en Belgique.

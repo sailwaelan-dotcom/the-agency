@@ -34,27 +34,30 @@ The agency/
 ├── SECURITY.md                # Règles non négociables (leaks, scraping, disclaimers)
 ├── INDEX.md                   # Catalogue des skills (généré — ne pas éditer à la main)
 ├── catalog.json               # Le même catalogue, machine-readable
+├── agency/                    # ← Package Core, CLI Solopreneur & Vault RGPD local
 ├── mcp/                       # ← Serveur Model Context Protocol & APIs belges (agency-be-mcp)
-│   ├── servers/agency_be/     #   outils Modulo 97, calendrier fiscal, INASTI, VIES, Peppol
+│   ├── servers/agency_be/     #   13 outils, 3 resources, 2 prompts, guardrails
 │   └── configs/               #   fichiers de config (Claude Code, Cursor, Hermes, Kilocode)
 ├── .agents/
+│   ├── catalog_lite.json      #   catalogue léger Tier 1 (~2 300 tokens)
+│   ├── schemas/               #   schémas A2A JSON v1 (quote_draft, contract_terms, invoice_event)
+│   ├── workflows/             #   machine à états A2A (a2a_pipeline.md)
 │   ├── skills/                # ← les skills (canonique)
-│   │   ├── _template/         #   squelette à copier pour contribuer
-│   │   ├── be-business-plan/
-│   │   └── …
 │   └── agents/                # personas métier (dont `agency-operator`, l'orchestrateur)
 ├── adapters/
 │   ├── link-skills.sh         # symlinks vers .claude/.cursor/.hermes/.kilocode
 │   └── link-skills.ps1        # junctions Windows (sans droits admin)
+├── evals/                     # ← Suite EDD : 40 cas d'or réglementaires belges & runner
 ├── scripts/
 │   ├── validate_skills.py     # validation structurelle (frontmatter, sections, disclaimer)
 │   ├── security_scan.py       # scan anti-leak (secrets, chemins, injection, exfiltration)
 │   ├── check_related_links.py # vérifie que tous les related_skills résolvent
 │   ├── build_index.py         # régénère INDEX.md + catalog.json (--check pour la CI)
-│   ├── freshness_report.py    # rapport de fraîcheur réglementaire des as_of
+│   ├── build_bce_index.py     # indexation locale KBO / BCE Open Data SQLite
+│   ├── regulatory_monitor.py  # watchdog de dérive réglementaire
 │   └── check_doc_sync.py      # chiffres du README synchronisés + copies harness non trackées
 ├── examples/                  # walkthroughs de sorties réelles (anonymisées)
-└── tests/                     # selftests, TDD par vague, E2E, activation sémantique
+└── tests/                     # suites complètes de tests unitaires, TDD et E2E
 ```
 
 ## Installation dans ton harness

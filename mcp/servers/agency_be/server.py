@@ -12,11 +12,26 @@ from agency_be.prompts import get_server_prompts, handle_get_prompt
 from agency_be.resources import get_server_resources, handle_read_resource
 from agency_be.tools.bce import validate_bce_number
 from agency_be.tools.inasti import calc_inasti_provision
+from pathlib import Path
+
 from agency_be.tools.peppol import lookup_peppol_participant
 from agency_be.tools.tax_calendar import get_be_tax_calendar
 from agency_be.tools.ubl_generator import generate_peppol_ubl_xml
 from agency_be.tools.ubl_validator import validate_peppol_ubl_xml
 from agency_be.tools.vies import check_vat_vies
+from agency_be.tools.kbo_db import search_bce_by_name, lookup_bce_offline
+
+REPO_ROOT = Path(__file__).resolve().parent.parent.parent.parent
+SKILLS_DIR = REPO_ROOT / ".agents" / "skills"
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
+
+from agency.vault import (
+    save_client as vault_save_client,
+    get_client as vault_get_client,
+    list_clients as vault_list_clients,
+    delete_client as vault_delete_client,
+)
 
 SERVER_INFO = {
     "name": "agency-be-mcp",
@@ -184,6 +199,113 @@ def get_server_tools() -> List[Dict[str, Any]]:
                 "required": ["xml_content"],
             },
         },
+        {
+            "name": "search_bce_by_name",
+            "description": (
+                "Recherche ultra-rapide (< 1 ms) d'entreprises belges dans la base KBO locale par dénomination, "
+                "code postal ou statut d'activité, sans quota réseau ni latence."
+            ),
+            "inputSchema": {
+                "type": "object",
+                "properties": {
+                    "query": {
+                        "type": "string",
+                        "description": "Nom ou partie du nom de l'entreprise belge.",
+                    },
+                    "postal_code": {
+                        "type": "string",
+                        "description": "Code postal belge optionnel (ex: 1000, 4000, 9000).",
+                    },
+                    "limit": {
+                        "type": "integer",
+                        "description": "Nombre maximal d'entreprises à retourner (défaut: 5).",
+                        "default": 5,
+                    },
+                },
+                "required": ["query"],
+            },
+        },
+        {
+            "name": "load_skill_context",
+            "description": (
+                "Charge à la demande (Tier 2 Progressive Disclosure) le contenu complet et les consignes d'un skill "
+                "de l'agence (.agents/skills/<name>/SKILL.md) pour optimiser le prompt caching et économiser les tokens."
+            ),
+            "inputSchema": {
+                "type": "object",
+                "properties": {
+                    "skill_name": {
+                        "type": "string",
+                        "description": "Identifiant exact du skill (ex: be-invoicing-peppol, be-devis-quotes, be-accounting-basics).",
+                    }
+                },
+                "required": ["skill_name"],
+            },
+        },
+        {
+            "name": "vault_save_client",
+            "description": (
+                "Enregistre ou met à jour une fiche client dans le coffre-fort local RGPD hors-dépôt (~/.agency/vault/)."
+            ),
+            "inputSchema": {
+                "type": "object",
+                "properties": {
+                    "client_data": {
+                        "type": "object",
+                        "description": "Données client : bce_number (requis), name, vat_regime, payment_terms_days, notes.",
+                    }
+                },
+                "required": ["client_data"],
+            },
+        },
+        {
+            "name": "vault_get_client",
+            "description": (
+                "Récupère une fiche client par son numéro BCE depuis le coffre-fort local RGPD."
+            ),
+            "inputSchema": {
+                "type": "object",
+                "properties": {
+                    "bce_number": {
+                        "type": "string",
+                        "description": "Numéro d'entreprise BCE à 10 chiffres.",
+                    }
+                },
+                "required": ["bce_number"],
+            },
+        },
+        {
+            "name": "vault_list_clients",
+            "description": (
+                "Liste les fiches clients enregistrées dans le coffre-fort local RGPD."
+            ),
+            "inputSchema": {
+                "type": "object",
+                "properties": {
+                    "limit": {
+                        "type": "integer",
+                        "description": "Nombre maximal de fiches clients à retourner (défaut: 50).",
+                        "default": 50,
+                    }
+                },
+            },
+        },
+        {
+            "name": "vault_delete_client",
+            "description": (
+                "Supprime définitivement un client du coffre-fort local (Droit à l'oubli / RGPD)."
+            ),
+            "inputSchema": {
+                "type": "object",
+                "properties": {
+                    "bce_number": {
+                        "type": "string",
+                        "description": "Numéro d'entreprise BCE à 10 chiffres à effacer.",
+                    }
+                },
+                "required": ["bce_number"],
+            },
+        },
     ]
 
 
@@ -236,6 +358,45 @@ def handle_call_tool(name: str, arguments: Dict[str, Any]) -> Any:
         xml_content = arguments.get("xml_content", "")
         res = validate_peppol_ubl_xml(xml_content)
         return sanitize_postflight(res)
+
+    if name == "search_bce_by_name":
+        query = arguments.get("query", "")
+        postal_code = arguments.get("postal_code")
+        limit = int(arguments.get("limit", 5))
+        res = search_bce_by_name(query=query, postal_code=postal_code, limit=limit)
+        return sanitize_postflight(res)
+
+    if name == "load_skill_context":
+        skill_name = arguments.get("skill_name", "")
+        clean_name = skill_name.strip()
+        skill_file = SKILLS_DIR / clean_name / "SKILL.md"
+        if not skill_file.exists():
+            raise ValueError(f"Skill '{clean_name}' introuvable dans .agents/skills/")
+        res = {
+            "skill_name": clean_name,
+            "content": skill_file.read_text(encoding="utf-8"),
+        }
+        return sanitize_postflight(res)
+
+    if name == "vault_save_client":
+        client_data = arguments.get("client_data", {})
+        res = vault_save_client(client_data)
+        return sanitize_postflight(res)
+
+    if name == "vault_get_client":
+        bce_number = arguments.get("bce_number", "")
+        res = vault_get_client(bce_number)
+        return sanitize_postflight(res)
+
+    if name == "vault_list_clients":
+        limit = int(arguments.get("limit", 50))
+        res = vault_list_clients(limit=limit)
+        return sanitize_postflight(res)
+
+    if name == "vault_delete_client":
+        bce_number = arguments.get("bce_number", "")
+        deleted = vault_delete_client(bce_number)
+        return sanitize_postflight({"bce_number": bce_number, "deleted": deleted})
 
     raise ValueError(f"Outil inconnu : {name}")
 

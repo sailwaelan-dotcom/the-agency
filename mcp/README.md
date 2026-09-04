@@ -27,6 +27,12 @@ Le serveur `agency-be-mcp` résout ces problèmes en injectant des **outils dét
 | `lookup_peppol_participant` | API REST | OpenPeppol Directory | Vérification de l'enregistrement d'un numéro d'entreprise pour la réception de factures électroniques Peppol. |
 | `generate_peppol_ubl` | Local (offline) | Norme EN 16931 | Génération d'une facture électronique structurée au format Peppol BIS Billing 3.0 (UBL 2.1 XML). |
 | `validate_peppol_ubl` | Local (offline) | Peppol Schematron | Audit de conformité Schematron d'un fichier XML UBL (CustomizationID, identifiants 0208, réconciliation mathématique). |
+| `search_bce_by_name` | Local (offline) | KBO SQLite | Recherche sub-milliseconde d'entreprises belges dans la base SQLite locale par nom ou code postal. |
+| `load_skill_context` | Local (offline) | The Agency | Chargement on-demand (Tier 2 Context) du corps complet d'un skill pour économiser les tokens. |
+| `vault_save_client` | Local (offline) | Agency Vault | Sauvegarde ou mise à jour sécurisée d'une fiche client dans le coffre-fort local RGPD (`~/.agency/vault/`). |
+| `vault_get_client` | Local (offline) | Agency Vault | Récupération d'une fiche client par numéro BCE depuis le coffre-fort local. |
+| `vault_list_clients` | Local (offline) | Agency Vault | Liste des clients enregistrés dans le coffre local. |
+| `vault_delete_client` | Local (offline) | APD / RGPD | Suppression définitive d'une fiche client (exercice du droit à l'oubli). |
 
 ---
 

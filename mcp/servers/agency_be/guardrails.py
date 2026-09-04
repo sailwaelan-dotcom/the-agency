@@ -21,9 +21,11 @@ def validate_preflight(tool_name: str, arguments: Dict[str, Any]) -> Tuple[bool,
     Bloque toute opération basée sur un numéro d'entreprise mathématiquement erroné
     ou un taux fiscal non légal en Belgique.
     """
-    # 1. Vérification du numéro BCE pour les outils opérationnels (lookup Peppol, VIES)
-    if tool_name in {"lookup_peppol_participant", "check_vat_vies"}:
+    # 1. Vérification du numéro BCE pour les outils opérationnels (lookup Peppol, VIES, Vault)
+    if tool_name in {"lookup_peppol_participant", "check_vat_vies", "vault_save_client", "vault_get_client", "vault_delete_client"}:
         bce_input = arguments.get("bce_number") or arguments.get("vat_number")
+        if not bce_input and tool_name == "vault_save_client" and isinstance(arguments.get("client_data"), dict):
+            bce_input = arguments.get("client_data", {}).get("bce_number")
         if bce_input and isinstance(bce_input, str):
             clean_bce = re.sub(r"^(?i:BE)", "", bce_input.strip())
             raw_digits = re.sub(r"[^0-9]", "", clean_bce)

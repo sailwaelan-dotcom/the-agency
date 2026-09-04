@@ -1,0 +1,22 @@
+name: regulatory-monitor
+
+on:
+  schedule:
+    # Tous les lundis à 08h00 UTC
+    - cron: '0 8 * * 1'
+  workflow_dispatch:
+
+jobs:
+  monitor:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Exécution du Watchdog de dérive réglementaire
+        run: python scripts/regulatory_monitor.py
