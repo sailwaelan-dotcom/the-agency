@@ -26,6 +26,7 @@ la section "When to Use") et vérifier qu'un agent charge le bon skill.
 | `social-listening-be` | « Je veux savoir ce qu'on dit de moi en ligne » | « Comment suivre mes concurrents sur LinkedIn ? » | « Je cherche des sujets de contenu pour mon secteur » |
 | `secretary-ops` | « Je passe mes matinées dans ma boîte mail » | « J'ai raté une échéance administrative » | « Je cherche un document pendant 20 minutes » |
 | `activate-agency` | « Je viens d'installer The Agency, par où commencer ? » | « Quels skills sont faits pour moi ? » | « Personnalise l'agence pour mon activité » |
+| `be-devis-quotes` | « Je dois envoyer un devis à un prospect » | « Comment je tarife ma prestation ? » | « Mon client a validé le devis, je fais quoi maintenant ? » |
 
 **Résultat attendu** : chaque requête charge le skill correspondant (ou un agent persona
 qui le charge en cascade).

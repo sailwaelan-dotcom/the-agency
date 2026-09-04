@@ -96,7 +96,7 @@ le skill `activate-agency` conduit l'onboarding (interview 8 questions, profil p
 | 📡 Veille | `social-listening-be` (lawful only : APIs officielles, RSS, exports manuels), `be-competitor-watch` |
 | 🗂 Ops & secrétariat | `secretary-ops`, `be-admin-deadlines` |
 | 🔍 Fact-check & sourcing | `fact-check-sourcing` |
-| 💼 Vente & prospection | `be-sales-outreach` |
+| 💼 Vente & prospection | `be-devis-quotes` (chiffrage, devis → facture), `be-sales-outreach` |
 | 📊 Modélisation financière | `be-financial-modeling` |
 | 📝 Contrats & légal | `be-contracts-legal` |
 | 🛠 Meta & maintenance | `activate-agency` (onboarding et personnalisation), `skill-forge` (créer un skill conforme), `agency-doc-keeper` (tenir la doc à jour) |
@@ -117,9 +117,9 @@ Dépendance de dev unique : `pip install -r requirements.txt` (PyYAML).
 Les gates tournent en CI sur chaque push/PR (`.github/workflows/ci.yml`) :
 
 ```bash
-python scripts/validate_skills.py       # 21/21 skills valides
+python scripts/validate_skills.py       # 22/22 skills valides
 python scripts/security_scan.py         # 0 leak bloquant
-python scripts/check_related_links.py   # 61 liens, 0 morts
+python scripts/check_related_links.py   # 64 liens, 0 morts
 python scripts/build_index.py --check   # INDEX.md + catalog.json à jour
 python scripts/check_doc_sync.py        # chiffres du README + copies harness non trackées
 python scripts/freshness_report.py      # fraîcheur réglementaire (seuil 6 mois)
@@ -133,10 +133,11 @@ python tests/test_factcheck_tdd.py       # 10/10 tests fact-check-sourcing
 python tests/test_vague3_tdd.py          # 18/18 tests vague 3
 python tests/test_vague4_tdd.py          # tests vague 4 (skill-forge, agency-doc-keeper)
 python tests/test_vague5_tdd.py          # tests vague 5 (activate-agency)
+python tests/test_vague6_tdd.py          # tests vague 6 (be-devis-quotes)
 python tests/test_build_index.py         # auto-tests build_index
 python tests/test_freshness_report.py    # auto-tests freshness_report
 python tests/test_doc_sync.py            # auto-tests check_doc_sync
-python tests/test_activation.py          # 39/39 scénarios d'activation sémantique
+python tests/test_activation.py          # 42/42 scénarios d'activation sémantique
 python tests/test_e2e.py                 # 26/26 tests E2E workflow
 ```
 
@@ -147,10 +148,10 @@ Scénarios d'activation sémantique : voir [tests/ACTIVATION.md](tests/ACTIVATIO
 The Agency est un outil **open source** (MIT) que vous pouvez proposer à vos bénéficiaires :
 
 ### Valeur ajoutée pour vos entrepreneurs
-- **21 skills** couvrant tout le cycle d'entrepreneuriat (R&D, finance, admin, contenu, veille, prospection, contrats), avec un onboarding guidé (`activate-agency`) qui personnalise l'outil en une session
+- **22 skills** couvrant tout le cycle d'entrepreneuriat (R&D, finance, admin, contenu, veille, prospection, contrats), avec un onboarding guidé (`activate-agency`) qui personnalise l'outil en une session
 - **Harness-agnostic** : fonctionne sur ChatGPT, Mistral, Claude, Cursor, Gemini — pas de lock-in
 - **Données belges sourcées** : chaque chiffre a un `as_of` et une source officielle (SPF Finances, INASTI, BCE, VLAIO…), avec veille de fraîcheur automatisée en CI
-- **Vérifié en CI** : 11 suites de tests automatisées (structure des skills, cohérence documentaire, activation sémantique) et un scan anti-leak (0 fuite bloquante). Les tests valident la structure et la cohérence, pas la qualité des sorties : jugez sur pièce avec [examples/](examples/)
+- **Vérifié en CI** : 12 suites de tests automatisées (structure des skills, cohérence documentaire, activation sémantique) et un scan anti-leak (0 fuite bloquante). Les tests valident la structure et la cohérence, pas la qualité des sorties : jugez sur pièce avec [examples/](examples/)
 - **Gratuit** : licence MIT, réutilisable, modifiable
 
 ### Comment intégrer

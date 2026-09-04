@@ -1,7 +1,7 @@
 # Index des skills — The Agency
 
 > Généré par scripts/build_index.py — ne pas éditer à la main.
-> Généré le 2026-09-03 — 21 skills.
+> Généré le 2026-09-04 — 22 skills.
 
 ## admin
 
@@ -62,4 +62,5 @@
 
 | Skill | Déclencheur | as_of | Skills liés |
 |---|---|---|---|
+| [be-devis-quotes](.agents/skills/be-devis-quotes/SKILL.md) | Utilisez quand le solopreneur belge doit chiffrer et envoyer un devis : tarification (TJM, forfait, par phase), structu… | 2026-09 | be-sales-outreach, be-invoicing-peppol, be-contracts-legal |
 | [be-sales-outreach](.agents/skills/be-sales-outreach/SKILL.md) | Utilisez quand le solopreneur belge doit structurer sa prospection B2B : cold outreach (email, LinkedIn), qualification… | 2026-07 | be-market-research, be-competitor-watch, content-engine-be, brand-voice-solopreneur |

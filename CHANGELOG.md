@@ -9,6 +9,13 @@ et ce projet adhère au [Versionnage sémantique](https://semver.org/lang/fr/).
 
 ### Ajouté
 
+- Skill `be-devis-quotes` : chiffrage et suivi des devis belges — tarification
+  par phases (TJM/forfait), mentions obligatoires (BCE, TVA, validité, acompte),
+  numérotation séquentielle, relances J+7/J+14, passage devis signé → facture Peppol.
+- Persona `deviseur-be` : combine devis, vente, facturation Peppol et contrats ;
+  prépare des fourchettes argumentées, ne fixe jamais le prix final.
+- Tests TDD vague 6 (`test_vague6_tdd.py`, 9 familles) et 3 scénarios d'activation
+  pour `be-devis-quotes` (42 scénarios au total).
 - CI GitHub Actions (`gates`) : validation des skills, scan anti-leak, vérification
   des liens `related_skills` et exécution de tous les tests sur chaque push et PR.
 - Workflow mensuel de fraîcheur (`freshness`) : détecte les skills dont le marqueur
