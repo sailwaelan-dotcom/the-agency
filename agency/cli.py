@@ -10,12 +10,9 @@ import sys
 from pathlib import Path
 from typing import Optional
 
-REPO_ROOT = Path(__file__).resolve().parent.parent
-SERVERS_DIR = REPO_ROOT / "mcp" / "servers"
-if str(SERVERS_DIR) not in sys.path:
-    sys.path.insert(0, str(SERVERS_DIR))
-if str(REPO_ROOT) not in sys.path:
-    sys.path.insert(0, str(REPO_ROOT))
+from agency.bootstrap import setup_environment
+
+REPO_ROOT, APP_DIR = setup_environment()
 
 from agency_be.tools.bce import validate_bce_number
 from agency_be.tools.inasti import calc_inasti_provision
@@ -180,6 +177,18 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main():
+    if len(sys.argv) == 1:
+        from agency.menu import launch_interactive_menu
+        launch_interactive_menu()
+        return
+
+    # Route dédiée au serveur MCP stdio : c'est elle que la config MCP de l'exe
+    # gelé référence (command=TheAgency.exe, args=["mcp"], voir install.py).
+    if sys.argv[1] == "mcp":
+        from agency_be.server import run_stdio_server
+        run_stdio_server()
+        return
+
     parser = build_parser()
     args = parser.parse_args()
 

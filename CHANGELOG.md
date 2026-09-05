@@ -9,6 +9,14 @@ et ce projet adhère au [Versionnage sémantique](https://semver.org/lang/fr/).
 
 ### Ajouté
 
+- **Onboarding Zéro-Friction & Exécutable Windows Autonome (`TheAgency.exe`)** :
+  - **Exécutable Windows autonome (`TheAgency.exe`)** : Binaire autonome PyInstaller (10 Mo) intégrant l'environnement d'exécution, le moteur BCE/KBO, le simulateur INASTI et le générateur Peppol UBL sans nécessiter Python sur le poste client.
+  - **Menu interactif Solopreneur (`agency/menu.py`)** : TUI console guidée (6 modules métier) avec gestion automatique de l'encodage UTF-8 sous console Windows (`CP1252`), exécutable directement au double-clic via `Lancer_The_Agency.cmd`.
+  - **Installateur auto-configurant multi-harness (`install.py`, `install.ps1`, `install.sh`)** : Détection automatique des installations Claude Desktop (Windows `%APPDATA%/Claude`, macOS, Linux), Cursor et Claude Code, avec injection et fusion non destructrice du serveur MCP `agency-be-mcp`.
+  - **Assistant d'installation Windows classique (`installer.iss`)** : Script de compilation Inno Setup générant `TheAgency-Setup.exe` avec raccourci sur le Bureau et désinstallateur.
+  - **CI de compilation Windows (`.github/workflows/build-exe.yml`)** : Workflow GitHub Actions automatisant le packaging binaire et la création de releases avec artefacts téléchargeables.
+  - **Tests unitaires dédiés (`tests/test_installer.py`)** : Validation de la génération de configuration MCP (mode développement et mode gelé), de la résolution des chemins applicatifs, de la préservation des serveurs tiers existants, du routage CLI `mcp` et de la TUI console (18 tests).
+
 - **Architecture Enterprise 2.0 (Améliorations Finales 6 à 10)** :
   - **Micro-moteur SQLite KBO / BCE Hors-Ligne** : Module `kbo_db.py`, script d'indexation `build_bce_index.py` et outil MCP `search_bce_by_name` permettant la recherche instantanée (< 1 ms) d'entreprises belges sans quota ni dépendance réseau.
   - **Watchdog de Dérive Réglementaire** : Script d'audit `scripts/regulatory_monitor.py` et workflow GitHub Actions `.github/workflows/regulatory-monitor.yml` surveillant automatiquement les seuils légaux du dépôt contre les sources officielles du Moniteur Belge et SPF Finances.
@@ -60,12 +68,45 @@ et ce projet adhère au [Versionnage sémantique](https://semver.org/lang/fr/).
 
 ### Modifié
 
+- `launcher.py` délègue tout le routage au CLI (`agency.cli`) : menu interactif
+  sans argument, sous-commandes métier, et nouvelle route `mcp` (serveur stdio)
+  empruntée par la configuration MCP de l'exe gelé.
+- `agency/bootstrap.py` centralise l'initialisation (UTF-8 console Windows,
+  résolution des bundles PyInstaller, `sys.path`) partagée par `cli.py`,
+  `menu.py`, `launcher.py` et `install.py` — plus de blocs dupliqués.
+- L'option [7] du menu (raccourci Bureau) délègue à `install.create_desktop_shortcut`
+  (une seule implémentation, correcte en mode gelé et en mode développement).
+- `TheAgency.spec` (artefact PyInstaller régénéré à chaque build local) est
+  ignoré par git ; le build de référence reste `scripts/build_exe.py`.
 - `fact-check-sourcing` v3.1.0 : section « Adaptation par plateforme » dédupliquée
   (une table au lieu de 4 blocs identiques) et patterns d'intégration condensés —
   même méthodologie, un tiers de moins à lire.
 
 ### Corrigé
 
+- **Mode exe gelé (`TheAgency.exe`) fonctionnel de bout en bout** : la config MCP
+  générée depuis l'exe référence désormais la route `mcp` de l'exe lui-même
+  (au lieu d'un chemin `server.py` dans le dossier temporaire `_MEIPASS` détruit
+  à la sortie) ; les configs Cursor / Claude Code sont écrites à côté de l'exe ;
+  le raccourci Bureau cible l'exe réel.
+- L'option [4] du menu (facture Peppol UBL) lit les bonnes clés retournées par
+  `generate_peppol_ubl_xml` — elle plantait systématiquement (`KeyError`) — et
+  écrit le XML dans le répertoire courant de l'utilisateur, jamais dans le
+  dossier temporaire du bundle.
+- `Lancer_The_Agency.cmd` : expansion retardée de `ERRORLEVEL` — la détection
+  `py` en repli de `python` fonctionnait mal (message « Python n'est pas
+  installé » même quand `py` existait).
+- `install.ps1` utilise l'interpréteur détecté (`python` ou `py`) au lieu de
+  hardcoder `python`.
+- `install.py` : le statut `[✓ Activé] / [✗ Échec]` de la liaison des skills
+  reflète le code de retour réel des adaptateurs (échec silencieux supprimé).
+- `scripts/build_exe.py` : sortie immédiate (`sys.exit(1)`) hors Windows ;
+  `adapters/` embarqué dans le bundle ; chemins `--add-data` relatifs.
+- Saisies numériques du menu protégées (`prompt_float` : virgule française
+  acceptée, re-saisie en cas d'erreur, refus des négatifs).
+- Mentions `as_of` et disclaimers comptables ajoutés aux sorties INASTI,
+  échéancier fiscal et facture Peppol du menu ; « CALCUL LÉGAL » renommé
+  « SIMULATION » (information générale, pas un conseil personnalisé).
 - Réparation de la distribution harness via les adapters (`link-skills.sh` /
   `link-skills.ps1`).
 - Les copies harness (.claude/.cursor/.hermes/.kilocode) sont dé-trackées : le

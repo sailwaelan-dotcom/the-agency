@@ -1,0 +1,47 @@
+name: build-windows-installer
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+jobs:
+  build-exe:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Installer PyInstaller
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install pyinstaller
+
+      - name: Compiler TheAgency.exe autonome
+        run: python scripts/build_exe.py
+
+      - name: Installer Inno Setup
+        run: choco install innosetup --no-progress
+
+      - name: Compiler l'Assistant d'Installation Windows (TheAgency-Setup.exe)
+        run: |
+          $isccPath = "C:\Program Files (x86)\Inno Setup 6\ISCC.exe"
+          if (-not (Test-Path $isccPath)) {
+            $isccCmd = Get-Command iscc -ErrorAction SilentlyContinue
+            if ($isccCmd) { $isccPath = $isccCmd.Source }
+          }
+          & "$isccPath" installer.iss
+
+      - name: Téléverser les exécutables Windows
+        uses: actions/upload-artifact@v4
+        with:
+          name: TheAgency-Windows-Package
+          path: |
+            dist/TheAgency.exe
+            dist/TheAgency-Setup.exe

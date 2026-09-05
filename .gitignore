@@ -8,7 +8,11 @@ node_modules/
 __pycache__/
 .DS_Store
 Thumbs.db
-.claude/skills/
-.cursor/skills/
-.hermes/skills/
-.kilocode/skills/
+.claude/
+.cursor/
+.hermes/
+.kilocode/
+build/
+dist/
+*.exe
+*.spec

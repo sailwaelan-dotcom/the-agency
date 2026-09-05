@@ -60,7 +60,39 @@ The agency/
 └── tests/                     # suites complètes de tests unitaires, TDD et E2E
 ```
 
-## Installation dans ton harness
+## Démarrage Rapide & Installation Zéro-Friction 🚀
+
+Pour les indépendants et solopreneurs (techniques ou non), The Agency propose une mise en route instantanée sans manipulation complexe de fichiers JSON :
+
+### 1. Exécutable Windows autonome (`TheAgency.exe`) — Zéro Python requis
+Idéal pour les utilisateurs Windows ne disposant pas d'environnement de développement :
+- **Application autonome** : `TheAgency.exe` embarque son propre runtime isolé.
+- **Menu interactif guidé** : double-cliquez sur `TheAgency.exe` ou `Lancer_The_Agency.cmd` pour ouvrir la console interactive (audit BCE/TVA/Peppol, simulateur INASTI, échéances fiscales, facture Peppol UBL 2.1, coffre RGPD).
+- **Assistant d'installation Windows classique** : script `installer.iss` (Inno Setup) créant un installeur standard `TheAgency-Setup.exe` avec raccourci sur le Bureau et désinstalleur propre.
+- **Compilateur CI** : workflow GitHub Actions (`.github/workflows/build-exe.yml`) automatisant la création des binaires Windows à chaque release.
+
+### 2. Installateur 1-Clic Auto-Configurant (Claude Desktop, Cursor, Claude Code)
+Une commande unique détecte vos applications IA et fusionne la configuration du serveur MCP belge (`agency-be-mcp`) :
+
+```powershell
+# Windows (PowerShell)
+powershell -ExecutionPolicy Bypass -File install.ps1
+```
+
+```bash
+# macOS / Linux
+bash install.sh
+```
+
+Ce script automatisé :
+1. Détecte la présence de **Claude Desktop** (`%APPDATA%\Claude\claude_desktop_config.json` ou `~/Library/Application Support/Claude`), **Cursor** et **Claude Code**.
+2. Injecte et fusionne le serveur MCP `agency-be-mcp` sans écraser vos configurations existantes.
+3. Crée les liens symboliques vers les 22 skills du dépôt.
+4. Initialise la base d'entreprises KBO SQLite locale et le coffre-fort RGPD sécurisé (`~/.agency/vault/`).
+
+---
+
+## Installation manuelle dans ton harness
 
 Les liens `.claude/skills/`, `.cursor/skills/`, `.hermes/skills/`, `.kilocode/skills/` ne sont
 **pas commités** (gitignorés) : ils se créent après le clone, en une commande.
