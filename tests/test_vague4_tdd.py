@@ -19,6 +19,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "scripts"))
 import validate_skills  # noqa: E402
 import security_scan  # noqa: E402
+from tdd_common import check, parametrize_skills  # noqa: E402
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 SKILLS_DIR = REPO_ROOT / ".agents" / "skills"
@@ -44,11 +45,6 @@ VAGUE4_SKILLS = {
 }
 
 
-def check(label: str, condition: bool, detail: str = ""):
-    if not condition:
-        FAILURES.append(f"FAIL {label}: {detail}")
-
-
 def read_skill(name: str) -> str:
     return (SKILLS_DIR / name / "SKILL.md").read_text(encoding="utf-8")
 
@@ -63,6 +59,7 @@ def parse_frontmatter(content: str) -> dict:
 
 
 # === T1 : Le skill existe ===
+@parametrize_skills("name", list(VAGUE4_SKILLS))
 def test_skill_exists(name: str):
     skill_md = SKILLS_DIR / name / "SKILL.md"
     check(f"{name}-exists", skill_md.exists(),
@@ -70,6 +67,7 @@ def test_skill_exists(name: str):
 
 
 # === T2 : Frontmatter valide ===
+@parametrize_skills("name", list(VAGUE4_SKILLS))
 def test_frontmatter(name: str):
     skill_md = SKILLS_DIR / name / "SKILL.md"
     if not skill_md.exists():
@@ -108,6 +106,7 @@ def test_frontmatter(name: str):
 
 
 # === T3 : Sections obligatoires ===
+@parametrize_skills("name", list(VAGUE4_SKILLS))
 def test_required_sections(name: str):
     skill_md = SKILLS_DIR / name / "SKILL.md"
     if not skill_md.exists():
@@ -125,6 +124,7 @@ def test_required_sections(name: str):
 
 
 # === T4 : related_skills qui résolvent ===
+@parametrize_skills("name", list(VAGUE4_SKILLS))
 def test_related_skills_resolve(name: str):
     skill_md = SKILLS_DIR / name / "SKILL.md"
     if not skill_md.exists():
@@ -139,6 +139,7 @@ def test_related_skills_resolve(name: str):
 
 
 # === T5 : Contenu métier attendu ===
+@parametrize_skills("name", list(VAGUE4_SKILLS))
 def test_domain_content(name: str):
     skill_md = SKILLS_DIR / name / "SKILL.md"
     if not skill_md.exists():
@@ -151,6 +152,7 @@ def test_domain_content(name: str):
 
 
 # === T6 : Passe le validateur du repo ===
+@parametrize_skills("name", list(VAGUE4_SKILLS))
 def test_skill_passes_validator(name: str):
     skill_dir = SKILLS_DIR / name
     if not (skill_dir / "SKILL.md").exists():
@@ -162,6 +164,7 @@ def test_skill_passes_validator(name: str):
 
 
 # === T7 : Passe le scanner de sécurité (aucun finding BLOCK) ===
+@parametrize_skills("name", list(VAGUE4_SKILLS))
 def test_skill_passes_security_scan(name: str):
     skill_md = SKILLS_DIR / name / "SKILL.md"
     if not skill_md.exists():
@@ -173,21 +176,23 @@ def test_skill_passes_security_scan(name: str):
           f"findings bloquants: {blocks[:3]}")
 
 
-# === Exécution ===
+# === Exécution directe (mode CI « gates » : python tests/test_vague4_tdd.py) ===
+TESTS = (test_skill_exists, test_frontmatter, test_required_sections,
+         test_related_skills_resolve, test_domain_content,
+         test_skill_passes_validator, test_skill_passes_security_scan)
+
 if __name__ == "__main__":
     for skill_name in VAGUE4_SKILLS:
-        test_skill_exists(skill_name)
-        test_frontmatter(skill_name)
-        test_required_sections(skill_name)
-        test_related_skills_resolve(skill_name)
-        test_domain_content(skill_name)
-        test_skill_passes_validator(skill_name)
-        test_skill_passes_security_scan(skill_name)
+        for test_fn in TESTS:
+            try:
+                test_fn(skill_name)
+            except AssertionError as e:
+                FAILURES.append(f"FAIL {e}")
 
-    total_checks = len(VAGUE4_SKILLS) * 7
+    total_checks = len(VAGUE4_SKILLS) * len(TESTS)
     if FAILURES:
         print(f"RED — {len(FAILURES)} échec(s) sur {len(VAGUE4_SKILLS)} skills "
-              f"x {total_checks // len(VAGUE4_SKILLS)} familles de tests (attendu en TDD):")
+              f"x {len(TESTS)} familles de tests (attendu en TDD):")
         for f in FAILURES:
             print(f"  {f}")
         sys.exit(1)

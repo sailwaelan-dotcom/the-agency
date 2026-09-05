@@ -84,6 +84,12 @@ et ce projet adhère au [Versionnage sémantique](https://semver.org/lang/fr/).
 
 ### Corrigé
 
+- Les suites TDD « par vagues » (`test_vague3/4/5_tdd.py`) sont exécutables
+  sous pytest comme en direct : familles paramétrées par skill via le helper
+  partagé `tests/tdd_common.py` (import pytest gardé — le CI n'installe pas
+  pytest), et `check()` lève désormais une `AssertionError` au lieu
+  d'accumuler silencieusement (un échec silencieux aurait été un faux vert
+  sous pytest). 42 items pytest, plus aucun faux positif.
 - **Mode exe gelé (`TheAgency.exe`) fonctionnel de bout en bout** : la config MCP
   générée depuis l'exe référence désormais la route `mcp` de l'exe lui-même
   (au lieu d'un chemin `server.py` dans le dossier temporaire `_MEIPASS` détruit

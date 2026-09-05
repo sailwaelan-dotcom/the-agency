@@ -8,6 +8,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "scripts"))
 import validate_skills  # noqa: E402
+from tdd_common import check, parametrize_skills  # noqa: E402
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 SKILLS_DIR = REPO_ROOT / ".agents" / "skills"
@@ -22,17 +23,14 @@ VAGUE3_SKILLS = [
 ]
 
 
-def check(label: str, condition: bool, detail: str = ""):
-    if not condition:
-        FAILURES.append(f"FAIL {label}: {detail}")
-
-
+@parametrize_skills("name", VAGUE3_SKILLS)
 def test_skill_exists(name: str):
     skill_md = SKILLS_DIR / name / "SKILL.md"
     check(f"{name}-exists", skill_md.exists(),
           f"{skill_md} n'existe pas encore")
 
 
+@parametrize_skills("name", VAGUE3_SKILLS)
 def test_skill_passes_validator(name: str):
     skill_dir = SKILLS_DIR / name
     if not (skill_dir / "SKILL.md").exists():
@@ -43,6 +41,7 @@ def test_skill_passes_validator(name: str):
           f"erreurs: {errors[:3]}")
 
 
+@parametrize_skills("name", VAGUE3_SKILLS)
 def test_description_trigger(name: str):
     skill_md = SKILLS_DIR / name / "SKILL.md"
     if not skill_md.exists():
@@ -60,6 +59,7 @@ def test_description_trigger(name: str):
           f"description non trigger-focused: {desc[:80]}")
 
 
+@parametrize_skills("name", VAGUE3_SKILLS)
 def test_required_sections(name: str):
     skill_md = SKILLS_DIR / name / "SKILL.md"
     if not skill_md.exists():
@@ -76,6 +76,7 @@ def test_required_sections(name: str):
               f"section manquante: {section}")
 
 
+@parametrize_skills("name", VAGUE3_SKILLS)
 def test_belgian_content(name: str):
     skill_md = SKILLS_DIR / name / "SKILL.md"
     if not skill_md.exists():
@@ -90,6 +91,7 @@ def test_belgian_content(name: str):
           f"contenu BE insuffisant: {found}")
 
 
+@parametrize_skills("name", VAGUE3_SKILLS)
 def test_disclaimer(name: str):
     skill_md = SKILLS_DIR / name / "SKILL.md"
     if not skill_md.exists():
@@ -104,17 +106,19 @@ def test_disclaimer(name: str):
           "disclaimer fiscal/juridique absent")
 
 
-# === Exécution ===
+# === Exécution directe (mode CI « gates » : python tests/test_vague3_tdd.py) ===
+TESTS = (test_skill_exists, test_skill_passes_validator, test_description_trigger,
+         test_required_sections, test_belgian_content, test_disclaimer)
+
 if __name__ == "__main__":
     for skill_name in VAGUE3_SKILLS:
-        test_skill_exists(skill_name)
-        test_skill_passes_validator(skill_name)
-        test_description_trigger(skill_name)
-        test_required_sections(skill_name)
-        test_belgian_content(skill_name)
-        test_disclaimer(skill_name)
+        for test_fn in TESTS:
+            try:
+                test_fn(skill_name)
+            except AssertionError as e:
+                FAILURES.append(f"FAIL {e}")
 
-    total_tests = len(VAGUE3_SKILLS) * 6
+    total_tests = len(VAGUE3_SKILLS) * len(TESTS)
     if FAILURES:
         print(f"RED — {len(FAILURES)}/{total_tests} tests échoués (attendu en TDD):")
         for f in FAILURES:
