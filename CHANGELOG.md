@@ -7,6 +7,8 @@ et ce projet adhère au [Versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+## [1.0.0] — 2026-09-05
+
 ### Ajouté
 
 - **Onboarding Zéro-Friction & Exécutable Windows Autonome (`TheAgency.exe`)** :
