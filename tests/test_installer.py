@@ -118,13 +118,14 @@ def test_create_desktop_shortcut():
     tmp_desktop = Path(tempfile.mkdtemp(prefix="agency_test_desktop_"))
     try:
         (tmp_desktop / "Desktop").mkdir()
-        with patch("pathlib.Path.home", return_value=tmp_desktop), \
+        # platform.system est patché pour que la logique du raccourci soit
+        # testable sur tous les OS (le CI gates tourne sur Ubuntu).
+        with patch("install.platform.system", return_value="Windows"), \
+             patch("pathlib.Path.home", return_value=tmp_desktop), \
              patch.dict(os.environ, {"USERPROFILE": str(tmp_desktop)}):
             ok, path_or_msg = create_desktop_shortcut()
-            # Sur Windows, doit réussir en écrivant dans le Bureau simulé (jamais le vrai)
-            if sys.platform == "win32":
-                assert ok is True, path_or_msg
-                assert Path(path_or_msg).exists()
+            assert ok is True, path_or_msg
+            assert Path(path_or_msg).exists()
     finally:
         shutil.rmtree(tmp_desktop, ignore_errors=True)
     print("  ✓ test_create_desktop_shortcut")
@@ -136,7 +137,8 @@ def test_create_desktop_shortcut_frozen_targets_exe():
     try:
         (tmp_desktop / "Desktop").mkdir()
         exe_path = tmp_desktop / "TheAgency.exe"
-        with patch("pathlib.Path.home", return_value=tmp_desktop), \
+        with patch("install.platform.system", return_value="Windows"), \
+             patch("pathlib.Path.home", return_value=tmp_desktop), \
              patch.dict(os.environ, {"USERPROFILE": str(tmp_desktop)}), \
              patch("sys.frozen", True, create=True), \
              patch("sys.executable", str(exe_path)):
@@ -308,5 +310,5 @@ if __name__ == "__main__":
     test_menu_deadlines()
     test_menu_ubl_no_crash_and_file_written()
     test_menu_vault()
-    print("\nGREEN — Tous les 14 tests de l'installateur et de la console TUI passent !")
+    print("\nGREEN — Tous les 18 tests de l'installateur et de la console TUI passent !")
     sys.exit(0)
