@@ -9,6 +9,13 @@ on:
 jobs:
   build-exe:
     runs-on: windows-latest
+    env:
+      # Les consoles Windows des runners sont en cp1252 : sans cet encodage,
+      # les messages de build (emojis inclus) lèvent UnicodeEncodeError.
+      PYTHONIOENCODING: utf-8
+    permissions:
+      # Nécessaire pour attacher les binaires à la GitHub Release sur tag.
+      contents: write
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -45,3 +52,9 @@ jobs:
           path: |
             dist/TheAgency.exe
             dist/TheAgency-Setup.exe
+
+      - name: Attacher les binaires à la GitHub Release (sur tag)
+        if: startsWith(github.ref, 'refs/tags/')
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release upload "$env:GITHUB_REF_NAME" "dist/TheAgency.exe" "dist/TheAgency-Setup.exe" --clobber

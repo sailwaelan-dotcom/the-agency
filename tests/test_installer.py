@@ -11,8 +11,11 @@ import tempfile
 from pathlib import Path
 from unittest.mock import patch
 
+import pytest
+
 REPO_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO_ROOT))
+sys.path.insert(0, str(REPO_ROOT / "scripts"))
 
 from agency.bootstrap import setup_environment
 from agency.menu import (
@@ -33,6 +36,49 @@ from install import (
     create_desktop_shortcut,
     run_full_installation,
 )
+from build_exe import force_utf8_stdio  # noqa: E402
+
+
+class _FakeCp1252Stream:
+    """Console Windows cp1252 fidèle : lève UnicodeEncodeError sur ce qu'elle ne peut pas encoder
+    (c'est exactement ce qui a fait échouer le build v1.0.0 sur le runner GitHub Actions)."""
+
+    def __init__(self):
+        self.encoding = "cp1252"
+        self.reconfigure_kwargs = None
+
+    def reconfigure(self, **kwargs):
+        self.reconfigure_kwargs = kwargs
+        self.encoding = kwargs.get("encoding", self.encoding)
+
+    def write(self, text):
+        text.encode(self.encoding)
+        return len(text)
+
+
+def test_print_emoji_sans_fix_echoue_sur_cp1252():
+    """Contre-preuve : sur une console cp1252, imprimer le drapeau lève — c'est le bug v1.0.0."""
+    out = _FakeCp1252Stream()
+    with patch("sys.stdout", out), pytest.raises(UnicodeEncodeError):
+        print("🇧🇪")
+
+
+def test_force_utf8_stdio_reconfigure_cp1252():
+    out, err = _FakeCp1252Stream(), _FakeCp1252Stream()
+    with patch("sys.stdout", out), patch("sys.stderr", err):
+        force_utf8_stdio()
+        print("🇧🇪 Compilation")
+    assert out.reconfigure_kwargs is not None
+    assert out.reconfigure_kwargs.get("encoding") == "utf-8"
+    assert err.reconfigure_kwargs.get("encoding") == "utf-8"
+
+
+def test_force_utf8_stdio_tolerates_stream_sans_reconfigure():
+    class _Bare:
+        pass
+
+    with patch("sys.stdout", _Bare()), patch("sys.stderr", _Bare()):
+        force_utf8_stdio()  # ne doit pas lever
 
 
 def test_bootstrap_setup_environment():
@@ -292,6 +338,9 @@ def test_menu_vault():
 
 if __name__ == "__main__":
     print("Exécution des tests de l'installateur et de la console TUI...")
+    test_print_emoji_sans_fix_echoue_sur_cp1252()
+    test_force_utf8_stdio_reconfigure_cp1252()
+    test_force_utf8_stdio_tolerates_stream_sans_reconfigure()
     test_bootstrap_setup_environment()
     test_build_mcp_server_config()
     test_inject_mcp_server_into_file_new_file()
@@ -310,5 +359,5 @@ if __name__ == "__main__":
     test_menu_deadlines()
     test_menu_ubl_no_crash_and_file_written()
     test_menu_vault()
-    print("\nGREEN — Tous les 18 tests de l'installateur et de la console TUI passent !")
+    print("\nGREEN — Tous les 21 tests de l'installateur et de la console TUI passent !")
     sys.exit(0)

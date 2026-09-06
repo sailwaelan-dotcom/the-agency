@@ -7,6 +7,19 @@ et ce projet adhère au [Versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+### Corrigé
+
+- `scripts/build_exe.py` reconfigure stdout/stderr en UTF-8 avant d'imprimer :
+  le build de `TheAgency.exe` plantait (`UnicodeEncodeError`) sur toute console
+  cp1252 — runner GitHub Actions Windows inclus — d'où une release v1.0.0
+  publiée sans binaires.
+
+### Modifié
+
+- CI `build-exe.yml` : `PYTHONIOENCODING=utf-8` au niveau du job, permissions
+  `contents: write`, et attachement automatique de `TheAgency.exe` et
+  `TheAgency-Setup.exe` à la GitHub Release lors d'un push de tag.
+
 ## [1.0.0] — 2026-09-05
 
 ### Ajouté

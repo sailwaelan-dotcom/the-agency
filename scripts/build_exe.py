@@ -12,7 +12,22 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parent.parent
 
 
+def force_utf8_stdio():
+    """
+    Force stdout/stderr en UTF-8 sur les consoles qui ne le sont pas par défaut
+    (cp1252 sur Windows français, runners GitHub Actions inclus) : sans cela,
+    le moindre emoji dans les messages de build lève UnicodeEncodeError.
+    """
+    for stream in (sys.stdout, sys.stderr):
+        try:
+            if hasattr(stream, "reconfigure"):
+                stream.reconfigure(encoding="utf-8", errors="replace")
+        except Exception:
+            pass
+
+
 def build_exe():
+    force_utf8_stdio()
     if platform.system() != "Windows":
         print("❌ Erreur : La compilation du binaire .exe est conçue exclusivement pour Windows.")
         sys.exit(1)
