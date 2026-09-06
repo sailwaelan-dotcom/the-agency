@@ -3,6 +3,8 @@
 ![gates](https://github.com/sailwaelan-dotcom/the-agency/actions/workflows/ci.yml/badge.svg)
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
 
+![Démo — vérifier un client BCE/TVA/Peppol en 30 secondes](docs/demo.gif)
+
 > Boîte à outils de **skills et d'agents IA harness-agnostic** pour solopreneurs en Belgique.
 > R&D, finance, admin, contenu, veille, secrétariat — tout ce qui mange le temps d'un indépendant,
 > packagé en skills profonds, audités, et portables sur n'importe quel agent (Claude Code, Cursor,
