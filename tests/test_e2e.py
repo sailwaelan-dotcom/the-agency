@@ -33,7 +33,11 @@ FAILURES = []
 
 def check(label: str, condition: bool, detail: str = ""):
     if not condition:
-        FAILURES.append(f"FAIL {label}: {detail}")
+        entry = f"FAIL {label}: {detail}"
+        FAILURES.append(entry)
+        # Sous pytest, ne pas avaler l'échec : le runner __main__ seul lit FAILURES.
+        if "pytest" in sys.modules:
+            raise AssertionError(entry)
 
 
 def test_e2e_workflow():
@@ -71,6 +75,9 @@ Ce skill est un test end-to-end du workflow de contribution. Il sera supprimé a
 
 ## When to Use
 - Test E2E uniquement
+
+## Questions à poser
+- Le workflow E2E s'est-il déroulé de bout en bout sans erreur ?
 
 ## Workflow
 1. Créer le skill

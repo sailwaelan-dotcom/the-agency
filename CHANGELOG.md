@@ -19,6 +19,10 @@ et ce projet adhère au [Versionnage sémantique](https://semver.org/lang/fr/).
 
 ### Corrigé
 
+- `tests/test_e2e.py` : la fixture du skill temporaire inclut désormais la section
+  « Questions à poser » (le validateur la requiert), et `check()` lève sous pytest
+  au lieu d'ajouter silencieusement à `FAILURES` — les échecs E2E ne passent plus
+  inaperçus en mode pytest.
 - Gate CI de nouveau vert : `tests/test_installer.py` importait `pytest` au
   niveau module (ajouté avec les tests UTF-8 de `build_exe.py`) alors que le
   job `gates` exécute chaque fichier en direct, sans pytest. Retour au pattern
