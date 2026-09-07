@@ -9,6 +9,11 @@ et ce projet adhère au [Versionnage sémantique](https://semver.org/lang/fr/).
 
 ### Corrigé
 
+- Gate CI de nouveau vert : `tests/test_installer.py` importait `pytest` au
+  niveau module (ajouté avec les tests UTF-8 de `build_exe.py`) alors que le
+  job `gates` exécute chaque fichier en direct, sans pytest. Retour au pattern
+  du dépôt (garde `try/except ImportError` + fallback `assert_raises`, comme
+  `test_guardrails.py`) — la suite passe en direct comme sous pytest.
 - `scripts/build_exe.py` reconfigure stdout/stderr en UTF-8 avant d'imprimer :
   le build de `TheAgency.exe` plantait (`UnicodeEncodeError`) sur toute console
   cp1252 — runner GitHub Actions Windows inclus — d'où une release v1.0.0

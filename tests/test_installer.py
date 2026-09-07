@@ -9,13 +9,27 @@ import shutil
 import sys
 import tempfile
 from pathlib import Path
+from contextlib import contextmanager
 from unittest.mock import patch
 
-import pytest
+try:
+    import pytest
+except ImportError:
+    pytest = None
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO_ROOT))
 sys.path.insert(0, str(REPO_ROOT / "scripts"))
+
+
+@contextmanager
+def assert_raises(exc_type):
+    """Fallback sans pytest pour le mode direct (python tests/test_installer.py)."""
+    try:
+        yield
+    except exc_type:
+        return
+    raise AssertionError(f"L'exception {exc_type} n'a pas été levée.")
 
 from agency.bootstrap import setup_environment
 from agency.menu import (
@@ -59,8 +73,13 @@ class _FakeCp1252Stream:
 def test_print_emoji_sans_fix_echoue_sur_cp1252():
     """Contre-preuve : sur une console cp1252, imprimer le drapeau lève — c'est le bug v1.0.0."""
     out = _FakeCp1252Stream()
-    with patch("sys.stdout", out), pytest.raises(UnicodeEncodeError):
-        print("🇧🇪")
+    with patch("sys.stdout", out):
+        if pytest is not None:
+            with pytest.raises(UnicodeEncodeError):
+                print("🇧🇪")
+        else:
+            with assert_raises(UnicodeEncodeError):
+                print("🇧🇪")
 
 
 def test_force_utf8_stdio_reconfigure_cp1252():
