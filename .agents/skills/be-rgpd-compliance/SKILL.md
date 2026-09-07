@@ -71,6 +71,14 @@ avoir un **accord de traitement de données** (DPA). Vérifier que l'outil propo
 DPA conforme RGPD avant de l'adopter — la plupart des grands outils le proposent
 dans leurs conditions.
 
+## Questions à poser
+Posées **en une seule salve** avant de produire l'artefact — options fermées quand possible, jamais de donnée inventée ; l'inconnu qui reste est marqué « à confirmer » :
+- Où collectez-vous des données : formulaire de contact, newsletter, fichier clients, analytics, exports réseaux sociaux ?
+- Quels outils sous-traitants (hébergeur, outil email, CRM) — leurs DPA sont-ils disponibles ?
+- Quels cookies le site dépose-t-il réellement ? (dev tools → Application → Cookies)
+- Le site est-il publié ? (le footer doit lier la politique de confidentialité)
+- Nom / dénomination et contact du responsable, pour la politique ?
+
 ## Workflow
 
 ### 1. Cartographier tes traitements

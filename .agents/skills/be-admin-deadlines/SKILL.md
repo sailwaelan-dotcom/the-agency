@@ -34,6 +34,15 @@ fournissant la **vue annuelle** qui évite les oublis coûteux.
 - Rituel mensuel de tenue comptable → `be-bookkeeping-ops`
 - Questions sur la création d'entreprise → `be-company-setup`
 
+## Questions à poser
+Posées **en une seule salve** avant de produire l'artefact — options fermées quand possible, jamais de donnée inventée ; l'inconnu qui reste est marqué « à confirmer » :
+- Personne physique ou SRL ? (détermine IPP/ISOC, précompte pro, comptes annuels, UBO)
+- Votre régime TVA : normal mensuel, trimestriel (acompte de décembre), franchise, forfait ?
+- Avez-vous des employés, ou un dirigeant SRL salarié ? (précompte pro mensuel le 15)
+- Si SRL : quelle date de constitution ? (dépôt UBO dans le mois)
+- Quelle année civile pour le calendrier ?
+- Un comptable gère-t-il déjà certaines déclarations ? (lesquelles restent à votre charge ?)
+
 ## Calendrier complet (as_of 2026-07)
 
 ### Échéances mensuelles

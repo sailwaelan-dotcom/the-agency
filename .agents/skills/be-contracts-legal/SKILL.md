@@ -36,6 +36,17 @@ situation complexe ou litigieuse, **consulter un avocat**.
 - Facturation → `be-invoicing-peppol`
 - Optimisation fiscale → consulter un avocat/fiscaliste
 
+## Questions à poser
+Posées **en une seule salve** avant de produire l'artefact — options fermées quand possible, jamais de donnée inventée ; l'inconnu qui reste est marqué « à confirmer » :
+- Quel document : contrat de prestation, CGV, NDA, mentions légales, partenariat ?
+- B2B ou B2C ? (droit de rétractation de 14 jours en B2C)
+- Identité complète des deux parties : dénomination, adresse, n° BCE, qualité ?
+- Objet et durée : dates précises, ou indéterminée avec quel préavis ?
+- Prix, échéances de paiement et pénalités de retard souhaitées ?
+- Propriété intellectuelle : qui garde les droits sur les livrables ?
+- Un plafond de responsabilité visé (ex. 2× le montant du contrat) ?
+- Des données personnelles traitées ? (→ renvoi RGPD)
+
 ## Documents juridiques courants
 
 ### 1. Contrat de prestation de services

@@ -93,9 +93,22 @@ with tempfile.TemporaryDirectory() as tmp:
                        body_replace=("## Overview", "## Résumé"))
     check("overview-manquant", no_ov, expect_valid=False, expect_error_substr="Overview")
 
+    # 8. Section « Questions à poser » manquante → rejeté (questionnement explicite obligatoire)
+    no_q = make_skill(tmp, "be-invoicing-peppol6",
+                      frontmatter_overrides={"name": "be-invoicing-peppol6"},
+                      body_replace=("## Questions à poser", "## Interrogations"))
+    check("questions-manquantes", no_q, expect_valid=False, expect_error_substr="Questions à poser")
+
+    # 9. Section « Questions à poser » vide de questions → rejeté (un titre ne suffit pas)
+    empty_q = make_skill(tmp, "be-invoicing-peppol7",
+                         frontmatter_overrides={"name": "be-invoicing-peppol7"},
+                         body_replace=("?", "."))
+    check("questions-sans-question", empty_q, expect_valid=False,
+          expect_error_substr="sans question")
+
 if FAILURES:
     print("ÉCHECS:")
     for f in FAILURES:
         print(f"  {f}")
     sys.exit(1)
-print("OK: 7/7 auto-tests du validateur passent")
+print("OK: 9/9 auto-tests du validateur passent")

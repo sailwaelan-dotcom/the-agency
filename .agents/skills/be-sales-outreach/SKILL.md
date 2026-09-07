@@ -37,6 +37,15 @@ un flux régulier de rendez-vous qualifiés.
 - Contenu marketing (inbound) → `content-engine-be`
 - Facturation → `be-invoicing-peppol`
 
+## Questions à poser
+Posées **en une seule salve** avant de produire l'artefact — options fermées quand possible, jamais de donnée inventée ; l'inconnu qui reste est marqué « à confirmer » :
+- Votre offre en une phrase à bénéfice chiffré : « nous aidons X à [bénéfice] en [méthode] » ?
+- Un cas client similaire, avec résultat concret et durée ?
+- Votre cible précise : métier / secteur / région / taille ? (PME > 10 employés ou CA > 1 M€)
+- En quelle langue prospecterez-vous, par région ? (néerlandais obligatoire en Flandre)
+- Vos créneaux disponibles pour des RDV de 15 min ?
+- Votre grille tarifaire et conditions, pour la section « Investissement » ?
+
 ## Le système de prospection (2-3h/semaine)
 
 ### 1. Construire la liste de prospects (30 min/semaine)

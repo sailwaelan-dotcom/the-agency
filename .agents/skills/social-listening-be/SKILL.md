@@ -100,6 +100,14 @@ visite ou l'extraction.
 - Meta → Télécharger vos informations
 - Ces exports concernent TES données, générés par la plateforme à ta demande — légal.
 
+## Questions à poser
+Posées **en une seule salve** avant de produire l'artefact — options fermées quand possible, jamais de donnée inventée ; l'inconnu qui reste est marqué « à confirmer » :
+- Quels mots-clés d'alerte : votre nom, votre dénomination, vos concurrents directs ?
+- Quels 2-3 termes sectoriels clés de votre métier ?
+- Quels blogs / médias sectoriels belges suivre (L'Écho, Trends-Tendances, ou propres à votre secteur) ?
+- Vos concurrents ont-ils des profils publics à surveiller (LinkedIn, Meta) ?
+- Si des personnes (et pas des entreprises) sont mentionnées : la base légale RGPD est-elle documentée (intérêt légitime) ?
+
 ## Workflow : la veille hebdo d'un solopreneur (30 min)
 
 | Jour | Action | Durée |

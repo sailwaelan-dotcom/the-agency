@@ -75,6 +75,15 @@ les bonnes questions et évite les oublis coûteux.
 - **Précompte professionnel** : retenu par la SRL sur la rémunération mensuelle du
   dirigeant, déclaré et versé mensuellement ou trimestriellement.
 
+## Questions à poser
+Posées **en une seule salve** avant de produire l'artefact — options fermées quand possible, jamais de donnée inventée ; l'inconnu qui reste est marqué « à confirmer » :
+- Votre forme juridique : personne physique (IPP) ou SRL (ISOC) ?
+- Votre régime TVA : franchise, normal (mensuel ou trimestriel), ou forfait ?
+- Votre statut INASTI : activité principale, complémentaire, étudiant-indépendant, pensionné actif ?
+- Votre chiffre d'affaires estimé ? (pour surveiller le seuil de franchise)
+- Votre année de début d'activité ? (les cotisations se calculent sur la 3e année précédente)
+- Pour une SRL : quelle rémunération de dirigeant envisagée ? (précompte pro, VVPR-bis)
+
 ## Workflow
 
 ### 1. Identifier la situation

@@ -62,6 +62,16 @@ deux parties :
 > (pénalités, propriété intellectuelle, révisions illimitées) se fait vérifier
 > par un juriste avant usage récurrent.
 
+## Questions à poser
+Posées **en une seule salve** avant de produire l'artefact — options fermées quand possible, jamais de donnée inventée ; l'inconnu qui reste est marqué « à confirmer » :
+- Objectif métier du prospect, livrables attendus, délais, budget annoncé — et ce qui est HORS périmètre ?
+- Votre tarification : TJM, forfait, ou par phase ?
+- Votre régime TVA : franchise (mention art. 56bis CTVA) ou taux applicable ?
+- Votre n° BCE (+ n° TVA si assujetti) ?
+- Le n° BCE/TVA du client B2B ? (indispensable au routage Peppol de la future facture)
+- Votre politique d'acompte : 30 %, 50 % à la commande ?
+- Frais refacturables (licences, déplacements) et séquence de numérotation en cours (ex. DEV-2026-014) ?
+
 ## Workflow
 
 ### 1. Cadrer le besoin

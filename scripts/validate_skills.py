@@ -33,7 +33,7 @@ MAX_FILE = 100_000  # chars
 WARN_FILE = 25_000
 
 # Sections obligatoires pour être un skill "deep" utilisable
-REQUIRED_SECTIONS = ["## Overview", "## When to Use"]
+REQUIRED_SECTIONS = ["## Overview", "## When to Use", "## Questions à poser"]
 RECOMMENDED_SECTIONS = ["## Common Pitfalls", "## Verification Checklist"]
 
 # Disclaimer obligatoire si tags réglementaires
@@ -139,6 +139,18 @@ def validate_skill(skill_dir: Path) -> list[str]:
     for section in RECOMMENDED_SECTIONS:
         if section not in body:
             print(f"  WARN {skill_dir.name}: section recommandée absente: '{section}'", file=sys.stderr)
+
+    # --- Questionnement explicite : la section doit contenir au moins une vraie question ---
+    q_match = re.search(r"^## Questions à poser\s*$", body, re.M)
+    if q_match:
+        rest = body[q_match.end():]
+        next_sec = re.search(r"^## ", rest, re.M)
+        q_body = rest[: next_sec.start()] if next_sec else rest
+        if "?" not in q_body:
+            errors.append(
+                f"{skill_dir.name}: section '## Questions à poser' sans question "
+                f"(lister les questions à poser en une salve, chacune terminée par '?')"
+            )
 
     # --- Disclaimer si réglementaire ---
     tags = set(meta.get("tags", [])) if isinstance(meta, dict) else set()

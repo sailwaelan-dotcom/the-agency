@@ -37,6 +37,14 @@ les données personnelles dans les emails → `be-rgpd-compliance`.
 - Échéances fiscales et sociales (théorie) → `be-accounting-basics`
 - Production de contenu → `content-engine-be`
 
+## Questions à poser
+Posées **en une seule salve** avant de produire l'artefact — options fermées quand possible, jamais de donnée inventée ; l'inconnu qui reste est marqué « à confirmer » :
+- Votre forme juridique et votre régime TVA ? (détermine quelles échéances s'appliquent)
+- Quels outils : client mail (Gmail / Outlook), outil de prise de RDV ?
+- Vos heures de travail et contraintes ? (blocs de production, jours de RDV regroupés)
+- Vos clients / dossiers en cours ? (pour remplir les fiches de préparation RDV)
+- Des documents manquants en cours de relance ?
+
 ## Rituel 1 — Inbox zéro en 15 minutes (2×/jour, jamais en continu)
 
 Règle : l'email se traite à **heures fixes** (ex. 9h et 16h30), notifications coupées

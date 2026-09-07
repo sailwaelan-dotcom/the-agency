@@ -47,6 +47,14 @@ d'exister dans le repo.
   2. `.agents/skills/<nom>/SKILL.md` — le skill lui-même (GREEN).
   3. Exit 0 sur les quatre gates (voir section Gates).
 
+## Questions à poser
+- Avant de forger (Workflow, étape 1), faire préciser :
+- Quel sujet, et quels déclencheurs réels (formulations utilisateur exactes) ?
+- Quel artefact concret produit : fichier, tableau, checklist ?
+- Quels contre-déclencheurs (« ne pas utiliser pour… ») ?
+- Quel `domain` et quels `related_skills` ? (doivent résoudre vers des dossiers existants)
+- Des tags réglementaires ? (finance / tax / legal → disclaimer obligatoire)
+
 ## Workflow
 
 ### 1. Cadrer le skill
@@ -114,10 +122,14 @@ le SKILL.md. Structure :
    concret produit.
 2. **When to Use** — déclencheurs en formulations utilisateur réelles + « Ne pas
    utiliser pour : » explicite.
-3. **Workflow** — étapes numérotées, chacune avec un *critère de complétion
+3. **Inputs & Sorties** — entrées requises / artefact nommé.
+4. **Questions à poser** — OBLIGATOIRE (gate `validate_skills.py`) : les questions à
+   poser à l'utilisateur en une salve, chacune terminée par « ? », sans quoi la
+   sortie serait inventée. Une donnée manquante se demande, ne se devine jamais.
+5. **Workflow** — étapes numérotées, chacune avec un *critère de complétion
    vérifiable* en italique. C'est le cœur du skill.
-4. **Common Pitfalls** — pièges réels du domaine + comment les éviter.
-5. **Verification Checklist** — cases à cocher actionnables.
+6. **Common Pitfalls** — pièges réels du domaine + comment les éviter.
+7. **Verification Checklist** — cases à cocher actionnables.
 
 *Critère de complétion : les 4 sections obligatoires/recommandées sont présentes
 et chaque étape du workflow a son critère de complétion.*
@@ -188,7 +200,7 @@ documentaire (INDEX.md, compteurs README, CHANGELOG).
 - [ ] `description` commence par « Utilisez quand » et nomme l'artefact produit
 - [ ] Frontmatter 100 % whitelisté (aucun champ harness-spécifique)
 - [ ] `metadata` complète : `tags`, `related_skills`, `domain`, `language`, `as_of`
-- [ ] Sections présentes : Overview, When to Use, Workflow, Common Pitfalls, Verification Checklist
+- [ ] Sections présentes : Overview, When to Use, Inputs & Sorties, Questions à poser (avec questions), Workflow, Common Pitfalls, Verification Checklist
 - [ ] Chaque étape du workflow a un critère de complétion vérifiable
 - [ ] Taille entre 6 000 et 15 000 caractères (détail lourd dans `references/` sinon)
 - [ ] Aucune donnée réelle — placeholders `BE0123.456.789` / `[NOM_CLIENT]` / `<VOTRE_USER>` uniquement

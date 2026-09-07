@@ -82,6 +82,16 @@ Le notaire exige pour la constitution d'une SRL un plan financier couvrant **au 
 - Frais de création SRL : notaire + publication + guichet (devis notaire à demander)
 - Comptable : forfait mensuel selon volume — demander 2-3 offres
 
+## Questions à poser
+Posées **en une seule salve** avant de produire l'artefact — options fermées quand possible, jamais de donnée inventée ; l'inconnu qui reste est marqué « à confirmer » :
+- À qui est destiné le plan : banque, notaire, subside ? (le critère de décision change)
+- Vos hypothèses de CA par segment, avec leur preuve (pipeline, devis, entretiens) ?
+- Votre tarif / TJM et vos heures vendables ?
+- Vos charges détaillées : INASTI, loyer, outils, marketing, comptable, assurances ?
+- Vos délais de paiement clients réels : 30 j, 60 j ? (pour la trésorerie)
+- Apport prévu : numéraire ou nature ? (la nature exige un réviseur d'entreprises)
+- Devis notaire et 2-3 forfaits comptables déjà demandés ?
+
 ## Workflow
 
 1. **Cadrer le guichet** — banque, notaire, subside ? Le même socle, trois habillages.

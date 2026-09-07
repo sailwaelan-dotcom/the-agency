@@ -7,6 +7,16 @@ et ce projet adhère au [Versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+### Ajouté
+
+- **Questionnement explicite obligatoire** dans chaque skill : nouvelle section
+  « Questions à poser » requise par `validate_skills.py` (gate bloquant — la
+  section doit exister ET contenir au moins une question terminée par « ? »).
+  Règle métier : les questions se posent en une seule salve, options fermées,
+  jamais de donnée inventée ; l'inconnu reste marqué « à confirmer ». Template,
+  `skill-forge` (structure + checklist) et les 22 skills backfillés avec leurs
+  questions propres à chaque domaine. Self-test validateur porté à 9/9.
+
 ### Corrigé
 
 - Gate CI de nouveau vert : `tests/test_installer.py` importait `pytest` au

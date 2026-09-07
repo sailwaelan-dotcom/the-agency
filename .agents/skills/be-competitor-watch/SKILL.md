@@ -90,6 +90,13 @@ Remplir pour **3 à 8 concurrents** directs (pas les acteurs lointains) :
 | **Avis Google** | google.com/maps | Notes, verbatims clients |
 | **Trustpilot / sectoriels** | trustpilot.com | Avis détaillés |
 
+## Questions à poser
+Posées **en une seule salve** avant de produire l'artefact — options fermées quand possible, jamais de donnée inventée ; l'inconnu qui reste est marqué « à confirmer » :
+- Qui sont vos 3-8 concurrents directs : même segment, même zone, offre similaire ?
+- Votre segment et votre zone géographique exacts ?
+- Votre offre / cible / prix actuels ? (pour repérer les vides de positionnement exploitables)
+- Les numéros BCE des concurrents, si vous les connaissez ? (recherche Centrale des bilans BNB)
+
 ## Workflow
 
 1. **Identifier les 3-8 concurrents directs** : ceux qui servent le même segment, dans

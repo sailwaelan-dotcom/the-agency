@@ -56,6 +56,15 @@ ni l'e-reporting (annoncé pour 2028, hors périmètre ici).
 - Une recommandation d'outil/Access Point adaptée au profil (volume, budget, comptable)
 - Le cas échéant, un squelette de facture avec toutes les mentions légales belges
 
+## Questions à poser
+Si les entrées ci-dessus manquent, les poser **en une seule salve** — options fermées,
+jamais de donnée inventée ; l'inconnu qui reste est marqué « à confirmer » dans la checklist :
+- Quel est votre numéro d'entreprise BCE ? (placeholder `BE0123.456.789`)
+- Votre statut TVA : régime normal, franchise, ou forfait ?
+- Le client est-il une entreprise belge assujettie TVA ? Quel est son n° BCE/TVA ?
+- Nature de la prestation (bien ou service), montant HTVA et taux TVA applicable ?
+- Avec quel outil facturez-vous aujourd'hui (logiciel, Excel, Word…) ?
+
 ## Workflow
 
 ### 1. Déterminer si Peppol s'applique

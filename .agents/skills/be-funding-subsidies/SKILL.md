@@ -85,6 +85,16 @@ Voir [references/subsides-par-region.md](references/subsides-par-region.md) pour
 | Incitant fiscal | Non | Non | Faible (via comptable) | Automatique si conditions remplies |
 | Tremplin chômage | Non | Non | Faible | Démarrage depuis le chômage |
 
+## Questions à poser
+Posées **en une seule salve** avant de produire l'artefact — options fermées quand possible, jamais de donnée inventée ; l'inconnu qui reste est marqué « à confirmer » :
+- Où est le siège d'exploitation : Bruxelles, Flandre, Wallonie ? (le siège — pas l'habitation — détermine le guichet)
+- Création ou développement ? Innovation ou non ? Quel secteur ?
+- Quel montant recherché, et pour quel calendrier de dépôt ?
+- Êtes-vous déjà créé, et depuis quand ? (certaines fenêtres exigent l'inscription AVANT la création)
+- Pouvez-vous cofinancer 25-50 % du projet sur fonds propres ?
+- Statut chômage (Tremplin ONEM) ? Situation bancaire (microcrédit) ?
+- D'autres demandes d'aides en cours ? (à déclarer — double financement public interdit)
+
 ## Workflow
 
 1. **Localiser le siège d'exploitation** — la région du siège détermine le guichet

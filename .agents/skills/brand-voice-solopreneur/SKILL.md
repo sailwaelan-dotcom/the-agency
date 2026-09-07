@@ -83,6 +83,15 @@ Avant tout envoi, vérifier dans l'ordre :
 4. **Respectueux ?** Vouvoiement correct, pas de données client, pas de moquerie.
 5. **Court ?** Toute phrase > 25 mots est candidate à la coupe.
 
+## Questions à poser
+Posées **en une seule salve** avant de produire l'artefact — options fermées quand possible, jamais de donnée inventée ; l'inconnu qui reste est marqué « à confirmer » :
+- Pouvez-vous fournir 5-10 textes récents (emails, posts, site, devis) pour l'audit ?
+- Tutoiement ou vouvoiement ?
+- Publiez-vous aussi en néerlandais ?
+- Vos formules / tics répétés à bannir ? (relire 5 anciens textes)
+- Votre segment et le ton attendu de votre secteur ?
+- Quels 2-3 marqueurs de voix figer ? (structure récurrente, registre d'exemples, ponctuation)
+
 ## Workflow
 
 1. **Auditer** : rassembler 5-10 textes récents (emails, posts, site). Noter ce qui

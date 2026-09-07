@@ -46,6 +46,14 @@ comptable (oui/non + son logiciel), mode actuel de stockage des pièces.
 - Tableau de suivi des impayés + séquence de relances
 - Dossier mensuel prêt-à-envoyer au comptable
 
+## Questions à poser
+Posées **en une seule salve** avant de produire l'artefact — options fermées quand possible, jamais de donnée inventée ; l'inconnu qui reste est marqué « à confirmer » :
+- Quel outil de facturation utilisez-vous ?
+- Quelle(s) banque(s) pro ?
+- Quel volume mensuel approximatif de factures (émises / reçues) ?
+- Avez-vous un comptable, et avec quel logiciel échangez-vous ?
+- Comment stockez-vous les pièces aujourd'hui (papier, scans, dossier…) ?
+
 ## Workflow
 
 ### 1. Le rituel mensuel (date fixe, ex. le 3 du mois)

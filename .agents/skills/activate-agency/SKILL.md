@@ -94,6 +94,12 @@ skills et par une future re-activation) :
 Chaque champ non renseigné porte la mention « à confirmer » (avec le comptable
 le cas échéant) — jamais un chiffre inventé.
 
+## Questions à poser
+- Le questionnement est le cœur de ce skill : l'interview en une salve de 8 questions (voir Workflow, étape 2) EST le questionnement explicite — ne pas la dupliquer, ne pas la diluer :
+- Les 8 questions ont-elles bien été posées d'un bloc, options fermées, avec échappatoire ?
+- Un contexte déjà fourni répond-il à certaines ? → proposer le profil prérempli à corriger, pas re-poser tout.
+- Chaque inconnu est-il marqué « à confirmer » ? (rien de vide en silence)
+
 ## Workflow
 
 ### 1. Détecter un profil existant

@@ -26,6 +26,13 @@ metadata:
 - **Entrées** : ce que l'utilisateur doit fournir.
 - **Sortie** : artefact nommé (fichier, tableau, checklist) et où le mettre.
 
+## Questions à poser
+Avant de produire l'artefact, poser à l'utilisateur — **en une seule salve**, options fermées
+quand possible — les questions sans lesquelles la sortie serait inventée. Une donnée manquante
+se demande, ne se devine jamais ; l'inconnu qui reste est marqué « à confirmer » dans l'artefact.
+- Question nécessaire 1 ? (options : … / … / je ne sais pas)
+- Question nécessaire 2 ?
+
 ## Workflow
 1. Étape — *critère de complétion vérifiable.*
 2. Étape — *critère de complétion vérifiable.*
@@ -38,7 +45,7 @@ metadata:
 
 ## Verification Checklist
 - [ ] Vérification actionnable 1
-- [ ] Vérification actionnable 2
+- [ ] Questions posées en une salve ; chaque donnée de l'artefact est fournie par l'utilisateur ou marquée « à confirmer »
 
 > ⚠️ **Disclaimer** : information générale, pas un conseil fiscal, comptable ou juridique
 > personnalisé. Faites valider par un comptable, expert-comptable ou avocat agréé en

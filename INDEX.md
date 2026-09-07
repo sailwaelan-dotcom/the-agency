@@ -1,7 +1,7 @@
 # Index des skills — The Agency
 
 > Généré par scripts/build_index.py — ne pas éditer à la main.
-> Généré le 2026-09-04 — 22 skills.
+> Généré le 2026-09-07 — 22 skills.
 
 ## admin
 

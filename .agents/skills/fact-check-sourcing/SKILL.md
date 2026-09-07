@@ -42,6 +42,13 @@ Ce gate s'active **systématiquement** quand l'agent :
 - Opinions ou recommandations générales (pas de chiffres à vérifier)
 - Données personnelles de l'utilisateur (pas de fact-check sur ses propres données)
 
+## Questions à poser
+- Ce skill est **automatique** — pas d'intake utilisateur (et jamais de fact-check sur les données personnelles de l'utilisateur). Le questionnement vise la donnée, pas l'humain ; les 4 questions du gate restent explicites pour chaque chiffre :
+- La source est-elle officielle et primaire ?
+- La donnée est-elle datée (as_of) ?
+- A-t-elle été recroisée avec une seconde source indépendante ?
+- Relève-t-elle d'un domaine belge mappé (TVA, INASTI, Statbel, BNB, subsides, APD, BCE/KBO) ?
+
 ## Le gate : 4 étapes en 30 secondes
 
 Après CHAQUE recherche web, l'agent applique ces 4 étapes **avant d'utiliser les données** :

@@ -95,6 +95,15 @@ Règles d'or pour 10-20 entretiens avant de construire :
 *Critère de complétion* : ≥ 10 entretiens documentés, chacun avec : segment, problème
 vécu, coût actuel du problème, signal fort/faible.
 
+## Questions à poser
+Posées **en une seule salve** avant de produire l'artefact — options fermées quand possible, jamais de donnée inventée ; l'inconnu qui reste est marqué « à confirmer » :
+- Votre idée / problème supposé, en une phrase ?
+- Votre segment précis : qui paie, qui utilise, où en Belgique, B2B ou B2C ?
+- Votre capacité réelle : heures vendables, débit de production ? (pour calculer le SOM)
+- Votre objectif de CA / clients année 1 ? (critère GO : SOM ≥ objectif)
+- Des concurrents déjà identifiés ?
+- Pouvez-vous accéder à 10-20 personnes du segment à interviewer (hors famille / amis) ?
+
 ## Workflow
 
 1. **Définir le segment précis** (qui paie, qui utilise, où en Belgique).

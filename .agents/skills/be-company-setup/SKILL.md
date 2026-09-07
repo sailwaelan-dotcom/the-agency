@@ -55,6 +55,16 @@ cher. Risque juridique réel, bénéfice visé élevé, ou besoin d'image B2B �
 conversion PP→SRL est possible plus tard mais coûteuse ; si le doute est fort, se faire
 conseiller **avant** l'inscription.
 
+## Questions à poser
+Posées **en une seule salve** avant de produire l'artefact — options fermées quand possible, jamais de donnée inventée ; l'inconnu qui reste est marqué « à confirmer » :
+- Quel niveau de risque juridique et quel patrimoine personnel êtes-vous prêt à engager ?
+- Quel CA / bénéfice visé la première année ? (pèse dans l'arbitrage PP vs SRL)
+- Des associés prévus ?
+- Quelle dénomination commerciale ? (à vérifier contre les conflits via la recherche BCE publique)
+- Quels codes NACE-Bel visés, et quelle adresse de siège ? (règles d'urbanisme communales éventuelles)
+- Profession réglementée ? (assurances obligatoires spécifiques)
+- Si SRL : apport en numéraire (compte bloqué) ou en nature (réviseur d'entreprises requis) ?
+
 ## Workflow
 
 ### 1. Trancher la forme juridique

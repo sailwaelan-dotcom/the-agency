@@ -130,6 +130,14 @@ pour valider la robustesse d'un business plan ou d'un investissement.
 
 *Critère de complétion* : distribution des NPV produite, probabilité de rentabilité calculée.
 
+## Questions à poser
+Posées **en une seule salve** avant de produire l'artefact — options fermées quand possible, jamais de donnée inventée ; l'inconnu qui reste est marqué « à confirmer » :
+- Le prévisionnel de base — CA, charges, investissements sur 3-5 ans — vient d'où ? (business plan, étude de marché)
+- Vos 5-10 hypothèses clés, avec ranges pessimiste / central / optimiste ?
+- Forme juridique à modéliser : SRL (ISOC taux réduit PME, VVPR-bis) ou personne physique (IPP progressif) ?
+- Votre secteur ? (WACC PME belge, multiples comparables)
+- Pré-revenus ? (→ méthode Berkus plutôt que DCF)
+
 ## Workflow
 
 1. **Rassembler les inputs** : business plan, étude de marché, hypothèses de pricing.

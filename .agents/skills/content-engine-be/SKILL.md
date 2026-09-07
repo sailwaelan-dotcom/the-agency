@@ -90,6 +90,14 @@ alimentés une semaine sur deux = zéro canal efficace.
 - Ne pas écrire pour Google : écrire la meilleure réponse francophone à une question
   précise, le reste suit
 
+## Questions à poser
+Posées **en une seule salve** avant de produire l'artefact — options fermées quand possible, jamais de donnée inventée ; l'inconnu qui reste est marqué « à confirmer » :
+- Vos verbatims clients : mots exacts, questions récurrentes en RDV ?
+- Des cas réels à raconter : avant/après, erreur commise, chiffre du problème ?
+- Où sont vos clients — quel est LE canal principal (LinkedIn, blog/SEO, newsletter) ?
+- Vos créneaux stables pour le rituel Lundi-Jeudi ?
+- Un blog / site et un outil newsletter existent-ils déjà ?
+
 ## Workflow
 
 1. **Construire le backlog** (une fois, puis entretien continu) : 20 sujets issus des

@@ -43,6 +43,12 @@ des scripts, et ne s'édite jamais à la main quand un générateur existe.
   resynchronisés, `CHANGELOG.md` complété, rapport de fraîcheur des `as_of`,
   quatre gates en exit 0.
 
+## Questions à poser
+Posées **en une seule salve** avant de produire l'artefact — options fermées quand possible, jamais de donnée inventée ; l'inconnu qui reste est marqué « à confirmer » :
+- Quels changements à documenter cette session : skills ajoutés / modifiés / supprimés, scripts, tests ?
+- Des bumps d'as_of ? Quelle source officielle consultée, à quelle date ?
+- Une version à bumper ou une release à tracer dans le CHANGELOG ?
+
 ## Workflow
 
 ### 1. Lancer les gates de structure
