@@ -53,7 +53,7 @@ TVA normal, installé en Belgique. Toutes les données sont fictives (placeholde
 >
 > | Échéance | Date | Rappels | Action |
 > |---|---|---|---|
-> | Déclaration TVA trimestrielle | le 20 | J-10, J-3 | Encoder via Intervat, transmettre les chiffres au comptable |
+> | Déclaration TVA trimestrielle | le 25 (sans report si week-end) | J-10, J-3 | Encoder via Intervat, transmettre les chiffres au comptable |
 > | Cotisations sociales INASTI | fin de trimestre | J-14, J-3 | Vérifier le montant provisionnel auprès de la caisse d'assurances sociales |
 > | Versement anticipé IPP | le 10 du trimestre | J-14 | Évaluer avec le comptable si un VA est opportun |
 >

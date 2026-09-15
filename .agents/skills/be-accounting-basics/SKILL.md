@@ -9,7 +9,7 @@ metadata:
   related_skills: [be-invoicing-peppol, be-bookkeeping-ops]
   domain: finance
   language: fr
-  as_of: "2026-07"
+  as_of: "2026-09"
 ---
 
 # Comptabilité de base — solopreneur belge
@@ -50,8 +50,10 @@ les bonnes questions et évite les oublis coûteux.
 | **Régime normal** | Au-delà du seuil, ou par choix | Mensuelle **ou** trimestrielle (si CA < seuil trimestriel, *vérifier*) | TVA collectée − TVA déductible = solde à payer/récupérer |
 | **Forfait** | Certains secteurs sans TVA déductible suffisante | Trimestrielle | Calcul forfaitaire du solde — cas de plus en plus rare |
 
-- Délais habituels : déclaration + paiement avant le **20 du mois** suivant la période
-  (mensuelle) ou le trimestre. Acomptes de décembre exigés pour les trimestriels.
+- Délais (as_of 2026-09, SPF Finances) : dépôt + paiement au plus tard le **20 du mois suivant**
+  pour les mensuels (reporté au jour ouvrable suivant si le 20 tombe un samedi, un dimanche
+  ou un jour férié légal) et le **25 du mois suivant le trimestre** pour les trimestriels,
+  **sans report**. Plus d'acomptes pour les trimestriels : la TVA due se paie à l'échéance.
 - La **liste annuelle des clients assujettis** et le **listing intracommunautaire**
   restent dus selon votre situation, même en franchise pour certains cas.
 
@@ -122,7 +124,7 @@ année 1 ».
 ### 4. Signaler les pièges du moment
 
 Vérifier systématiquement : passage de seuil franchise (risque de bascule rétroactive),
-acompte de décembre TVA, régularisation cotisations sur revenus réels, oubli listing
+échéance TVA trimestrielle du 25 (sans report), régularisation cotisations sur revenus réels, oubli listing
 annuel clients.
 
 ## Références belges
@@ -131,14 +133,15 @@ annuel clients.
 - **INASTI** (rsvz-inasti.fgov.be) : cotisations sociales indépendants, calculateur.
 - **Caisse d'assurances sociales** du solopreneur : interlocuteur concret des paiements.
 - **Biztax / MyMinfin** : déclarations IPP/ISOC en ligne.
-- Toutes les données datées : **as_of 2026-07**. Vérifier chaque montant/seuil/taux
+- Toutes les données datées : **as_of 2026-07** (échéances TVA : **as_of 2026-09**). Vérifier chaque montant/seuil/taux
   sur la source officielle avant décision.
 
 ## Common Pitfalls
 
 1. **Dépasser le seuil franchise sans réagir.** Le dépassement peut rendre la TVA due
    rétroactivement. Suivre le CA mensuellement et anticiper le basculement.
-2. **Oublier l'acompte de décembre** (régime trimestriel TVA). Pénalité d'intérêts.
+2. **Payer la TVA trimestrielle le 20 ou le lundi suivant.** L'échéance est le 25 du mois
+   qui suit le trimestre, sans report : des intérêts de retard courent dès le 26.
 3. **Mélanger compte perso et pro.** Rend la déclaration et le contrôle pénibles ;
    compte pro dédié dès le jour 1 (obligatoire pour SRL).
 4. **Négliger les versements anticipés.** La majoration IPP/ISOC coûte plusieurs % du
@@ -156,7 +159,7 @@ annuel clients.
 - [ ] Compte bancaire pro séparé
 - [ ] Chaque chiffre du skill vérifié sur source officielle le jour d'utilisation
 
-> ⚠️ **Disclaimer** : information générale (as_of 2026-07), pas un conseil fiscal ou
+> ⚠️ **Disclaimer** : information générale (as_of 2026-09 pour les échéances TVA, 2026-07 pour le reste), pas un conseil fiscal ou
 > comptable personnalisé. Faites valider votre situation (régime TVA, statut social,
 > versements anticipés) par un comptable ou expert-comptable agréé en Belgique —
 > notamment avant tout choix de régime ou estimation de provision.

@@ -9,7 +9,7 @@ metadata:
   related_skills: [be-accounting-basics, be-bookkeeping-ops, be-company-setup]
   domain: admin
   language: fr
-  as_of: "2026-07"
+  as_of: "2026-09"
 ---
 
 # Calendrier fiscal annuel — solopreneur belge
@@ -37,7 +37,7 @@ fournissant la **vue annuelle** qui évite les oublis coûteux.
 ## Questions à poser
 Posées **en une seule salve** avant de produire l'artefact — options fermées quand possible, jamais de donnée inventée ; l'inconnu qui reste est marqué « à confirmer » :
 - Personne physique ou SRL ? (détermine IPP/ISOC, précompte pro, comptes annuels, UBO)
-- Votre régime TVA : normal mensuel, trimestriel (acompte de décembre), franchise, forfait ?
+- Votre régime TVA : normal mensuel, trimestriel, franchise, forfait ?
 - Avez-vous des employés, ou un dirigeant SRL salarié ? (précompte pro mensuel le 15)
 - Si SRL : quelle date de constitution ? (dépôt UBO dans le mois)
 - Quelle année civile pour le calendrier ?
@@ -49,22 +49,29 @@ Posées **en une seule salve** avant de produire l'artefact — options fermées
 
 | Jour | Échéance | Qui est concerné | Action |
 |---|---|---|---|
-| **20 du mois M+1** | Déclaration TVA mensuelle | Régime normal, CA > seuil trimestriel | Déposer via logiciel/comptable + payer le solde |
+| **20 du mois M+1** (reporté au jour ouvrable suivant si samedi, dimanche ou jour férié légal) | Déclaration TVA mensuelle | Régime normal, CA > seuil trimestriel | Déposer via logiciel/comptable + payer le solde |
 | **15 du mois M** | Précompte professionnel | SRL avec employés/dirigeant salarié | Déclarer et verser le précompte du mois précédent |
 
 ### Échéances trimestrielles
 
 | Trimestre | Échéance | Qui est concerné | Action |
 |---|---|---|---|
-| **T1 (avr-juin)** → 20 juillet | Déclaration TVA trimestrielle | Régime normal, CA < seuil trimestriel | Déposer + payer |
-| **T2 (juil-sept)** → 20 octobre | Déclaration TVA trimestrielle | Idem | Déposer + payer |
-| **T3 (oct-déc)** → 20 janvier | Déclaration TVA trimestrielle | Idem | Déposer + payer |
-| **T4 (jan-mar)** → 20 avril | Déclaration TVA trimestrielle | Idem | Déposer + payer |
+| **T1 (jan-mars)** → 25 avril | Déclaration + paiement TVA trimestrielle | Régime normal, CA < seuil trimestriel | Déposer + payer — **aucun report** si le 25 tombe un samedi, un dimanche ou un jour férié |
+| **T2 (avr-juin)** → 25 juillet | Déclaration + paiement TVA trimestrielle | Idem | Déposer + payer (aucun report) |
+| **T3 (juil-sept)** → 25 octobre | Déclaration + paiement TVA trimestrielle | Idem | Déposer + payer (aucun report) |
+| **T4 (oct-déc)** → 25 janvier | Déclaration + paiement TVA trimestrielle | Idem | Déposer + payer (aucun report) |
 | **1er trimestre** → 31 mars | Cotisation sociale INASTI | Tous les indépendants | Payer à la caisse d'assurances sociales |
 | **2e trimestre** → 30 juin | Cotisation sociale INASTI | Idem | Payer |
 | **3e trimestre** → 30 septembre | Cotisation sociale INASTI | Idem | Payer |
 | **4e trimestre** → 31 décembre | Cotisation sociale INASTI | Idem | Payer |
 | **10 avril, 10 juillet, 10 octobre, 20 décembre** | Versements anticipés IPP/ISOC | PP (IPP) et SRL (ISOC) | Payer via virement (éviter majoration) |
+
+> **Échéances TVA périodiques (as_of 2026-09, SPF Finances)** : trimestriel → le 25 du mois
+> qui suit le trimestre, dépôt ET paiement, **aucun report** si le 25 tombe un samedi, un
+> dimanche ou un jour férié légal (25.07.2026 : samedi ; 25.10.2026 : dimanche) ; mensuel →
+> le 20, reporté au jour ouvrable suivant. Plus d'acomptes pour les trimestriels. Une tolérance
+> de report a encore joué pour le 4e trimestre 2025 et le 1er trimestre 2026 : vérifier chaque
+> année le calendrier TVA sur finances.belgium.be.
 
 ### Échéances annuelles
 
@@ -74,7 +81,6 @@ Posées **en une seule salve** avant de produire l'artefact — options fermées
 | **30 avril** | Déclaration TVA annuelle (régime forfaitaire) | Régime forfaitaire | Déposer |
 | **30 juin** | Comptes annuels (SRL) | SRL | Déposer à la BNB via le guichet électronique |
 | **30 juin** | Déclaration IPP/ISOC (via comptable) | Tous | Fournir les pièces au comptable pour préparer la déclaration |
-| **1er trimestre** | Acompte de décembre TVA | Régime trimestriel | Payer l'acompte provisionnel (calculé par l'administration) |
 | **Variable** | Déclaration IPP/ISOC définitive | Tous | Déposer avant la date limite du SPF Finances (variable selon le mode) |
 | **Variable** | Renouvellement assurances | Tous | Vérifier les échéances et renouveler |
 | **Variable** | Renouvellement caisse sociale | Tous | Vérifier l'affiliation et les cotisations |
@@ -94,13 +100,13 @@ Pour chaque échéance, créer **2 rappels récurrents** :
 - **J-14** : rappel de préparation (rassembler les pièces, vérifier les montants)
 - **J-3** : rappel d'exécution (déposer, payer, envoyer)
 
-> **Outillage MCP (`agency-be-mcp`)** : Si le serveur MCP est activé dans votre harness, appelez `get_be_tax_calendar(year=2026, regime="trimestriel")` pour générer instantanément l'ensemble des échéances au format JSON structuré avec les dates exactes et les alertes J-14 et J-3 déjà calculées.
+> **Outillage MCP (`agency-be-mcp`)** : Si le serveur MCP est activé dans votre harness, appelez `get_be_tax_calendar(year=2026, regime="trimestriel")` (ou `regime="mensuel"`) pour générer instantanément l'ensemble des échéances au format JSON structuré avec les dates exactes et les alertes J-14 et J-3 déjà calculées.
 
 Exemple de structure dans l'agenda :
 ```
-[TVA] Déclaration trimestrielle T1 — 20 avril
-  Rappel J-14 : 6 avril — préparer déclaration
-  Rappel J-3 : 17 avril — déposer et payer
+[TVA] Déclaration trimestrielle T1 — 25 avril
+  Rappel J-14 : 11 avril — préparer déclaration
+  Rappel J-3 : 22 avril — déposer et payer (pas de report si week-end)
 [INASTI] Cotisation sociale T1 — 31 mars
   Rappel J-14 : 17 mars — vérifier montant
   Rappel J-3 : 28 mars — payer
@@ -120,14 +126,16 @@ Exemple de structure dans l'agenda :
 
 ## Common Pitfalls
 
-1. **Oublier l'acompte de décembre TVA.** L'administration le calcule automatiquement
-   mais ne vous prévient pas toujours à temps. Mettre un rappel dès novembre.
+1. **Compter sur un report au lundi.** Pour les trimestriels, le 25 n'est pas reporté
+   s'il tombe un samedi, un dimanche ou un jour férié légal : déposer et payer avant.
+   Seul le 20 des mensuels est reporté au jour ouvrable suivant.
 2. **Confondre date limite et date de paiement.** La date limite est le jour où le
    virement doit être reçu (pas émis). Payer 2-3 jours avant.
 3. **Négliger les versements anticipés.** La majoration IPP/ISOC pour versements
    manquants coûte cher — les faire systématiquement, même si le montant est estimé.
-4. **Régime trimestriel sans acompte de décembre.** L'acompte de décembre est obligatoire
-   pour le régime trimestriel TVA — ne pas l'oublier.
+4. **Payer encore des acomptes TVA par habitude.** Les trimestriels ne paient plus
+   d'acomptes (calendrier TVA du SPF) : la TVA due se paie en une fois, le 25 du mois qui
+   suit le trimestre.
 5. **UBO register oublié.** La SRL doit déclarer ses bénéficiaires effectifs dans le
    mois après la constitution — sanction en cas de retard.
 6. **Confondre échéance comptable et échéance fiscale.** Le comptable prépare la
@@ -136,14 +144,14 @@ Exemple de structure dans l'agenda :
 ## Verification Checklist
 
 - [ ] Toutes les échéances applicables dans l'agenda avec rappels J-14/J-3
-- [ ] Régime TVA déterminé (normal/frimestriel/forfait)
+- [ ] Régime TVA déterminé (mensuel/trimestriel/franchise/forfait)
 - [ ] Forme juridique déterminée (PP/SRL) → échéances adaptées
 - [ ] Versements anticipés IPP/ISOC programmés (4×/an)
-- [ ] Acompte de décembre TVA rappelé (si régime trimestriel)
+- [ ] Échéance TVA au bon jour : le 25 sans report (trimestriel), le 20 reporté au jour ouvrable (mensuel)
 - [ ] Comptes annuels SRL rappelés (30 juin)
 - [ ] UBO register rappelé (si SRL récente)
 
-> ⚠️ **Disclaimer** : information générale (as_of 2026-07), pas un conseil fiscal
+> ⚠️ **Disclaimer** : information générale (as_of 2026-09 pour les échéances TVA, 2026-07 pour le reste), pas un conseil fiscal
 > personnalisé. Les dates, taux et pénalités évoluent — vérifier sur les sites
 > officiels (SPF Finances, INASTI, BNB) et faire valider par un comptable ou
 > expert-comptable agréé en Belgique.

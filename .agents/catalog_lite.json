@@ -16,13 +16,13 @@
       "name": "be-accounting-basics",
       "trigger": "le solopreneur belge pose une question TVA (régime normal/franchise/forfait, déclarations, délais), impôt (IPP vs ISOC), précompte professionnel, cotisations sociales INASTI, ou veut comprendre ses obligations comptables de base",
       "role": "Produits : réponse chiffrée avec as_of + renvoi officiel, calendrier des échéances.",
-      "as_of": "2026-07"
+      "as_of": "2026-09"
     },
     {
       "name": "be-admin-deadlines",
       "trigger": "le solopreneur belge veut un calendrier fiscal annuel complet (TVA, INASTI, IPP/ISOC, BNB, listings), vérifier ses prochaines échéances, ou configurer des rappels automatiques",
       "role": "Produit un calendrier personnalisé selon le régime et la forme juridique.",
-      "as_of": "2026-07"
+      "as_of": "2026-09"
     },
     {
       "name": "be-bookkeeping-ops",

@@ -98,7 +98,7 @@ Une seule source de vérité (agenda avec rappels J-14 et J-3) pour :
 
 | Échéance type | Fréquence | Rappel |
 |---|---|---|
-| Déclaration TVA (si régime normal) | Mensuelle/trimestrielle — le 20 | J-10 |
+| Déclaration TVA (si régime normal) | Mensuelle le 20 (reporté au jour ouvrable) / trimestrielle le 25 (sans report) | J-10 |
 | Cotisations sociales INASTI | Trimestrielle | J-14 |
 | Versements anticipés IPP/ISOC | Trimestrielle | J-14 |
 | Listing annuel clients TVA | Annuelle | J-30 |

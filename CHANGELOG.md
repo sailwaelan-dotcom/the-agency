@@ -19,6 +19,18 @@ et ce projet adhère au [Versionnage sémantique](https://semver.org/lang/fr/).
 
 ### Corrigé
 
+- **Échéance TVA trimestrielle** : dépôt et paiement le **25** du mois qui suit le trimestre,
+  sans report si le 25 tombe un samedi, un dimanche ou un jour férié légal (au lieu du 20 ;
+  SPF Finances, « La nouvelle chaîne TVA » §2 et §10.1 et calendrier TVA, vérifiés le
+  2026-09-15). Corrigé dans `be-admin-deadlines` (dates et étiquettes de trimestres décalées,
+  exemple d'agenda), `be-accounting-basics`, `secretary-ops`, `examples/journee-solopreneur.md`,
+  les cas d'or `eval_05` et `eval_25`, et l'outil `get_be_tax_calendar`. Acompte de décembre
+  retiré pour les trimestriels (le calendrier TVA 2026 du SPF n'en prévoit plus). `as_of`
+  2026-09 sur les deux skills — revue limitée aux échéances TVA périodiques. Test de
+  régression `tests/test_tva_deadlines.py`.
+- `get_be_tax_calendar(regime="mensuel")` renvoyait les échéances trimestrielles : il produit
+  désormais les 12 échéances mensuelles (le 20, reporté au jour ouvrable suivant, jours fériés
+  légaux compris) et lève `ValueError` pour un régime inconnu.
 - `tests/test_e2e.py` : la fixture du skill temporaire inclut désormais la section
   « Questions à poser » (le validateur la requiert), et `check()` lève sous pytest
   au lieu d'ajouter silencieusement à `FAILURES` — les échecs E2E ne passent plus

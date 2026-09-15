@@ -39,7 +39,7 @@
       "id": "eval_05",
       "domain": "tva",
       "user_prompt": "À quelle date dois-je déposer ma déclaration TVA du premier trimestre ?",
-      "required_keywords": ["20 avril", "Intervat", "trimestre"],
+      "required_keywords": ["25 avril", "Intervat", "trimestre"],
       "forbidden_terms": ["impots.gouv.fr"],
       "must_have_disclaimer": false
     },
@@ -199,7 +199,7 @@
       "id": "eval_25",
       "domain": "deadlines",
       "user_prompt": "Quelle est l'échéance de paiement de la TVA du 4e trimestre ?",
-      "required_keywords": ["20 janvier", "Intervat"],
+      "required_keywords": ["25 janvier", "Intervat"],
       "forbidden_terms": [],
       "must_have_disclaimer": false
     },

@@ -1,13 +1,13 @@
 # Index des skills — The Agency
 
 > Généré par scripts/build_index.py — ne pas éditer à la main.
-> Généré le 2026-09-07 — 22 skills.
+> Généré le 2026-09-15 — 22 skills.
 
 ## admin
 
 | Skill | Déclencheur | as_of | Skills liés |
 |---|---|---|---|
-| [be-admin-deadlines](.agents/skills/be-admin-deadlines/SKILL.md) | Utilisez quand le solopreneur belge veut un calendrier fiscal annuel complet (TVA, INASTI, IPP/ISOC, BNB, listings), vé… | 2026-07 | be-accounting-basics, be-bookkeeping-ops, be-company-setup |
+| [be-admin-deadlines](.agents/skills/be-admin-deadlines/SKILL.md) | Utilisez quand le solopreneur belge veut un calendrier fiscal annuel complet (TVA, INASTI, IPP/ISOC, BNB, listings), vé… | 2026-09 | be-accounting-basics, be-bookkeeping-ops, be-company-setup |
 | [be-company-setup](.agents/skills/be-company-setup/SKILL.md) | Utilisez quand le futur solopreneur belge doit choisir sa forme juridique (personne physique vs SRL), créer son entrepr… | 2026-07 | be-accounting-basics, be-business-plan, be-invoicing-peppol |
 | [be-rgpd-compliance](.agents/skills/be-rgpd-compliance/SKILL.md) | Utilisez quand le solopreneur belge collecte des données personnelles (formulaire de contact, newsletter, clients), doi… | 2026-07 | be-company-setup, secretary-ops, social-listening-be |
 
@@ -23,7 +23,7 @@
 
 | Skill | Déclencheur | as_of | Skills liés |
 |---|---|---|---|
-| [be-accounting-basics](.agents/skills/be-accounting-basics/SKILL.md) | Utilisez quand le solopreneur belge pose une question TVA (régime normal/franchise/forfait, déclarations, délais), impô… | 2026-07 | be-invoicing-peppol, be-bookkeeping-ops |
+| [be-accounting-basics](.agents/skills/be-accounting-basics/SKILL.md) | Utilisez quand le solopreneur belge pose une question TVA (régime normal/franchise/forfait, déclarations, délais), impô… | 2026-09 | be-invoicing-peppol, be-bookkeeping-ops |
 | [be-bookkeeping-ops](.agents/skills/be-bookkeeping-ops/SKILL.md) | Utilisez quand le solopreneur belge doit organiser sa comptabilité courante : rituel mensuel de collecte des pièces, ra… | 2026-07 | be-accounting-basics, be-invoicing-peppol |
 | [be-financial-modeling](.agents/skills/be-financial-modeling/SKILL.md) | Utilisez quand le solopreneur belge doit modéliser un projet d'investissement, calculer une valorisation (DCF, multiple… | 2026-07 | be-business-plan, be-market-research, be-funding-subsidies, fact-check-sourcing |
 | [be-invoicing-peppol](.agents/skills/be-invoicing-peppol/SKILL.md) | Utilisez quand le solopreneur doit émettre une facture B2B en Belgique (Peppol obligatoire depuis janvier 2026), choisi… | 2026-07 | be-accounting-basics, be-bookkeeping-ops |

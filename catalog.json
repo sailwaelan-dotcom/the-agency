@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-07",
+  "generated_at": "2026-09-15",
   "generator": "scripts/build_index.py",
   "count": 22,
   "skills": [
@@ -53,7 +53,7 @@
         "be-invoicing-peppol",
         "be-bookkeeping-ops"
       ],
-      "as_of": "2026-07",
+      "as_of": "2026-09",
       "version": "0.1.0"
     },
     {
@@ -72,7 +72,7 @@
         "be-bookkeeping-ops",
         "be-company-setup"
       ],
-      "as_of": "2026-07",
+      "as_of": "2026-09",
       "version": "0.1.0"
     },
     {
