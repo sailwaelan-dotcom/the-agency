@@ -22,6 +22,8 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "scripts"))
 import validate_skills  # noqa: E402
 import security_scan  # noqa: E402
+
+from skill_meta import split_list  # noqa: E402
 from tdd_common import check, parametrize_skills  # noqa: E402
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
@@ -103,9 +105,9 @@ def test_frontmatter(name: str):
           f"as_of '{meta.get('as_of')}' != '2026-09'")
 
     spec = VAGUE5_SKILLS[name]
-    check(f"{name}-fm-tags", spec["tags"] <= set(meta.get("tags") or []),
+    check(f"{name}-fm-tags", spec["tags"] <= set(split_list(meta.get("tags"))),
           f"tags attendus {sorted(spec['tags'])} absents de {meta.get('tags')}")
-    check(f"{name}-fm-related", spec["related"] <= set(meta.get("related_skills") or []),
+    check(f"{name}-fm-related", spec["related"] <= set(split_list(meta.get("related_skills"))),
           f"related_skills attendus {sorted(spec['related'])} absents de {meta.get('related_skills')}")
 
 
@@ -133,7 +135,7 @@ def test_related_skills_resolve(name: str):
         check(f"{name}-related-resolve", False, "skill n'existe pas")
         return
     fm = parse_frontmatter(read_skill(name))
-    related = (fm.get("metadata") or {}).get("related_skills") or []
+    related = split_list((fm.get("metadata") or {}).get("related_skills"))
     for rel in related:
         check(f"{name}-related-{rel}",
               (SKILLS_DIR / rel / "SKILL.md").exists(),

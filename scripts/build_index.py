@@ -18,6 +18,8 @@ from pathlib import Path
 
 import yaml
 
+from skill_meta import split_list
+
 REPO_ROOT = Path(__file__).resolve().parent.parent
 
 MAX_TRIGGER = 120  # longueur max de la colonne « Déclencheur »
@@ -47,8 +49,8 @@ def parse_skill(skill_md: Path) -> dict | None:
         "description": fm.get("description", ""),
         "version": fm.get("version", ""),
         "domain": meta.get("domain", "autre"),
-        "tags": meta.get("tags") or [],
-        "related_skills": meta.get("related_skills") or [],
+        "tags": split_list(meta.get("tags")),
+        "related_skills": split_list(meta.get("related_skills")),
         "as_of": str(meta.get("as_of", "")),
     }
 

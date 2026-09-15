@@ -22,6 +22,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "scripts"))
 import validate_skills  # noqa: E402
 import security_scan  # noqa: E402
 
+from skill_meta import split_list  # noqa: E402
+
 REPO_ROOT = Path(__file__).resolve().parent.parent
 SKILLS_DIR = REPO_ROOT / ".agents" / "skills"
 AGENTS_DIR = REPO_ROOT / ".agents" / "agents"
@@ -101,9 +103,9 @@ def test_frontmatter():
           f"language '{meta.get('language')}' != 'fr'")
     check("fm-asof", str(meta.get("as_of", "")) == "2026-09",
           f"as_of '{meta.get('as_of')}' != '2026-09'")
-    check("fm-tags", EXPECTED_TAGS <= set(meta.get("tags") or []),
+    check("fm-tags", EXPECTED_TAGS <= set(split_list(meta.get("tags"))),
           f"tags attendus {sorted(EXPECTED_TAGS)} absents de {meta.get('tags')}")
-    check("fm-related", EXPECTED_RELATED <= set(meta.get("related_skills") or []),
+    check("fm-related", EXPECTED_RELATED <= set(split_list(meta.get("related_skills"))),
           f"related_skills attendus {sorted(EXPECTED_RELATED)} absents de {meta.get('related_skills')}")
 
 
@@ -125,7 +127,7 @@ def test_related_skills_resolve():
         check("related-resolve", False, "skill n'existe pas")
         return
     fm = parse_frontmatter(skill_path().read_text(encoding="utf-8"))
-    for rel in (fm.get("metadata") or {}).get("related_skills") or []:
+    for rel in split_list((fm.get("metadata") or {}).get("related_skills")):
         check(f"related-{rel}", (SKILLS_DIR / rel / "SKILL.md").exists(),
               f"related_skill '{rel}' ne résout pas")
 

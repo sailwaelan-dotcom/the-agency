@@ -20,8 +20,8 @@ description: "{desc}"
 version: 0.1.0
 license: MIT
 metadata:
-  tags: [{tags}]
-  related_skills: [{related}]
+  tags: "{tags}"
+  related_skills: "{related}"
   domain: {domain}
   language: fr
   as_of: "{as_of}"
@@ -108,6 +108,7 @@ with tempfile.TemporaryDirectory() as tmp:
     check("catalog-domain", alpha["domain"] == "finance", f"domain={alpha.get('domain')}")
     check("catalog-related", alpha["related_skills"] == ["skill-beta"],
           f"related={alpha.get('related_skills')}")
+    check("catalog-tags", alpha["tags"] == ["test"], f"tags={alpha.get('tags')}")
 
     # 6. --check : vert juste après génération
     code, _ = run(tmp, "--check")

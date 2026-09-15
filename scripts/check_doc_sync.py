@@ -18,6 +18,8 @@ from pathlib import Path
 
 import yaml
 
+from skill_meta import split_list
+
 REPO_ROOT = Path(__file__).resolve().parent.parent
 
 # Dossiers de copies harness : créés après le clone par adapters/link-skills,
@@ -60,7 +62,7 @@ def count_related_links(root: Path) -> int:
         if not isinstance(fm, dict):
             continue
         meta = fm.get("metadata") or {}
-        total += len(meta.get("related_skills") or [])
+        total += len(split_list(meta.get("related_skills")))
     return total
 
 

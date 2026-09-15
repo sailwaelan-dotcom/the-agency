@@ -19,8 +19,8 @@ description: "Utilisez quand on teste."
 version: 0.1.0
 license: MIT
 metadata:
-  tags: [test]
-  related_skills: [{related}]
+  tags: "test"
+  related_skills: "{related}"
   domain: finance
   language: fr
   as_of: "2026-07"

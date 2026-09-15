@@ -25,6 +25,8 @@ import validate_skills  # noqa: E402
 import security_scan  # noqa: E402
 import check_related_links  # noqa: E402
 
+from skill_meta import split_list  # noqa: E402
+
 REPO_ROOT = Path(__file__).resolve().parent.parent
 SKILLS_DIR = REPO_ROOT / ".agents" / "skills"
 
@@ -122,7 +124,7 @@ Ce skill est un test end-to-end du workflow de contribution. Il sera supprimé a
     content = test_skill_md.read_text(encoding="utf-8")
     end = content.find("\n---", 3)
     fm = yaml.safe_load(content[3:end])
-    related = fm.get("metadata", {}).get("related_skills", [])
+    related = split_list(fm.get("metadata", {}).get("related_skills"))
     all_exist = all(r in existing for r in related)
     check("e2e-related-links", all_exist,
           f"liens morts: {[r for r in related if r not in existing]}")
@@ -188,7 +190,7 @@ def test_e2e_full_gate():
         if not isinstance(fm, dict):
             continue
         meta = fm.get("metadata") or {}
-        related = meta.get("related_skills") or []
+        related = split_list(meta.get("related_skills"))
         for rel in related:
             if rel not in existing:
                 dead.append(f"{skill_name} -> {rel}")

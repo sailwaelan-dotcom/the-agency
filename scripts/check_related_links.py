@@ -12,6 +12,8 @@ from pathlib import Path
 
 import yaml
 
+from skill_meta import split_list
+
 REPO_ROOT = Path(__file__).resolve().parent.parent
 SKILLS_DIR = REPO_ROOT / ".agents" / "skills"
 
@@ -40,8 +42,7 @@ def main() -> int:
         if not isinstance(fm, dict):
             continue
         meta = fm.get("metadata") or {}
-        related = meta.get("related_skills") or []
-        for rel in related:
+        for rel in split_list(meta.get("related_skills")):
             checked += 1
             if rel not in existing:
                 dead.append(f"{skill_name} -> {rel}")

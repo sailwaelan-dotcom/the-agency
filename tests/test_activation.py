@@ -28,6 +28,9 @@ from pathlib import Path
 import yaml
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(REPO_ROOT / "scripts"))
+from skill_meta import split_list  # noqa: E402
+
 SKILLS_DIR = REPO_ROOT / ".agents" / "skills"
 ACTIVATION_MD = REPO_ROOT / "tests" / "ACTIVATION.md"
 
@@ -124,7 +127,7 @@ def champ_lexical(skill: str) -> str:
     when_to_use = m.group(1) if m else ""
     texte = " ".join([
         fm.get("description", ""),
-        " ".join(fm.get("metadata", {}).get("tags", [])),
+        " ".join(split_list(fm.get("metadata", {}).get("tags"))),
         when_to_use,
     ])
     return normaliser(texte)
