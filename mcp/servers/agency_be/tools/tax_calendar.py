@@ -37,12 +37,14 @@ def get_be_tax_calendar(year: int = 2026, regime: str = "trimestriel") -> List[D
     """
     events: List[Dict[str, Any]] = []
 
-    # 1. Déclarations TVA trimestrielles (dépôt + paiement le 20 du mois suivant le trimestre)
+    # 1. Déclarations TVA trimestrielles : dépôt + paiement le 25 du mois qui suit le trimestre,
+    #    sans report si le 25 tombe un samedi, un dimanche ou un jour férié légal
+    #    (SPF Finances, « La nouvelle chaîne TVA » §2.1, §2.2 et §10.1 — as_of 2026-09)
     tva_quarters = [
-        ("q1", f"{year}-04-20", f"TVA Trimestre 1 {year}"),
-        ("q2", f"{year}-07-20", f"TVA Trimestre 2 {year}"),
-        ("q3", f"{year}-10-20", f"TVA Trimestre 3 {year}"),
-        ("q4", f"{year + 1}-01-20", f"TVA Trimestre 4 {year}"),
+        ("q1", f"{year}-04-25", f"TVA Trimestre 1 {year}"),
+        ("q2", f"{year}-07-25", f"TVA Trimestre 2 {year}"),
+        ("q3", f"{year}-10-25", f"TVA Trimestre 3 {year}"),
+        ("q4", f"{year + 1}-01-25", f"TVA Trimestre 4 {year}"),
     ]
     for q_code, d_str, title in tva_quarters:
         d = date.fromisoformat(d_str)
@@ -53,7 +55,7 @@ def get_be_tax_calendar(year: int = 2026, regime: str = "trimestriel") -> List[D
                 title=title,
                 deadline=d,
                 procedure="Dépôt déclaration Intervat + paiement sur compte SPF Finances avec communication structurée",
-                details="Pénalité de retard et intérêts légaux en cas de non-respect du 20.",
+                details="Aucun report si le 25 tombe un samedi, un dimanche ou un jour férié légal : anticiper le dépôt et le paiement.",
             )
         )
 

@@ -112,11 +112,11 @@ def test_tax_calendar_2026_quarterly():
     assert "versement_anticipe" in types
     assert "inasti" in types
 
-    # Vérification TVA T1 : 20 avril 2026
+    # Vérification TVA T1 : 25 avril 2026 (25e jour du mois qui suit le trimestre — SPF Finances)
     tva_t1 = next(item for item in calendar if item["id"] == "tva_2026_q1")
-    assert tva_t1["deadline"] == "2026-04-20"
-    assert tva_t1["alert_j14"] == "2026-04-06"
-    assert tva_t1["alert_j3"] == "2026-04-17"
+    assert tva_t1["deadline"] == "2026-04-25"
+    assert tva_t1["alert_j14"] == "2026-04-11"
+    assert tva_t1["alert_j3"] == "2026-04-22"
     assert "Intervat" in tva_t1["procedure"]
 
     # Vérification Versements anticipés (VA1: 10 avril, VA4: 20 décembre)
@@ -133,6 +133,19 @@ def test_tax_calendar_2026_quarterly():
 # ============================================================================
 # 3. Tests Outil INASTI : simulation cotisations sociales provisionnelles
 # ============================================================================
+
+def test_tax_calendar_quarterly_25th_no_weekend_postponement():
+    from agency_be.tools.tax_calendar import get_be_tax_calendar
+    tva = {e["id"]: e["deadline"] for e in get_be_tax_calendar(year=2026, regime="trimestriel")
+           if e["type"] == "tva"}
+    # Calendrier TVA du SPF : 25.07.2026 (samedi) et 25.10.2026 (dimanche) ne sont pas reportés
+    assert tva == {
+        "tva_2026_q1": "2026-04-25",
+        "tva_2026_q2": "2026-07-25",
+        "tva_2026_q3": "2026-10-25",
+        "tva_2026_q4": "2027-01-25",
+    }
+
 
 def test_inasti_provision_calculation_minimum():
     from agency_be.tools.inasti import calc_inasti_provision
@@ -356,6 +369,7 @@ if __name__ == "__main__":
         test_bce_validation_invalid_checksum,
         test_bce_validation_invalid_length,
         test_tax_calendar_2026_quarterly,
+        test_tax_calendar_quarterly_25th_no_weekend_postponement,
         test_inasti_provision_calculation_minimum,
         test_inasti_provision_calculation_standard,
         test_inasti_provision_calculation_ceiling,

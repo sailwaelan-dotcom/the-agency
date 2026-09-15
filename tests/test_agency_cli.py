@@ -48,7 +48,7 @@ def test_cli_deadlines():
     with redirect_stdout(f):
         cmd_deadlines(args)
     out = f.getvalue()
-    assert "2026-04-20" in out
+    assert "2026-04-25" in out
     assert "TVA Trimestre 1 2026" in out
     assert "J-14" in out
     print("  ✓ test_cli_deadlines")
