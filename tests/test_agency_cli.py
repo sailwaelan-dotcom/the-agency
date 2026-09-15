@@ -54,6 +54,18 @@ def test_cli_deadlines():
     print("  ✓ test_cli_deadlines")
 
 
+def test_cli_deadlines_monthly():
+    parser = build_parser()
+    args = parser.parse_args(["deadlines", "--year", "2026", "--regime", "mensuel"])
+    f = io.StringIO()
+    with redirect_stdout(f):
+        cmd_deadlines(args)
+    out = f.getvalue()
+    assert "2026-06-22" in out  # 20.06.2026 = samedi → lundi 22
+    assert "TVA Trimestre" not in out
+    print("  ✓ test_cli_deadlines_monthly")
+
+
 def test_cli_vault_list():
     parser = build_parser()
     args = parser.parse_args(["vault", "list"])
@@ -70,6 +82,7 @@ if __name__ == "__main__":
     test_cli_bce()
     test_cli_inasti()
     test_cli_deadlines()
+    test_cli_deadlines_monthly()
     test_cli_vault_list()
-    print("\nGREEN — Tous les 4 tests du CLI Solopreneur passent !")
+    print("\nGREEN — Tous les 5 tests du CLI Solopreneur passent !")
     sys.exit(0)

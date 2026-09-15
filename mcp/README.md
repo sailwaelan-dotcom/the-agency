@@ -21,7 +21,7 @@ Le serveur `agency-be-mcp` résout ces problèmes en injectant des **outils dét
 | Outil | Type | Source officielle | Description |
 |---|---|---|---|
 | `validate_bce_number` | Local (offline) | SPF Economie | Validation Modulo 97 d'un numéro d'entreprise BCE/KBO, formatage canonique et génération du lien vers le registre public. |
-| `get_be_tax_calendar` | Local (offline) | SPF Finances / INASTI | Calendrier fiscal et social belge dynamique (TVA trimestrielle Intervat, VA1-VA4, cotisations INASTI) avec alertes J-14 et J-3. |
+| `get_be_tax_calendar` | Local (offline) | SPF Finances / INASTI | Calendrier fiscal et social belge dynamique (TVA Intervat trimestrielle ou mensuelle, VA1-VA4, cotisations INASTI) avec alertes J-14 et J-3. |
 | `calc_inasti_provision` | Local (offline) | INASTI | Simulation des cotisations sociales provisionnelles trimestrielles selon les tranches légales et plafonds en vigueur. |
 | `check_vat_vies` | API REST | Commission Européenne (VIES) | Validation en temps réel d'un numéro de TVA intracommunautaire (nom officiel et adresse enregistrée). |
 | `lookup_peppol_participant` | API REST | OpenPeppol Directory | Vérification de l'enregistrement d'un numéro d'entreprise pour la réception de factures électroniques Peppol. |

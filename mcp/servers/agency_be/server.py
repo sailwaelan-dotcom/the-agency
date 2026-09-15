@@ -114,8 +114,9 @@ def get_server_tools() -> List[Dict[str, Any]]:
             "name": "get_be_tax_calendar",
             "description": (
                 "Génère le calendrier fiscal et social belge pour une année donnée : "
-                "TVA trimestrielle (Intervat), Versements Anticipés (VA1 à VA4 - SPF Finances), "
-                "et cotisations INASTI. Inclut les alertes proactives J-14 et J-3."
+                "TVA périodique (Intervat : trimestrielle le 25 sans report, mensuelle le 20 reportée "
+                "au jour ouvrable), Versements Anticipés (VA1 à VA4 - SPF Finances) et cotisations INASTI. "
+                "Inclut les alertes proactives J-14 et J-3."
             ),
             "inputSchema": {
                 "type": "object",
@@ -128,6 +129,7 @@ def get_server_tools() -> List[Dict[str, Any]]:
                     "regime": {
                         "type": "string",
                         "description": "Régime de TVA (trimestriel ou mensuel).",
+                        "enum": ["trimestriel", "mensuel"],
                         "default": "trimestriel",
                     },
                 },

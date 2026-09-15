@@ -147,6 +147,38 @@ def test_tax_calendar_quarterly_25th_no_weekend_postponement():
     }
 
 
+def test_tax_calendar_monthly_20th_postponed_to_next_working_day():
+    from agency_be.tools.tax_calendar import get_be_tax_calendar
+    calendar = get_be_tax_calendar(year=2026, regime="mensuel")
+    tva = [e["deadline"] for e in calendar if e["type"] == "tva"]
+    # Calendrier TVA du SPF 2026 : 20.06 (samedi) → 22.06 ; 20.09 et 20.12 (dimanches) → 21
+    assert tva == [
+        "2026-02-20", "2026-03-20", "2026-04-20", "2026-05-20", "2026-06-22", "2026-07-20",
+        "2026-08-20", "2026-09-21", "2026-10-20", "2026-11-20", "2026-12-21", "2027-01-20",
+    ]
+    assert len(calendar) == 20  # 12 TVA + 4 VA + 4 INASTI
+    janvier = next(e for e in calendar if e["id"] == "tva_2026_m01")
+    assert janvier["title"] == "TVA Janvier 2026"
+
+
+def test_tax_calendar_monthly_skips_public_holiday():
+    from agency_be.tools.tax_calendar import get_be_tax_calendar
+    tva = {e["id"]: e["deadline"] for e in get_be_tax_calendar(year=2024, regime="mensuel")
+           if e["type"] == "tva"}
+    # 20.05.2024 = lundi de Pentecôte (jour férié légal) → mardi 21.05.2024
+    assert tva["tva_2024_m04"] == "2024-05-21"
+
+
+def test_tax_calendar_unknown_regime_raises():
+    from agency_be.tools.tax_calendar import get_be_tax_calendar
+    if pytest is not None:
+        with pytest.raises(ValueError):
+            get_be_tax_calendar(year=2026, regime="franchise")
+    else:
+        with assert_raises(ValueError):
+            get_be_tax_calendar(year=2026, regime="franchise")
+
+
 def test_inasti_provision_calculation_minimum():
     from agency_be.tools.inasti import calc_inasti_provision
     # Revenu modeste (< seuil minimum légal) : doit appliquer la cotisation minimale
@@ -370,6 +402,9 @@ if __name__ == "__main__":
         test_bce_validation_invalid_length,
         test_tax_calendar_2026_quarterly,
         test_tax_calendar_quarterly_25th_no_weekend_postponement,
+        test_tax_calendar_monthly_20th_postponed_to_next_working_day,
+        test_tax_calendar_monthly_skips_public_holiday,
+        test_tax_calendar_unknown_regime_raises,
         test_inasti_provision_calculation_minimum,
         test_inasti_provision_calculation_standard,
         test_inasti_provision_calculation_ceiling,
