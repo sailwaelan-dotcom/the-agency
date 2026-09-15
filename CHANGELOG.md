@@ -47,6 +47,14 @@ et ce projet adhère au [Versionnage sémantique](https://semver.org/lang/fr/).
 
 ### Modifié
 
+- **Frontmatter des skills conforme à la spécification agentskills.io** : `version` et
+  `author` passent dans `metadata` ; `metadata.tags` et `metadata.related_skills` deviennent
+  des chaînes « a, b, c » (la spec n'admet que des valeurs chaînes). Les 22 skills et le
+  template sont migrés ; `validate_skills.py` rejette l'ancien format avec une consigne de
+  migration (self-test 15/15). Découpage unique dans `scripts/skill_meta.py` (`split_list`),
+  utilisé par `build_index.py`, `check_related_links.py`, `check_doc_sync.py` et les tests.
+  `catalog.json` et `INDEX.md` inchangés. **Contributeurs** : un skill à l'ancien format doit
+  être migré (voir CONTRIBUTING).
 - CI `build-exe.yml` : `PYTHONIOENCODING=utf-8` au niveau du job, permissions
   `contents: write`, et attachement automatique de `TheAgency.exe` et
   `TheAgency-Setup.exe` à la GitHub Release lors d'un push de tag.

@@ -96,9 +96,12 @@ nom du dossier.*
 
 ### 4. Écrire le frontmatter canonique
 
-Champs autorisés en top-level (whitelist stricte) : `name`, `description`,
-`version`, `license`, `author`, `compatibility`, `metadata`. Dans `metadata` :
-`tags` (liste non vide), `related_skills`, `as_of`, `domain`, `language`.
+Champs autorisés en top-level (whitelist stricte, spec agentskills.io) : `name`,
+`description`, `license`, `compatibility`, `metadata`. Dans `metadata`, **uniquement des
+chaînes** : `version` (entre guillemets, ex. `"0.1.0"`), `author`, `tags` (non vide, liste
+en chaîne « a, b, c »), `related_skills` (même format), `as_of`, `domain`, `language`.
+`version` ou `author` en top-level, ou une liste YAML `[...]` dans `metadata`, sont rejetés
+par le validateur.
 
 **Champs INTERDITS** (harness-spécifiques, cassent la promesse agnostic) :
 `allowed-tools`, `disallowed-tools`, `hooks`, `model`, `effort`, `context`,
@@ -199,7 +202,7 @@ documentaire (INDEX.md, compteurs README, CHANGELOG).
 - [ ] `name` == nom du dossier, kebab-case, regex conforme
 - [ ] `description` commence par « Utilisez quand » et nomme l'artefact produit
 - [ ] Frontmatter 100 % whitelisté (aucun champ harness-spécifique)
-- [ ] `metadata` complète : `tags`, `related_skills`, `domain`, `language`, `as_of`
+- [ ] `metadata` complète, valeurs en chaînes : `version`, `author`, `tags`, `related_skills`, `domain`, `language`, `as_of`
 - [ ] Sections présentes : Overview, When to Use, Inputs & Sorties, Questions à poser (avec questions), Workflow, Common Pitfalls, Verification Checklist
 - [ ] Chaque étape du workflow a un critère de complétion vérifiable
 - [ ] Taille entre 6 000 et 15 000 caractères (détail lourd dans `references/` sinon)

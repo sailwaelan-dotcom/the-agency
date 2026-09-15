@@ -29,15 +29,20 @@ belges. Chaque skill doit être :
 ## Standards de qualité
 
 ### Frontmatter (obligatoire)
+
+Conforme à la [spécification agentskills.io](https://agentskills.io/specification) : en
+top-level uniquement `name`, `description`, `license` (et `compatibility` si besoin) ; tout
+le reste va dans `metadata`, dont chaque valeur est une **chaîne** (listes : « a, b, c »).
+
 ```yaml
 name: nom-du-skill              # lowercase, hyphens, ≤64 chars
 description: "Utilisez quand…"  # trigger-focused, ≤1024 chars
-version: 0.1.0
 license: MIT
-author: Votre nom
 metadata:
-  tags: [domaine, be]
-  related_skills: [autre-skill]
+  version: "0.1.0"              # chaîne : toujours entre guillemets
+  author: Votre nom
+  tags: "domaine, be"           # liste en chaîne, séparée par des virgules
+  related_skills: "autre-skill"
   domain: rd|finance|admin|content|ops|sales|legal
   language: fr
   as_of: "YYYY-MM"
