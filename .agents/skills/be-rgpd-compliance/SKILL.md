@@ -1,12 +1,12 @@
 ---
 name: be-rgpd-compliance
 description: "Utilisez quand le solopreneur belge collecte des données personnelles (formulaire de contact, newsletter, clients), doit rédiger une politique de confidentialité, gérer des cookies, répondre à une demande d'accès RGPD, ou évaluer sa conformité de base avec l'APD."
-version: 0.1.0
 license: MIT
-author: The Agency
 metadata:
-  tags: [admin, rgpd, compliance, privacy, be]
-  related_skills: [be-company-setup, secretary-ops, social-listening-be]
+  version: "0.1.0"
+  author: The Agency
+  tags: "admin, rgpd, compliance, privacy, be"
+  related_skills: "be-company-setup, secretary-ops, social-listening-be"
   domain: admin
   language: fr
   as_of: "2026-07"

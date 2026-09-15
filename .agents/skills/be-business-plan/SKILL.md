@@ -1,12 +1,12 @@
 ---
 name: be-business-plan
 description: "Utilisez quand le solopreneur belge doit rédiger un business plan (banque, subside, notaire pour SRL), construire son plan financier prévisionnel (obligatoire au CSA pour SRL), évaluer son breakeven, ou préparer un dossier de financement. Produit un plan structuré prêt à faire valider."
-version: 0.1.0
 license: MIT
-author: The Agency
 metadata:
-  tags: [business, finance, rd, strategy, be]
-  related_skills: [be-market-research, be-funding-subsidies, be-company-setup, be-accounting-basics]
+  version: "0.1.0"
+  author: The Agency
+  tags: "business, finance, rd, strategy, be"
+  related_skills: "be-market-research, be-funding-subsidies, be-company-setup, be-accounting-basics"
   domain: rd
   language: fr
   as_of: "2026-07"

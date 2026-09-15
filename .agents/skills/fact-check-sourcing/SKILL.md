@@ -1,12 +1,12 @@
 ---
 name: fact-check-sourcing
 description: "Utilisez automatiquement après chaque recherche web ou extraction de données — GATE ACTIF harness-agnostic (ChatGPT, Mistral, Claude Cowork, Claude Code, Cursor, Gemini, Perplexity). Vérifie la fiabilité des sources, croise avec sources officielles belges, produit un score A/B/C/D. Ce skill est permanent, pas à la demande."
-version: 3.1.0
 license: MIT
-author: The Agency
 metadata:
-  tags: [business, rd, research, sourcing, gate, be, harness-agnostic]
-  related_skills: [be-market-research, be-business-plan, be-funding-subsidies, content-engine-be, be-financial-modeling]
+  version: "3.1.0"
+  author: The Agency
+  tags: "business, rd, research, sourcing, gate, be, harness-agnostic"
+  related_skills: "be-market-research, be-business-plan, be-funding-subsidies, content-engine-be, be-financial-modeling"
   domain: rd
   language: fr
   as_of: "2026-07"

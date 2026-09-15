@@ -1,12 +1,12 @@
 ---
 name: be-contracts-legal
 description: "Utilisez quand le solopreneur belge doit rédiger ou vérifier un contrat (prestation, partenariat, NDA), des conditions générales de vente (CGV), des mentions légales de site web, ou un accord de confidentialité. Fournit des templates et une checklist de vérification — ne remplace pas un avocat."
-version: 0.1.0
 license: MIT
-author: The Agency
 metadata:
-  tags: [business, legal, contracts, compliance, be]
-  related_skills: [be-rgpd-compliance, be-company-setup, be-sales-outreach]
+  version: "0.1.0"
+  author: The Agency
+  tags: "business, legal, contracts, compliance, be"
+  related_skills: "be-rgpd-compliance, be-company-setup, be-sales-outreach"
   domain: legal
   language: fr
   as_of: "2026-07"

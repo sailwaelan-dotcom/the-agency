@@ -47,7 +47,7 @@ def parse_skill(skill_md: Path) -> dict | None:
     return {
         "name": fm.get("name", skill_md.parent.name),
         "description": fm.get("description", ""),
-        "version": fm.get("version", ""),
+        "version": str(meta.get("version", "")),
         "domain": meta.get("domain", "autre"),
         "tags": split_list(meta.get("tags")),
         "related_skills": split_list(meta.get("related_skills")),

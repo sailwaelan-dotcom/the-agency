@@ -1,12 +1,12 @@
 ---
 name: secretary-ops
 description: "Utilisez quand le solopreneur belge croule sous l'administratif quotidien : tri des emails, gestion d'agenda, préparation de rendez-vous clients, relances administratives, rappels d'échéances, classement documentaire. Produit des rituels et templates pour récupérer 3-5h/semaine."
-version: 0.1.0
 license: MIT
-author: The Agency
 metadata:
-  tags: [ops, admin, productivity, be]
-  related_skills: [be-bookkeeping-ops, be-rgpd-compliance, content-engine-be]
+  version: "0.1.0"
+  author: The Agency
+  tags: "ops, admin, productivity, be"
+  related_skills: "be-bookkeeping-ops, be-rgpd-compliance, content-engine-be"
   domain: ops
   language: fr
   as_of: "2026-07"

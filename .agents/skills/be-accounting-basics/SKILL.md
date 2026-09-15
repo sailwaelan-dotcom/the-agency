@@ -1,12 +1,12 @@
 ---
 name: be-accounting-basics
 description: "Utilisez quand le solopreneur belge pose une question TVA (régime normal/franchise/forfait, déclarations, délais), impôt (IPP vs ISOC), précompte professionnel, cotisations sociales INASTI, ou veut comprendre ses obligations comptables de base. Produits : réponse chiffrée avec as_of + renvoi officiel, calendrier des échéances."
-version: 0.1.0
 license: MIT
-author: The Agency
 metadata:
-  tags: [finance, accounting, tax, tva, be]
-  related_skills: [be-invoicing-peppol, be-bookkeeping-ops]
+  version: "0.1.0"
+  author: The Agency
+  tags: "finance, accounting, tax, tva, be"
+  related_skills: "be-invoicing-peppol, be-bookkeeping-ops"
   domain: finance
   language: fr
   as_of: "2026-09"

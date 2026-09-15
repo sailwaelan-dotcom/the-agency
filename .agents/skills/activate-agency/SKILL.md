@@ -1,12 +1,12 @@
 ---
 name: activate-agency
 description: "Utilisez quand un solopreneur installe The Agency pour la première fois, lance « activate the agency », demande « par où commencer ? » ou « quels skills sont faits pour moi ? », ou veut personnaliser l'agence pour son activité. Conduit l'interview d'onboarding (stade, forme juridique, TVA, objectifs), écrit le profil persistant AGENCY_PROFILE.md hors du repo, puis produit la shortlist des skills prioritaires et le plan 30 jours avec handoff."
-version: 1.0.0
 license: MIT
-author: The Agency
 metadata:
-  tags: [meta, onboarding, configuration, profil, be]
-  related_skills: [be-company-setup, be-admin-deadlines, fact-check-sourcing]
+  version: "1.0.0"
+  author: The Agency
+  tags: "meta, onboarding, configuration, profil, be"
+  related_skills: "be-company-setup, be-admin-deadlines, fact-check-sourcing"
   domain: meta
   language: fr
   as_of: "2026-09"

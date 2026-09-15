@@ -83,7 +83,7 @@ with tempfile.TemporaryDirectory() as tmp:
     # 6. Champ metadata inconnu → rejeté
     bad_meta = make_skill(tmp, "be-invoicing-peppol4", frontmatter_overrides={
         "name": "be-invoicing-peppol4",
-        "metadata": {"tags": ["finance"], "evil_field": "x"},
+        "metadata": {"version": "0.1.0", "tags": "finance", "evil_field": "x"},
     })
     check("metadata-inconnu", bad_meta, expect_valid=False, expect_error_substr="metadata")
 
@@ -106,9 +106,51 @@ with tempfile.TemporaryDirectory() as tmp:
     check("questions-sans-question", empty_q, expect_valid=False,
           expect_error_substr="sans question")
 
+    # 10. version en top-level (hors spec agentskills.io) → rejeté, avec consigne de migration
+    top_version = make_skill(tmp, "be-invoicing-peppol8", frontmatter_overrides={
+        "name": "be-invoicing-peppol8", "version": "0.1.0",
+    })
+    check("version-top-level", top_version, expect_valid=False, expect_error_substr="metadata.version")
+
+    # 11. author en top-level → rejeté
+    top_author = make_skill(tmp, "be-invoicing-peppol9", frontmatter_overrides={
+        "name": "be-invoicing-peppol9", "author": "The Agency",
+    })
+    check("author-top-level", top_author, expect_valid=False, expect_error_substr="metadata.author")
+
+    # 12. metadata.tags en liste YAML (spec : valeurs chaînes) → rejeté
+    tags_liste = make_skill(tmp, "be-invoicing-peppol10", frontmatter_overrides={
+        "name": "be-invoicing-peppol10",
+        "metadata": {"version": "0.1.0", "tags": ["finance", "be"], "domain": "finance"},
+    })
+    check("tags-liste", tags_liste, expect_valid=False, expect_error_substr="doit être une chaîne")
+
+    # 13. metadata.version non chaîne (1.0 est un float YAML) → rejeté
+    version_float = make_skill(tmp, "be-invoicing-peppol11", frontmatter_overrides={
+        "name": "be-invoicing-peppol11",
+        "metadata": {"version": 1.0, "tags": "finance, be"},
+    })
+    check("version-float", version_float, expect_valid=False,
+          expect_error_substr="metadata.version doit être une chaîne")
+
+    # 14. metadata.version absent → rejeté
+    sans_version = make_skill(tmp, "be-invoicing-peppol12", frontmatter_overrides={
+        "name": "be-invoicing-peppol12",
+        "metadata": {"tags": "finance, be"},
+    })
+    check("version-absente", sans_version, expect_valid=False, expect_error_substr="'metadata.version'")
+
+    # 15. related_skills avec un élément mal formé → rejeté
+    related_invalide = make_skill(tmp, "be-invoicing-peppol13", frontmatter_overrides={
+        "name": "be-invoicing-peppol13",
+        "metadata": {"version": "0.1.0", "tags": "finance, be",
+                     "related_skills": "be-accounting-basics, Be Bookkeeping"},
+    })
+    check("related-invalide", related_invalide, expect_valid=False, expect_error_substr="éléments invalides")
+
 if FAILURES:
     print("ÉCHECS:")
     for f in FAILURES:
         print(f"  {f}")
     sys.exit(1)
-print("OK: 9/9 auto-tests du validateur passent")
+print("OK: 15/15 auto-tests du validateur passent")

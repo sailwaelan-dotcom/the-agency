@@ -1,12 +1,12 @@
 ---
 name: be-bookkeeping-ops
 description: "Utilisez quand le solopreneur belge doit organiser sa comptabilité courante : rituel mensuel de collecte des pièces, rapprochement bancaire, suivi des factures impayées et relances clients, préparation du dossier pour le comptable, ou archivage légal (7 ans)."
-version: 0.1.0
 license: MIT
-author: The Agency
 metadata:
-  tags: [finance, accounting, bookkeeping, ops, be]
-  related_skills: [be-accounting-basics, be-invoicing-peppol]
+  version: "0.1.0"
+  author: The Agency
+  tags: "finance, accounting, bookkeeping, ops, be"
+  related_skills: "be-accounting-basics, be-invoicing-peppol"
   domain: finance
   language: fr
   as_of: "2026-07"

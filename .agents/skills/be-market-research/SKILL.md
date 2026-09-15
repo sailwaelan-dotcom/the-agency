@@ -1,12 +1,12 @@
 ---
 name: be-market-research
 description: "Utilisez quand le solopreneur belge doit valider une idée (étude de marché), dimensionner son marché (TAM/SAM/SOM), analyser la concurrence locale, ou interviewer des clients potentiels avant de construire. Produit des données sourcées prêtes pour le business plan."
-version: 0.1.0
 license: MIT
-author: The Agency
 metadata:
-  tags: [business, rd, strategy, market, be]
-  related_skills: [be-business-plan, be-funding-subsidies]
+  version: "0.1.0"
+  author: The Agency
+  tags: "business, rd, strategy, market, be"
+  related_skills: "be-business-plan, be-funding-subsidies"
   domain: rd
   language: fr
   as_of: "2026-07"

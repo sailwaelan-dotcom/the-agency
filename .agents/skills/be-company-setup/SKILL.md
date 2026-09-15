@@ -1,12 +1,12 @@
 ---
 name: be-company-setup
 description: "Utilisez quand le futur solopreneur belge doit choisir sa forme juridique (personne physique vs SRL), créer son entreprise (inscription BCE, guichet d'entreprises, acte notarié, activation TVA, caisse d'assurances sociales), ou accomplir les démarches post-création (compte pro, assurances, premier outil de facturation)."
-version: 0.1.0
 license: MIT
-author: The Agency
 metadata:
-  tags: [legal, admin, compliance, company, be]
-  related_skills: [be-accounting-basics, be-business-plan, be-invoicing-peppol]
+  version: "0.1.0"
+  author: The Agency
+  tags: "legal, admin, compliance, company, be"
+  related_skills: "be-accounting-basics, be-business-plan, be-invoicing-peppol"
   domain: admin
   language: fr
   as_of: "2026-07"

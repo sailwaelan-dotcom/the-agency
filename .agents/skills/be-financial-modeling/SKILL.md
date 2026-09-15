@@ -1,12 +1,12 @@
 ---
 name: be-financial-modeling
 description: "Utilisez quand le solopreneur belge doit modéliser un projet d'investissement, calculer une valorisation (DCF, multiples), analyser la sensibilité de ses hypothèses, ou stress-tester un business plan avec Monte Carlo. Produit des modèles financiers avec scénarios et graphiques de sensibilité."
-version: 0.1.0
 license: MIT
-author: The Agency
 metadata:
-  tags: [business, finance, modeling, valuation, be]
-  related_skills: [be-business-plan, be-market-research, be-funding-subsidies, fact-check-sourcing]
+  version: "0.1.0"
+  author: The Agency
+  tags: "business, finance, modeling, valuation, be"
+  related_skills: "be-business-plan, be-market-research, be-funding-subsidies, fact-check-sourcing"
   domain: finance
   language: fr
   as_of: "2026-07"

@@ -1,12 +1,12 @@
 ---
 name: be-admin-deadlines
 description: "Utilisez quand le solopreneur belge veut un calendrier fiscal annuel complet (TVA, INASTI, IPP/ISOC, BNB, listings), vérifier ses prochaines échéances, ou configurer des rappels automatiques. Produit un calendrier personnalisé selon le régime et la forme juridique."
-version: 0.1.0
 license: MIT
-author: The Agency
 metadata:
-  tags: [admin, finance, tax, calendar, be]
-  related_skills: [be-accounting-basics, be-bookkeeping-ops, be-company-setup]
+  version: "0.1.0"
+  author: The Agency
+  tags: "admin, finance, tax, calendar, be"
+  related_skills: "be-accounting-basics, be-bookkeeping-ops, be-company-setup"
   domain: admin
   language: fr
   as_of: "2026-09"

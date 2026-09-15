@@ -1,12 +1,12 @@
 ---
 name: be-devis-quotes
 description: "Utilisez quand le solopreneur belge doit chiffrer et envoyer un devis : tarification (TJM, forfait, par phase), structure du document, mentions légales (BCE, TVA), numérotation, validité, acompte, relance d'un devis sans réponse, ou transformation d'un devis accepté en facture Peppol. Produit un devis conforme prêt à envoyer et un suivi des devis émis."
-version: 1.0.0
 license: MIT
-author: The Agency
 metadata:
-  tags: [sales, devis, pricing, be]
-  related_skills: [be-sales-outreach, be-invoicing-peppol, be-contracts-legal]
+  version: "1.0.0"
+  author: The Agency
+  tags: "sales, devis, pricing, be"
+  related_skills: "be-sales-outreach, be-invoicing-peppol, be-contracts-legal"
   domain: sales
   language: fr
   as_of: "2026-09"

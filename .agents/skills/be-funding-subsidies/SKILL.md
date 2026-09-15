@@ -1,12 +1,12 @@
 ---
 name: be-funding-subsidies
 description: "Utilisez quand le solopreneur belge cherche un financement non-dilutif (subside, prime, prêt d'honneur, microcrédit), veut savoir à quel guichet s'adresser selon sa région (VLAIO, SPW/Awex, Innoviris/hub.brussels), ou prépare un dossier de subside. Produit une cartographie des guichets pertinents + checklist d'éligibilité."
-version: 0.1.0
 license: MIT
-author: The Agency
 metadata:
-  tags: [business, finance, rd, funding, be]
-  related_skills: [be-business-plan, be-market-research, be-company-setup]
+  version: "0.1.0"
+  author: The Agency
+  tags: "business, finance, rd, funding, be"
+  related_skills: "be-business-plan, be-market-research, be-company-setup"
   domain: rd
   language: fr
   as_of: "2026-07"

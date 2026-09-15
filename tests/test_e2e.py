@@ -59,12 +59,12 @@ def test_e2e_workflow():
     test_content = """---
 name: test-e2e-temp
 description: "Utilisez quand vous avez besoin de tester le workflow E2E de The Agency. Ce skill est temporaire et sera supprimé après le test."
-version: 0.1.0
 license: MIT
-author: Test
 metadata:
-  tags: [test, e2e]
-  related_skills: [be-company-setup]
+  version: "0.1.0"
+  author: Test
+  tags: "test, e2e"
+  related_skills: "be-company-setup"
   domain: admin
   language: fr
   as_of: "2026-07"

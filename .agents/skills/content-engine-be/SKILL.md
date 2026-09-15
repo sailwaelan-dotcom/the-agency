@@ -1,12 +1,12 @@
 ---
 name: content-engine-be
 description: "Utilisez quand le solopreneur belge doit produire du contenu régulièrement (LinkedIn, blog, newsletter) sans y passer ses semaines : pipeline de production, calendrier éditorial, repurposing d'un contenu en plusieurs formats, SEO de base francophone. Produit un système de contenu hebdomadaire tenable à côté de l'activité."
-version: 0.1.0
 license: MIT
-author: The Agency
 metadata:
-  tags: [content, marketing, be]
-  related_skills: [brand-voice-solopreneur, be-market-research, social-listening-be]
+  version: "0.1.0"
+  author: The Agency
+  tags: "content, marketing, be"
+  related_skills: "brand-voice-solopreneur, be-market-research, social-listening-be"
   domain: content
   language: fr
   as_of: "2026-07"

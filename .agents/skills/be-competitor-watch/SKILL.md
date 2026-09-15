@@ -1,12 +1,12 @@
 ---
 name: be-competitor-watch
 description: "Utilisez quand le solopreneur belge veut cartographier ses concurrents directs (3-8 acteurs), surveiller leurs mouvements (prix, offres, recrutement, contenu), ou préparer un dossier de différenciation. Produit une grille concurrentielle vivante alimentée par des méthodes 100% légales."
-version: 0.1.0
 license: MIT
-author: The Agency
 metadata:
-  tags: [business, rd, strategy, intel, be]
-  related_skills: [be-market-research, social-listening-be, content-engine-be]
+  version: "0.1.0"
+  author: The Agency
+  tags: "business, rd, strategy, intel, be"
+  related_skills: "be-market-research, social-listening-be, content-engine-be"
   domain: rd
   language: fr
   as_of: "2026-07"

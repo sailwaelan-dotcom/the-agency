@@ -16,9 +16,9 @@ FAILURES = []
 SKILL_TEMPLATE = """---
 name: {name}
 description: "Utilisez quand on teste."
-version: 0.1.0
 license: MIT
 metadata:
+  version: "0.1.0"
   tags: "test"
   related_skills: "{related}"
   domain: finance

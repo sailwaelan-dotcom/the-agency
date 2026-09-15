@@ -1,12 +1,12 @@
 ---
 name: brand-voice-solopreneur
 description: "Utilisez quand le solopreneur belge doit définir ou appliquer son ton d'écriture (site, LinkedIn, emails, devis) : charte de voix, mots bannis, niveau de formalité, exemples avant/après. Produit une charte d'une page + une méthode pour garder un ton cohérent."
-version: 0.1.0
 license: MIT
-author: The Agency
 metadata:
-  tags: [content, brand, be]
-  related_skills: [content-engine-be, be-market-research]
+  version: "0.1.0"
+  author: The Agency
+  tags: "content, brand, be"
+  related_skills: "content-engine-be, be-market-research"
   domain: content
   language: fr
   as_of: "2026-07"

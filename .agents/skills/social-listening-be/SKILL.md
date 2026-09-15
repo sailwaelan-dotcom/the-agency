@@ -1,12 +1,12 @@
 ---
 name: social-listening-be
 description: "Utilisez quand le solopreneur belge veut surveiller sa réputation en ligne, suivre des concurrents, ou repérer des sujets de contenu via les réseaux sociaux — en méthodes 100% légales : APIs officielles, alertes, RSS, exports manuels. Jamais de scraping, contournement de CAPTCHA, ou collecte non autorisée."
-version: 0.1.0
 license: MIT
-author: The Agency
 metadata:
-  tags: [content, intel, be]
-  related_skills: [content-engine-be, be-market-research, be-rgpd-compliance]
+  version: "0.1.0"
+  author: The Agency
+  tags: "content, intel, be"
+  related_skills: "content-engine-be, be-market-research, be-rgpd-compliance"
   domain: content
   language: fr
   as_of: "2026-07"

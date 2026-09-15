@@ -13,13 +13,22 @@ import sys
 import yaml
 from pathlib import Path
 
+from skill_meta import split_list
+
 REPO_ROOT = Path(__file__).resolve().parent.parent
 SKILLS_DIR = REPO_ROOT / ".agents" / "skills"
 
 # --- Règles de frontmatter ---
-REQUIRED_FIELDS = {"name", "description", "version", "license"}
-ALLOWED_TOP_FIELDS = REQUIRED_FIELDS | {"author", "compatibility", "metadata"}
-ALLOWED_METADATA_FIELDS = {"tags", "related_skills", "as_of", "domain", "language"}
+# Spec agentskills.io : name, description, license, compatibility, metadata, allowed-tools.
+# Le repo exige `license` et interdit `allowed-tools` (portabilité, voir FORBIDDEN_HARNESS_FIELDS).
+REQUIRED_FIELDS = {"name", "description", "license"}
+ALLOWED_TOP_FIELDS = REQUIRED_FIELDS | {"compatibility", "metadata"}
+# Hors spec en top-level : à placer dans metadata (message de migration dédié)
+MOVED_TO_METADATA = {"version", "author"}
+# metadata = table de chaînes (spec) ; listes en chaîne « a, b, c » (voir skill_meta.split_list)
+REQUIRED_METADATA_FIELDS = {"version", "tags"}
+ALLOWED_METADATA_FIELDS = {"version", "author", "tags", "related_skills", "as_of", "domain", "language"}
+LIST_METADATA_FIELDS = ("tags", "related_skills")
 # Champs Claude-only / harness-spécifiques → INTERDITS en top-level (casse la promesse agnostic)
 FORBIDDEN_HARNESS_FIELDS = {
     "allowed-tools", "disallowed-tools", "hooks", "model", "effort", "context",
@@ -89,6 +98,11 @@ def validate_skill(skill_dir: Path) -> list[str]:
                 f"{skill_dir.name}: champ non-portable '{field}' interdit en top-level "
                 f"(Claude/harness-specific → casse l'agnosticité)"
             )
+        elif field in MOVED_TO_METADATA:
+            errors.append(
+                f"{skill_dir.name}: champ '{field}' hors spec agentskills.io en top-level "
+                f"→ le déplacer dans metadata.{field} (valeur chaîne)"
+            )
         elif field not in ALLOWED_TOP_FIELDS:
             errors.append(f"{skill_dir.name}: champ inconnu '{field}' (whitelist: {sorted(ALLOWED_TOP_FIELDS)})")
 
@@ -114,18 +128,32 @@ def validate_skill(skill_dir: Path) -> list[str]:
                 f"(commencer par 'Use when...' ou 'Utilisez quand...')"
             )
 
-    # --- metadata ---
-    meta = fm.get("metadata", {})
-    if meta:
-        if not isinstance(meta, dict):
-            errors.append(f"{skill_dir.name}: metadata doit être un mapping")
-        else:
-            for k in meta:
-                if k not in ALLOWED_METADATA_FIELDS:
-                    errors.append(f"{skill_dir.name}: metadata.{k} inconnu (whitelist: {sorted(ALLOWED_METADATA_FIELDS)})")
-            tags = meta.get("tags", [])
-            if not tags or not isinstance(tags, list):
-                errors.append(f"{skill_dir.name}: metadata.tags doit être une liste non vide")
+    # --- metadata : table de chaînes (spec agentskills.io) ---
+    meta = fm.get("metadata")
+    if meta is None:
+        meta = {}
+    elif not isinstance(meta, dict):
+        errors.append(f"{skill_dir.name}: metadata doit être un mapping")
+        meta = {}
+    for k in sorted(REQUIRED_METADATA_FIELDS - set(meta)):
+        errors.append(f"{skill_dir.name}: champ requis manquant: 'metadata.{k}'")
+    for k, v in meta.items():
+        if k not in ALLOWED_METADATA_FIELDS:
+            errors.append(f"{skill_dir.name}: metadata.{k} inconnu (whitelist: {sorted(ALLOWED_METADATA_FIELDS)})")
+        elif not isinstance(v, str):
+            conseil = ("écrire la liste en chaîne « a, b, c »" if isinstance(v, list)
+                       else "mettre la valeur entre guillemets")
+            errors.append(f"{skill_dir.name}: metadata.{k} doit être une chaîne (spec agentskills.io) — {conseil}")
+    if isinstance(meta.get("tags"), str) and not split_list(meta["tags"]):
+        errors.append(f"{skill_dir.name}: metadata.tags doit être une chaîne non vide")
+    for k in LIST_METADATA_FIELDS:
+        if isinstance(meta.get(k), str):
+            invalides = [item for item in split_list(meta[k]) if not NAME_RE.match(item)]
+            if invalides:
+                errors.append(
+                    f"{skill_dir.name}: metadata.{k} : éléments invalides {invalides} "
+                    f"(format « a, b, c » ; minuscules, chiffres, tirets)"
+                )
 
     # --- Body ---
     body = content[end + 4 :].strip()
@@ -153,7 +181,7 @@ def validate_skill(skill_dir: Path) -> list[str]:
             )
 
     # --- Disclaimer si réglementaire ---
-    tags = set(meta.get("tags", [])) if isinstance(meta, dict) else set()
+    tags = set(split_list(meta.get("tags")))
     if tags & REGULATED_TAGS and not DISCLAIMER_RE.search(body):
         errors.append(
             f"{skill_dir.name}: tag réglementaire {sorted(tags & REGULATED_TAGS)} "

@@ -1,12 +1,12 @@
 ---
 name: skill-name-here
 description: "Utilisez quand <déclencheur précis>. <Ce que le skill produit en une phrase>."
-version: 0.1.0
 license: MIT
-author: The Agency
 metadata:
-  tags: [domaine, be]
-  related_skills: []
+  version: "0.1.0"
+  author: The Agency
+  tags: "domaine, be"
+  related_skills: ""
   domain: rd
   language: fr
   as_of: "2026-07"

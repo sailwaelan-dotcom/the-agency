@@ -1,12 +1,12 @@
 ---
 name: be-sales-outreach
 description: "Utilisez quand le solopreneur belge doit structurer sa prospection B2B : cold outreach (email, LinkedIn), qualification de leads, scripts de vente, propositions commerciales, suivi pipeline. Produit un système de prospection tenable à côté de l'activité principale."
-version: 0.1.0
 license: MIT
-author: The Agency
 metadata:
-  tags: [business, sales, outreach, be]
-  related_skills: [be-market-research, be-competitor-watch, content-engine-be, brand-voice-solopreneur]
+  version: "0.1.0"
+  author: The Agency
+  tags: "business, sales, outreach, be"
+  related_skills: "be-market-research, be-competitor-watch, content-engine-be, brand-voice-solopreneur"
   domain: sales
   language: fr
   as_of: "2026-07"

@@ -1,12 +1,12 @@
 ---
 name: skill-forge
 description: "Utilisez quand un agent IA doit créer un nouveau skill ou en étendre un existant dans ce repo (The Agency) — ou dans tout dépôt de skills au format agentskills.io. Produit un SKILL.md conforme aux standards du repo : frontmatter canonique, structure deep, règles de sécurité, gates de validation et test TDD de la vague."
-version: 1.0.0
 license: MIT
-author: The Agency
 metadata:
-  tags: [meta, contribution, tooling]
-  related_skills: [agency-doc-keeper, fact-check-sourcing]
+  version: "1.0.0"
+  author: The Agency
+  tags: "meta, contribution, tooling"
+  related_skills: "agency-doc-keeper, fact-check-sourcing"
   domain: meta
   language: fr
   as_of: "2026-08"

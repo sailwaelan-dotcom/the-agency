@@ -1,12 +1,12 @@
 ---
 name: be-invoicing-peppol
 description: "Utilisez quand le solopreneur doit émettre une facture B2B en Belgique (Peppol obligatoire depuis janvier 2026), choisir un logiciel/Access Point, vérifier les mentions légales d'une facture, ou comprendre la différence entre facture PDF et facture électronique structurée."
-version: 0.1.0
 license: MIT
-author: The Agency
 metadata:
-  tags: [finance, accounting, invoicing, peppol, be]
-  related_skills: [be-accounting-basics, be-bookkeeping-ops]
+  version: "0.1.0"
+  author: The Agency
+  tags: "finance, accounting, invoicing, peppol, be"
+  related_skills: "be-accounting-basics, be-bookkeeping-ops"
   domain: finance
   language: fr
   as_of: "2026-07"

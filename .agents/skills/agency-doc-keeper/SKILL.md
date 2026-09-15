@@ -1,12 +1,12 @@
 ---
 name: agency-doc-keeper
 description: "Utilisez quand le repo The Agency a changé — ajout, modification ou suppression d'un skill, changement de scripts ou de tests, ou avant une release. Produit une documentation resynchronisée : INDEX.md et catalog.json régénérés, compteurs README à jour, CHANGELOG complété, as_of revus, gates au vert."
-version: 1.0.0
 license: MIT
-author: The Agency
 metadata:
-  tags: [meta, documentation, maintenance]
-  related_skills: [skill-forge, fact-check-sourcing]
+  version: "1.0.0"
+  author: The Agency
+  tags: "meta, documentation, maintenance"
+  related_skills: "skill-forge, fact-check-sourcing"
   domain: meta
   language: fr
   as_of: "2026-08"

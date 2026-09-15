@@ -17,9 +17,9 @@ FAILURES = []
 SKILL_TEMPLATE = """---
 name: {name}
 description: "{desc}"
-version: 0.1.0
 license: MIT
 metadata:
+  version: "0.1.0"
   tags: "{tags}"
   related_skills: "{related}"
   domain: {domain}
@@ -109,6 +109,7 @@ with tempfile.TemporaryDirectory() as tmp:
     check("catalog-related", alpha["related_skills"] == ["skill-beta"],
           f"related={alpha.get('related_skills')}")
     check("catalog-tags", alpha["tags"] == ["test"], f"tags={alpha.get('tags')}")
+    check("catalog-version", alpha["version"] == "0.1.0", f"version={alpha.get('version')!r}")
 
     # 6. --check : vert juste après génération
     code, _ = run(tmp, "--check")
