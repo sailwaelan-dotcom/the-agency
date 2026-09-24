@@ -1,8 +1,10 @@
 # Kit débutant multi-IA — design (partie 1)
 
 - **Date** : 2026-09-24
-- **Statut** : design validé en conversation, spec en relecture
-- **Portée** : partie 1 d'un chantier en 4 parties (voir « Découpage »)
+- **Statut** : design validé en conversation, corrigé après un déroulé du parcours
+  (profil gardé sans fichier, instructions copiées depuis le guide, ZIP sur Mac) ; spec en
+  relecture, essai réel à venir
+- **Portée** : partie 1 d'un chantier en 4 parties (voir section 11)
 
 ## 1. Contexte
 
@@ -59,7 +61,7 @@ Quatre fichiers, joints à chaque release GitHub :
 | Fichier | Pour | Contenu |
 |---|---|---|
 | `the-agency-claude.zip` | Claude | Un seul skill `the-agency` : un SKILL.md d'aiguillage et les 20 fiches en `references/`. |
-| `the-agency-instructions.txt` | ChatGPT, Gemini, autres | ≤ 1 500 caractères : rôle, règles, « commence par l'accueil ». Se colle dans le champ Instructions d'un Projet ou d'un Gem, ou comme premier message. |
+| `the-agency-instructions.txt` | ChatGPT, Gemini, autres | ≤ 1 500 caractères : rôle, règles, « commence par l'accueil ». Se colle dans le champ Instructions d'un Projet ou d'un Gem, ou comme premier message. Le guide affiche le même texte avec un bouton copier : le débutant n'ouvre jamais ce fichier, qui sert aux pages web (waelan.be) et aux utilisateurs avancés. |
 | `the-agency-accueil.md` | idem | Les règles communes, l'onboarding complet (`activate-agency`) et le sommaire des 20 fiches (~25 000 car.). Suffit à lui seul pour le premier résultat. |
 | `the-agency-fiches.md` | idem | Les 19 autres fiches, une section chacune (~190 000 car.). |
 
@@ -75,21 +77,29 @@ Quatre fichiers, joints à chaque release GitHub :
 
 | IA | Gestes (une seule fois sauf mention) | Durée visée |
 |---|---|---|
-| Claude | Télécharger le ZIP → menu Skills → importer → « Active l'agence » | ~3 min |
-| ChatGPT | Créer un Projet → coller les instructions → ajouter les 2 fichiers → « Active l'agence » | ~4 min |
-| Gemini | Nouveau Gem → coller les instructions → ajouter les 2 fichiers → « Active l'agence » (partie 2 : un lien, ~30 s) | ~4 min |
-| Autre IA | Joindre `the-agency-accueil.md` → coller les instructions (à chaque conversation) | ~1 min |
+| Claude | Télécharger le ZIP **sans l'ouvrir** → menu Skills → importer → « Active l'agence » | ~3 min |
+| ChatGPT | Créer un Projet → coller les instructions copiées depuis le guide → ajouter les 2 fichiers → « Active l'agence » | ~4 min |
+| Gemini | Nouveau Gem → coller les instructions copiées depuis le guide → ajouter les 2 fichiers → « Active l'agence » (partie 2 : un lien, ~30 s) | ~4 min |
+| Autre IA | Joindre `the-agency-accueil.md` → coller les instructions copiées depuis le guide (à chaque conversation) | ~1 min |
 
-**Garder son profil** : en fin d'accueil, l'IA donne le profil dans un bloc à copier ; le
-débutant l'ajoute aux fichiers du Projet ou du Gem, ou le recolle plus tard. Les
-conversations suivantes démarrent avec son contexte.
+**Garder son profil, sans créer de fichier** : en fin d'accueil, l'IA donne le profil dans
+un bloc à copier (≤ 1 500 caractères visés) et dit où le coller selon l'IA :
+
+- **Projet ChatGPT** : à la fin des Instructions du Projet (1 500 + 1 500 caractères
+  tiennent dans la limite de 8 000) ;
+- **Gem** : à la fin des Instructions du Gem, si sa limite le permet ;
+- **sinon** (Claude, autres IA, Gem trop court) : au début de la conversation suivante.
+
+Les conversations suivantes démarrent alors avec son contexte. On ne demande jamais au
+débutant de créer, d'enregistrer ou d'envoyer un fichier de profil.
 
 ### Brouillon des instructions (≤ 1 500 caractères)
 
 ```text
 Tu es « The Agency », l'assistant des indépendants en Belgique. Tes connaissances sont dans
 les fichiers the-agency-accueil.md et the-agency-fiches.md.
-1. Si l'on te dit « Active l'agence », ou si tu ne connais pas encore la personne : suis
+1. Si un profil « AGENCY_PROFILE » figure à la fin de ces instructions ou dans la
+   conversation, pars de lui. Sinon, ou si l'on te dit « Active l'agence » : suis
    l'accueil du fichier the-agency-accueil.md, du début à la fin.
 2. Pour toute autre demande : trouve la fiche adaptée dans le sommaire de
    the-agency-accueil.md, lis-la dans the-agency-fiches.md et suis sa méthode.
@@ -175,11 +185,13 @@ les fichiers the-agency-accueil.md et the-agency-fiches.md.
 
 Tests d'abord (extension de `tests/test_vague5_tdd.py`), puis le skill :
 
-- **Profil existant** : chercher aussi un profil collé dans la conversation ou joint au
-  Projet ou au Gem, pas seulement un fichier sur disque.
-- **Mode conversation** : si l'IA ne peut pas écrire de fichier, elle affiche le profil
-  complet dans un bloc à copier et explique en deux lignes comment le garder ; avec Claude
-  et l'exécution de code, elle propose le fichier `AGENCY_PROFILE.md` à télécharger.
+- **Profil existant** : chercher aussi un profil collé dans la conversation ou présent
+  dans les Instructions du Projet ou du Gem, pas seulement un fichier sur disque.
+- **Mode conversation** : si l'IA n'a pas de dossier de travail, elle affiche le profil
+  complet dans un bloc à copier (≤ 1 500 caractères visés) et dit où le coller selon l'IA
+  (section 4, « Garder son profil ») — jamais « crée un fichier ». Quand un dossier de
+  travail existe (Claude Code, Cursor…), le comportement actuel est conservé :
+  `AGENCY_PROFILE.md` écrit hors du repo.
 - **Mode débutant** : chaque option est expliquée en mots simples, **sans chiffre**
   (pitfall existant « chiffrer pendant l'onboarding ») ; « je ne sais pas » devient
   « à confirmer ».
@@ -197,12 +209,18 @@ Porte d'entrée des débutants jusqu'à la page waelan.be (partie 2).
 1. **C'est quoi ?** — trois lignes : « Tu gardes ton IA, on lui apprend la Belgique. »
 2. **Tu utilises quelle IA ?** — quatre sections (Claude, ChatGPT, Gemini, Autre IA), 3 à 5
    étapes chacune, libellés de menus exacts, liens de téléchargement directs
-   `https://github.com/sailwaelan-dotcom/the-agency/releases/latest/download/<fichier>`,
-   phrase à taper dans un bloc de code (bouton copier de GitHub).
-3. **Ce que tu vas obtenir** — profil, 3 à 5 priorités, plan 30 jours.
-4. **Ça ne marche pas ?** — 2 ou 3 cas par IA (menu Skills absent → activer l'exécution de
-   code ; quota d'envois atteint → mode « Autre IA » avec le seul fichier d'accueil ;
-   l'IA ignore les fiches → « Suis le fichier the-agency-accueil.md »).
+   `https://github.com/sailwaelan-dotcom/the-agency/releases/latest/download/<fichier>`.
+   Le **texte des instructions** et la **phrase à taper** sont dans des blocs de code
+   (bouton copier de GitHub) : le débutant n'ouvre aucun fichier. Pour Claude : « télécharge
+   le ZIP et ne l'ouvre pas ».
+3. **Ce que tu vas obtenir, et comment le garder** — profil, 3 à 5 priorités, plan
+   30 jours ; où coller le profil selon son IA (section 4).
+4. **Ça ne marche pas ?** — 2 ou 3 cas par IA :
+   - menu Skills absent → activer l'exécution de code ;
+   - **Mac** : Safari a ouvert le ZIP tout seul → clic droit sur le dossier › Compresser,
+     puis importer le ZIP obtenu ;
+   - quota d'envois atteint → mode « Autre IA » avec le seul fichier d'accueil ;
+   - l'IA ignore les fiches → « Suis le fichier the-agency-accueil.md ».
 5. **Tes données** — The Agency ne collecte rien (aucun serveur) ; ne pas coller de
    données personnelles de clients ni de codes bancaires dans une IA.
 6. **Important** — information générale datée, à faire valider par un professionnel agréé.
@@ -267,9 +285,13 @@ Contraintes :
 8. Chaque lien `releases/latest/download/<fichier>` de `DEMARRER.md` désigne un fichier
    produit par le kit.
 9. `DEMARRER.md` ne contient aucun mot de la liste de jargon interdit (section 8).
+10. Le bloc d'instructions de `DEMARRER.md` est identique, au caractère près, à
+    `kit/instructions.txt`.
 
 `tests/test_vague5_tdd.py` gagne une famille « mode conversation et débutant » (profil
-collé, bloc à copier, « je ne sais pas » → « à confirmer », handoff en langage courant).
+collé ou présent dans les Instructions, bloc à copier avec l'endroit où le coller, aucune
+consigne de création de fichier en mode conversation, « je ne sais pas » → « à
+confirmer », handoff en langage courant).
 
 ### Recette manuelle (mainteneur, avant la release)
 
@@ -279,7 +301,9 @@ une autre IA :
 - [ ] dérouler le parcours de `DEMARRER.md` pas à pas, chronomètre en main (< 10 min) ;
 - [ ] relever les libellés exacts des menus et corriger le guide ;
 - [ ] vérifier que le plan personnalisé et la phrase de handoff sortent bien ;
-- [ ] vérifier qu'une deuxième conversation repart du profil gardé ;
+- [ ] coller le profil là où l'IA l'indique et vérifier qu'une deuxième conversation
+      repart bien de ce profil ;
+- [ ] si possible, importer le ZIP depuis un Mac avec Safari ;
 - [ ] mettre à jour la ligne « Écrans vérifiés le … ».
 
 ## 11. Hors périmètre (parties suivantes)
@@ -297,7 +321,7 @@ une autre IA :
 | Risque | Parade |
 |---|---|
 | Les interfaces des IA changent (menus, quotas) | Libellés relevés à la recette, ligne « Écrans vérifiés le », item de checklist `agency-doc-keeper` |
-| Limite réelle des instructions de Gem inconnue | Instructions ≤ 1 500 caractères, tout le reste dans les fichiers |
+| Limite réelle des instructions de Gem inconnue | Instructions ≤ 1 500 caractères, tout le reste dans les fichiers ; si le profil n'y tient pas, il se recolle en début de conversation |
 | Infos ChatGPT et Le Chat de sources secondaires | Revérifiées à la recette avant publication |
 | Recherche documentaire imparfaite dans les Projets ChatGPT | Règle 2 des instructions : sommaire d'abord, puis la fiche par son nom |
 | Description large du skill Claude qui se déclenche trop souvent | Ancrage « en Belgique » ; skill installé volontairement pour cet usage |
