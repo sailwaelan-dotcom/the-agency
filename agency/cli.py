@@ -51,11 +51,15 @@ def cmd_bce(args):
 
 def cmd_inasti(args):
     """Simulation de cotisations sociales trimestrielles INASTI."""
-    res = calc_inasti_provision(
-        annual_net_income=args.income,
-        is_starter=args.starter,
-        year=args.year,
-    )
+    try:
+        res = calc_inasti_provision(
+            annual_net_income=args.income,
+            is_starter=args.starter,
+            year=args.year,
+        )
+    except ValueError as err:
+        print(f"\n❌ {err}\n", file=sys.stderr)
+        sys.exit(2)
     print(f"\n🇧🇪 Cotisations Trimestrielles INASTI (Année {args.year}) :")
     print(f"  • Revenu net imposable annuel : {res['annual_net_income']:,.2f} €")
     print(f"  • Statut                      : {'Primostarter (plancher réduit)' if res['is_starter'] else 'Normal'}")

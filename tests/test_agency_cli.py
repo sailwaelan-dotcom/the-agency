@@ -41,6 +41,21 @@ def test_cli_inasti():
     print("  ✓ test_cli_inasti")
 
 
+def test_cli_inasti_unsupported_year_clean_error():
+    from contextlib import redirect_stderr
+    parser = build_parser()
+    args = parser.parse_args(["inasti", "--income", "45000", "--year", "2027"])
+    err = io.StringIO()
+    try:
+        with redirect_stderr(err):
+            cmd_inasti(args)
+        assert False, "une année non couverte devait arrêter la commande"
+    except SystemExit as exc:
+        assert exc.code == 2
+    assert "2026" in err.getvalue()
+    print("  ✓ test_cli_inasti_unsupported_year_clean_error")
+
+
 def test_cli_deadlines():
     parser = build_parser()
     args = parser.parse_args(["deadlines", "--year", "2026"])
@@ -81,8 +96,9 @@ if __name__ == "__main__":
     print("Exécution des tests CLI Solopreneur...")
     test_cli_bce()
     test_cli_inasti()
+    test_cli_inasti_unsupported_year_clean_error()
     test_cli_deadlines()
     test_cli_deadlines_monthly()
     test_cli_vault_list()
-    print("\nGREEN — Tous les 5 tests du CLI Solopreneur passent !")
+    print("\nGREEN — Tous les 6 tests du CLI Solopreneur passent !")
     sys.exit(0)

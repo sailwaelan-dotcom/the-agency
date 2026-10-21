@@ -40,6 +40,7 @@ Version de distribution test : correctifs de calcul, de fiabilité et de sécuri
 - **Masquage des chemins** : les chemins macOS (`/Users/…`) et Windows à barres obliques
   (`C:/Users/…`) sont masqués comme les autres avant transmission à l'assistant.
 - `installer.iss` annonçait la version 2.0.0 : alignée sur 1.1.0.
+- `TheAgency.exe inasti --year 2027` affichait une trace Python : message clair, code de sortie 2.
 - **Barème INASTI 2026** : les seuils codés (16 861,46 € / 77 015,17 € / 107 300 €) ne
   correspondaient pas au barème 2026. Remplacés par revenu minimum 17 374,08 €, fin de tranche
   à 20,5 % 75 024,54 €, plafond 110 562,42 € (UCM, note d'info janvier 2026 ; Partena, barème
