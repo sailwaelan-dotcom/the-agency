@@ -11,8 +11,10 @@ LEGAL_VAT_RATES = {0.21, 0.12, 0.06, 0.00}
 
 # Motifs de détection des données sensibles
 NISS_PATTERN = re.compile(r"\b\d{2}\.\d{2}\.\d{2}-\d{3}\.\d{2}\b")
-WINDOWS_USER_PATH_PATTERN = re.compile(r"[a-zA-Z]:\\[Uu]sers\\[a-zA-Z0-9_.-]+")
+# Windows accepte \ et / comme séparateur
+WINDOWS_USER_PATH_PATTERN = re.compile(r"[a-zA-Z]:[\\/][Uu]sers[\\/][a-zA-Z0-9_.-]+")
 UNIX_USER_PATH_PATTERN = re.compile(r"/home/[a-zA-Z0-9_.-]+")
+MAC_USER_PATH_PATTERN = re.compile(r"(?<![\w:])/Users/[a-zA-Z0-9_.-]+")
 
 
 def validate_preflight(tool_name: str, arguments: Dict[str, Any]) -> Tuple[bool, Optional[str]]:
@@ -62,6 +64,7 @@ def _sanitize_string(text: str) -> str:
     clean = NISS_PATTERN.sub("[REGISTRE_NATIONAL_MASQUE]", text)
     clean = WINDOWS_USER_PATH_PATTERN.sub("[CHEMIN_MACHINE_MASQUE]", clean)
     clean = UNIX_USER_PATH_PATTERN.sub("[CHEMIN_MACHINE_MASQUE]", clean)
+    clean = MAC_USER_PATH_PATTERN.sub("[CHEMIN_MACHINE_MASQUE]", clean)
     return clean
 
 

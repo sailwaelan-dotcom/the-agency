@@ -92,6 +92,17 @@ def test_guardrail_sanitize_machine_path():
     assert "[CHEMIN_MACHINE_MASQUE]" in clean_payload["log"]
 
 
+def test_guardrail_sanitize_mac_and_forward_slash_paths():
+    from agency_be.guardrails import sanitize_postflight
+    clean = sanitize_postflight({
+        "mac": "Export dans /Users/MonNom/Documents/facture.xml",
+        "win": "Export dans C:/Users/MonNom/Documents/facture.xml",
+    })
+    assert "MonNom" not in clean["mac"], clean["mac"]
+    assert "MonNom" not in clean["win"], clean["win"]
+    assert "[CHEMIN_MACHINE_MASQUE]/Documents/facture.xml" in clean["mac"]
+
+
 # ============================================================================
 # 3. Tests Intégration Serveur MCP Intercepteur
 # ============================================================================
@@ -116,6 +127,7 @@ if __name__ == "__main__":
         test_guardrail_allow_legal_vat_rates,
         test_guardrail_sanitize_national_register_number,
         test_guardrail_sanitize_machine_path,
+        test_guardrail_sanitize_mac_and_forward_slash_paths,
         test_mcp_server_guardrail_interceptor,
     ]
     failures = []
