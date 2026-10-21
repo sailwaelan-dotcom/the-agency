@@ -1,14 +1,16 @@
 """
-Installateur & Auto-Configurateur Zéro-Friction pour The Agency.
+Installateur et auto-configurateur pour The Agency.
 Configure automatiquement le serveur MCP 'agency-be-mcp' dans :
 - Claude Desktop (Windows, macOS, Linux)
 - Cursor (.cursor/mcp.json)
 - Claude Code (.claude/mcp.json)
-Sans écraser les configurations existantes de l'utilisateur.
+Sans écraser les configurations existantes : sauvegarde d'origine (*.agency-backup)
+puis écriture atomique.
 """
 import json
 import os
 import platform
+import shutil
 import subprocess
 import sys
 from pathlib import Path
@@ -17,6 +19,10 @@ from typing import Any, Dict, List, Optional, Tuple
 from agency.bootstrap import setup_environment
 
 REPO_ROOT, APP_DIR = setup_environment()
+
+from agency.atomic import write_text_atomic  # noqa: E402 — après setup_environment (sys.path)
+
+BACKUP_SUFFIX = ".agency-backup"
 # En mode gelé, __file__ vit dans le dossier temporaire _MEIPASS (détruit à la sortie) :
 # les configs "workspace" (Cursor, Claude Code) doivent être écrites à côté de l'exe pour persister.
 WORKSPACE_BASE = APP_DIR if getattr(sys, "frozen", False) else REPO_ROOT
@@ -90,9 +96,16 @@ def inject_mcp_server_into_file(config_file: Path) -> Tuple[bool, str]:
 
     config_data["mcpServers"]["agency-be-mcp"] = build_mcp_server_config()
 
+    # Sauvegarde de la config d'origine, une seule fois : une réinstallation ne l'écrase pas
+    backup_note = ""
+    backup_file = config_file.with_name(config_file.name + BACKUP_SUFFIX)
     try:
-        config_file.write_text(json.dumps(config_data, indent=2, ensure_ascii=False), encoding="utf-8")
-        return True, "Injecté avec succès"
+        if config_file.exists() and not backup_file.exists():
+            shutil.copy2(config_file, backup_file)
+        if backup_file.exists():
+            backup_note = f" (sauvegarde d'origine : {backup_file})"
+        write_text_atomic(config_file, json.dumps(config_data, indent=2, ensure_ascii=False))
+        return True, "Injecté avec succès" + backup_note
     except Exception as e:
         return False, f"Erreur lors de l'écriture de {config_file} : {e}"
 

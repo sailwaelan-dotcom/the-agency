@@ -1,0 +1,8 @@
+#!/bin/sh
+# Gates de sécurité avant chaque commit : un secret bloqué ici n'atteint jamais GitHub.
+# Activation (une fois par clone) : git config core.hooksPath .githooks
+# Le scan porte sur l'arbre de travail, fichiers non indexés compris.
+root=$(git rev-parse --show-toplevel) || exit 1
+py=$(command -v python3 || command -v python) || { echo "pre-commit : Python introuvable" >&2; exit 1; }
+"$py" "$root/scripts/security_scan.py" "$root" || exit 1
+"$py" "$root/scripts/validate_skills.py" || exit 1

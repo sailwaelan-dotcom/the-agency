@@ -162,6 +162,61 @@ def test_inject_mcp_server_preserve_existing_servers():
         shutil.rmtree(tmp_dir, ignore_errors=True)
 
 
+def test_inject_mcp_server_backs_up_original_once():
+    tmp_dir = Path(tempfile.mkdtemp(prefix="agency_test_install_"))
+    try:
+        config_file = tmp_dir / "claude_desktop_config.json"
+        original = '{"mcpServers": {"mon-serveur": {"command": "node"}}, "theme": "dark"}'
+        config_file.write_text(original, encoding="utf-8")
+        backup = tmp_dir / "claude_desktop_config.json.agency-backup"
+
+        ok, msg = inject_mcp_server_into_file(config_file)
+        assert ok is True
+        assert backup.read_text(encoding="utf-8") == original
+        assert str(backup) in msg
+
+        # Une 2e installation ne remplace pas la sauvegarde d'origine
+        inject_mcp_server_into_file(config_file)
+        assert backup.read_text(encoding="utf-8") == original
+        print("  ✓ test_inject_mcp_server_backs_up_original_once")
+    finally:
+        shutil.rmtree(tmp_dir, ignore_errors=True)
+
+
+def test_inject_mcp_server_no_backup_for_new_file():
+    tmp_dir = Path(tempfile.mkdtemp(prefix="agency_test_install_"))
+    try:
+        config_file = tmp_dir / "claude_desktop_config.json"
+        ok, _ = inject_mcp_server_into_file(config_file)
+        assert ok is True
+        assert not (tmp_dir / "claude_desktop_config.json.agency-backup").exists()
+        print("  ✓ test_inject_mcp_server_no_backup_for_new_file")
+    finally:
+        shutil.rmtree(tmp_dir, ignore_errors=True)
+
+
+def test_inject_mcp_server_write_failure_keeps_config():
+    tmp_dir = Path(tempfile.mkdtemp(prefix="agency_test_install_"))
+    try:
+        config_file = tmp_dir / "claude_desktop_config.json"
+        original = '{"mcpServers": {"mon-serveur": {"command": "node"}}}'
+        config_file.write_text(original, encoding="utf-8")
+
+        def _boom(*args, **kwargs):
+            raise OSError("disque plein")
+
+        # Panne au moment de remplacer le fichier, après l'écriture du temporaire
+        import agency.atomic as atomic_mod
+        with patch.object(atomic_mod.os, "replace", _boom):
+            ok, _ = inject_mcp_server_into_file(config_file)
+        assert ok is False
+        assert config_file.read_text(encoding="utf-8") == original
+        assert [p.name for p in tmp_dir.iterdir() if p.name.endswith(".tmp")] == []
+        print("  ✓ test_inject_mcp_server_write_failure_keeps_config")
+    finally:
+        shutil.rmtree(tmp_dir, ignore_errors=True)
+
+
 def test_claude_desktop_path_resolution():
     p = get_claude_desktop_config_path()
     assert p is not None
@@ -352,6 +407,9 @@ def test_menu_vault():
         menu_vault()
         txt = out.getvalue()
         assert "COFFRE LOCAL RGPD" in txt
+        # L'utilisateur doit savoir ce que devient une fiche client
+        assert "non chiffré" in txt
+        assert "transmises au modèle d'IA" in txt
     print("  ✓ test_menu_vault")
 
 
@@ -364,6 +422,9 @@ if __name__ == "__main__":
     test_build_mcp_server_config()
     test_inject_mcp_server_into_file_new_file()
     test_inject_mcp_server_preserve_existing_servers()
+    test_inject_mcp_server_backs_up_original_once()
+    test_inject_mcp_server_no_backup_for_new_file()
+    test_inject_mcp_server_write_failure_keeps_config()
     test_claude_desktop_path_resolution()
     test_run_link_skills_mock()
     test_create_desktop_shortcut()
@@ -378,5 +439,5 @@ if __name__ == "__main__":
     test_menu_deadlines()
     test_menu_ubl_no_crash_and_file_written()
     test_menu_vault()
-    print("\nGREEN — Tous les 21 tests de l'installateur et de la console TUI passent !")
+    print("\nGREEN — Tous les 24 tests de l'installateur et de la console TUI passent !")
     sys.exit(0)

@@ -4,15 +4,16 @@ Stocke hors-dépôt (~/.agency/vault/) l'annuaire des clients et les règles mé
 Fichiers JSONL locaux, non chiffrés : réservés à l'utilisateur (droits 0700/0600 sous POSIX,
 profil Windows ailleurs) ; le chiffrement au repos relève du disque (BitLocker, FileVault, LUKS).
 Droit à l'oubli via delete_client, aucune transmission réseau.
-Zéro dépendance tierce (json, os, pathlib, datetime, re, tempfile).
+Zéro dépendance tierce (json, os, pathlib, datetime, re).
 """
 import json
 import os
 import re
-import tempfile
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, List, Optional
+
+from agency.atomic import write_text_atomic
 
 DEFAULT_VAULT_DIR = Path.home() / ".agency" / "vault"
 
@@ -26,17 +27,8 @@ def get_vault_dir() -> Path:
 
 
 def _write_jsonl_atomic(path: Path, records: List[Dict[str, Any]]) -> None:
-    """Réécrit `path` via un fichier temporaire privé (0600) puis un renommage atomique :
-    une erreur en cours d'écriture laisse l'ancien fichier intact."""
-    fd, tmp_name = tempfile.mkstemp(dir=path.parent, prefix=f".{path.name}.", suffix=".tmp")
-    try:
-        with os.fdopen(fd, "w", encoding="utf-8") as f:
-            for record in records:
-                f.write(json.dumps(record, ensure_ascii=False) + "\n")
-        os.replace(tmp_name, path)
-    except BaseException:
-        os.unlink(tmp_name)
-        raise
+    """Réécrit `path` sans risque de troncature (voir agency.atomic)."""
+    write_text_atomic(path, "".join(json.dumps(r, ensure_ascii=False) + "\n" for r in records))
 
 
 def _append_jsonl_private(path: Path, record: Dict[str, Any]) -> None:
