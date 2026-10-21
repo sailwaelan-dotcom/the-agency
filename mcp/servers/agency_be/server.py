@@ -247,7 +247,7 @@ def get_server_tools() -> List[Dict[str, Any]]:
         {
             "name": "vault_save_client",
             "description": (
-                "Enregistre ou met à jour une fiche client dans le coffre-fort local RGPD hors-dépôt (~/.agency/vault/)."
+                "Enregistre ou met à jour une fiche client dans le coffre local RGPD hors-dépôt, non chiffré (~/.agency/vault/)."
             ),
             "inputSchema": {
                 "type": "object",
@@ -263,7 +263,7 @@ def get_server_tools() -> List[Dict[str, Any]]:
         {
             "name": "vault_get_client",
             "description": (
-                "Récupère une fiche client par son numéro BCE depuis le coffre-fort local RGPD."
+                "Récupère une fiche client par son numéro BCE depuis le coffre local RGPD."
             ),
             "inputSchema": {
                 "type": "object",
@@ -279,7 +279,7 @@ def get_server_tools() -> List[Dict[str, Any]]:
         {
             "name": "vault_list_clients",
             "description": (
-                "Liste les fiches clients enregistrées dans le coffre-fort local RGPD."
+                "Liste les fiches clients enregistrées dans le coffre local RGPD."
             ),
             "inputSchema": {
                 "type": "object",
@@ -295,7 +295,7 @@ def get_server_tools() -> List[Dict[str, Any]]:
         {
             "name": "vault_delete_client",
             "description": (
-                "Supprime définitivement un client du coffre-fort local (Droit à l'oubli / RGPD)."
+                "Supprime définitivement un client du coffre local (Droit à l'oubli / RGPD)."
             ),
             "inputSchema": {
                 "type": "object",

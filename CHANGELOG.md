@@ -7,8 +7,18 @@ et ce projet adhère au [Versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+## [1.1.0] — 2026-10-21
+
+Version de distribution test : correctifs de calcul, de fiabilité et de sécurité.
+
 ### Ajouté
 
+- **Hook pre-commit** (`.githooks/pre-commit`, activé par `git config core.hooksPath .githooks`) :
+  scan de sécurité et validation des skills avant chaque commit, au lieu de la seule CI après
+  le push. Test `tests/test_precommit_hook.py` (le hook bloque une clé réelle).
+- **Section « Données et confidentialité »** du README, et avertissement dans le menu du
+  coffre : fichiers non chiffrés, contenu lu par l'assistant transmis au fournisseur du modèle.
+- Statut « prototype en distribution test » et note SmartScreen (exe non signé) dans le README.
 - **Questionnement explicite obligatoire** dans chaque skill : nouvelle section
   « Questions à poser » requise par `validate_skills.py` (gate bloquant — la
   section doit exister ET contenir au moins une question terminée par « ? »).
@@ -19,6 +29,17 @@ et ce projet adhère au [Versionnage sémantique](https://semver.org/lang/fr/).
 
 ### Corrigé
 
+- **Installeur : configuration de Claude Desktop protégée.** La config d'origine est
+  sauvegardée une fois (`*.agency-backup`) puis réécrite de façon atomique ; auparavant, une
+  erreur d'écriture pouvait effacer la configuration des autres serveurs MCP. Écriture
+  atomique mutualisée avec le coffre (`agency/atomic.py`).
+- **Scanner de sécurité : contournement par négation fermé.** Un mot comme « jamais » sur la
+  ligne rétrogradait toute alerte en avertissement, y compris pour une clé API ou un IBAN réel.
+  La rétrogradation est désormais limitée aux pratiques dangereuses et à l'injection de prompt
+  citées dans un texte de politique ; secrets, chemins et identifiants restent bloquants.
+- **Masquage des chemins** : les chemins macOS (`/Users/…`) et Windows à barres obliques
+  (`C:/Users/…`) sont masqués comme les autres avant transmission à l'assistant.
+- `installer.iss` annonçait la version 2.0.0 : alignée sur 1.1.0.
 - **Barème INASTI 2026** : les seuils codés (16 861,46 € / 77 015,17 € / 107 300 €) ne
   correspondaient pas au barème 2026. Remplacés par revenu minimum 17 374,08 €, fin de tranche
   à 20,5 % 75 024,54 €, plafond 110 562,42 € (UCM, note d'info janvier 2026 ; Partena, barème

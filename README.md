@@ -26,6 +26,23 @@ partout, sans dépendance à un outil propriétaire.
 - **Fraîcheur surveillée** : une CI mensuelle vérifie l'âge de chaque donnée réglementaire
   (`as_of`) et ouvre une issue quand un skill dépasse 6 mois sans revue.
 
+> **Statut : prototype en distribution test.** Les outils fonctionnent et sont testés, mais le
+> projet n'a pas encore d'utilisateurs réguliers. Signalez toute erreur via les
+> [issues](https://github.com/sailwaelan-dotcom/the-agency/issues).
+
+## Données et confidentialité
+
+- **Rien ne quitte votre machine par The Agency lui-même**, sauf les vérifications que vous
+  demandez auprès des services officiels (VIES, annuaire Peppol).
+- **Le coffre clients (`~/.agency/vault/`) n'est pas chiffré.** Ce sont des fichiers texte
+  réservés à votre compte utilisateur. Pour le protéger en cas de vol de l'ordinateur,
+  activez le chiffrement du disque (BitLocker sous Windows, FileVault sous macOS).
+- **Ce que l'assistant IA lit part chez son fournisseur.** Quand l'assistant consulte le
+  coffre ou un document, son contenu est transmis au modèle d'IA (Anthropic, OpenAI…),
+  comme tout ce que vous lui écrivez. N'y mettez que ce que vous accepteriez de lui envoyer.
+- **Les numéros de registre national et les chemins de votre machine** sont masqués dans les
+  réponses des outils avant d'être transmis à l'assistant.
+
 📖 **[INDEX.md](INDEX.md)** — le catalogue complet des skills · 🎬 **[examples/](examples/)** — une journée de solopreneur orchestrée par l'agent
 
 ## Structure
@@ -69,6 +86,9 @@ Deux façons d'installer, sans éditer de fichier JSON à la main :
 ### 1. Exécutable Windows autonome (`TheAgency.exe`) — Zéro Python requis
 Idéal pour les utilisateurs Windows ne disposant pas d'environnement de développement :
 - **Application autonome** : `TheAgency.exe` embarque son propre runtime isolé.
+- **Exécutable non signé** : Windows SmartScreen affiche « Windows a protégé votre ordinateur ».
+  Téléchargez l'exe uniquement depuis la page [Releases](https://github.com/sailwaelan-dotcom/the-agency/releases)
+  de ce dépôt, puis « Informations complémentaires » → « Exécuter quand même ».
 - **Menu interactif guidé** : double-cliquez sur `TheAgency.exe` ou `Lancer_The_Agency.cmd` pour ouvrir la console interactive (audit BCE/TVA/Peppol, simulateur INASTI, échéances fiscales, facture Peppol UBL 2.1, coffre RGPD).
 - **Assistant d'installation Windows classique** : script `installer.iss` (Inno Setup) créant un installeur standard `TheAgency-Setup.exe` avec raccourci sur le Bureau et désinstalleur propre.
 - **Compilateur CI** : workflow GitHub Actions (`.github/workflows/build-exe.yml`) automatisant la création des binaires Windows à chaque release.
@@ -89,6 +109,7 @@ bash install.sh
 Ce script automatisé :
 1. Détecte la présence de **Claude Desktop** (`%APPDATA%\Claude\claude_desktop_config.json` ou `~/Library/Application Support/Claude`), **Cursor** et **Claude Code**.
 2. Injecte et fusionne le serveur MCP `agency-be-mcp` sans écraser vos configurations existantes.
+   La configuration d'origine est d'abord sauvegardée à côté (`*.agency-backup`).
 3. Crée les liens symboliques vers les 22 skills du dépôt.
 4. Initialise la base d'entreprises KBO SQLite locale et le coffre RGPD local (`~/.agency/vault/` : fichiers JSONL **non chiffrés**, réservés à
    l'utilisateur ; pour le chiffrement au repos, activez BitLocker ou FileVault).

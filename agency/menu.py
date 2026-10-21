@@ -168,6 +168,8 @@ def menu_ubl():
 
 def menu_vault():
     print("\n--- 🔐 COFFRE LOCAL RGPD (Clients enregistrés) ---")
+    print("Fichier local non chiffré (~/.agency/vault/). Quand un assistant IA consulte le coffre,")
+    print("les fiches lues sont transmises au modèle d'IA et à son fournisseur.\n")
     clients = list_clients()
     if not clients:
         print("Aucun client enregistré pour l'instant dans ~/.agency/vault/\n")

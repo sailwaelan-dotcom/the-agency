@@ -2,7 +2,7 @@
 ; Permet de générer TheAgency-Setup.exe (Assistant d'installation Windows classique)
 
 #define MyAppName "The Agency"
-#define MyAppVersion "2.0.0"
+#define MyAppVersion "1.1.0"
 #define MyAppPublisher "Waelan"
 #define MyAppURL "https://waelan.be"
 #define MyAppExeName "TheAgency.exe"
