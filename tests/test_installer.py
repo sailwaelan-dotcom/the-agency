@@ -351,7 +351,7 @@ def test_menu_vault():
     with patch("sys.stdout", new=io.StringIO()) as out:
         menu_vault()
         txt = out.getvalue()
-        assert "COFFRE-FORT LOCAL RGPD" in txt
+        assert "COFFRE LOCAL RGPD" in txt
     print("  ✓ test_menu_vault")
 
 

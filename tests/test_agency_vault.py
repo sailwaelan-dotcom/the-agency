@@ -113,6 +113,41 @@ def test_mcp_vault_tools_and_guardrail():
     print("  ✓ test_mcp_vault_tools_and_guardrail")
 
 
+def test_vault_rewrite_is_atomic():
+    import agency.vault as vault_mod
+    save_client({"bce_number": "0202.239.951", "name": "Client Intact"})
+    entities_file = TEMP_VAULT_DIR / "entities.jsonl"
+    before = entities_file.read_text(encoding="utf-8")
+
+    # Une erreur au milieu de la réécriture ne doit ni vider ni corrompre le fichier
+    real_dumps = vault_mod.json.dumps
+    vault_mod.json.dumps = lambda *a, **k: (_ for _ in ()).throw(OSError("disque plein"))
+    try:
+        save_client({"bce_number": "0403.170.701", "name": "Client Perdu"})
+        assert False, "L'erreur d'écriture devait remonter"
+    except OSError:
+        pass
+    finally:
+        vault_mod.json.dumps = real_dumps
+
+    assert entities_file.read_text(encoding="utf-8") == before
+    assert [p.name for p in TEMP_VAULT_DIR.iterdir() if p.name.endswith(".tmp")] == []
+    print("  ✓ test_vault_rewrite_is_atomic")
+
+
+def test_vault_files_private_to_owner():
+    # Les droits POSIX n'existent pas sous Windows : le profil utilisateur y fait office de barrière
+    if os.name == "nt":
+        print("  - test_vault_files_private_to_owner (ignoré sous Windows)")
+        return
+    save_client({"bce_number": "0202.239.951", "name": "Client Privé"})
+    record_instinct("facturation", "Toujours 30 jours.")
+    assert TEMP_VAULT_DIR.stat().st_mode & 0o777 == 0o700
+    for name in ("entities.jsonl", "instincts.jsonl"):
+        assert (TEMP_VAULT_DIR / name).stat().st_mode & 0o777 == 0o600, name
+    print("  ✓ test_vault_files_private_to_owner")
+
+
 def cleanup():
     if TEMP_VAULT_DIR.exists():
         shutil.rmtree(TEMP_VAULT_DIR, ignore_errors=True)
@@ -125,7 +160,9 @@ if __name__ == "__main__":
         test_vault_list_and_delete_client()
         test_vault_instincts_recording()
         test_mcp_vault_tools_and_guardrail()
-        print("\nGREEN — Tous les 4 tests du Vault RGPD passent !")
+        test_vault_rewrite_is_atomic()
+        test_vault_files_private_to_owner()
+        print("\nGREEN — Tous les 6 tests du Vault RGPD passent !")
     finally:
         cleanup()
     sys.exit(0)

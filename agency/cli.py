@@ -110,7 +110,7 @@ def cmd_check_client(args):
 
 
 def cmd_vault(args):
-    """Gestion du coffre-fort local RGPD."""
+    """Gestion du coffre local RGPD."""
     subaction = args.vault_action
 
     if subaction == "list":
@@ -165,7 +165,7 @@ def build_parser() -> argparse.ArgumentParser:
     p_check.add_argument("bce", help="Numéro BCE du client")
 
     # vault
-    p_vault = subparsers.add_parser("vault", help="Gestion du coffre-fort local RGPD.")
+    p_vault = subparsers.add_parser("vault", help="Gestion du coffre local RGPD (non chiffré).")
     v_sub = p_vault.add_subparsers(dest="vault_action", required=True)
     v_sub.add_parser("list", help="Lister les clients enregistrés")
     p_vg = v_sub.add_parser("get", help="Afficher un client par son numéro BCE")

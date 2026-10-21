@@ -30,6 +30,13 @@ et ce projet adhère au [Versionnage sémantique](https://semver.org/lang/fr/).
   est réduit à 8 972,07 € (Partena, barème 2026). Libellés CLI, menu et schéma MCP alignés.
 - `calc_inasti_provision` lève `ValueError` pour une autre année que 2026 au lieu d'appliquer
   silencieusement le barème 2026.
+- **Coffre RGPD : perte de données à l'écriture** : `save_client` et `delete_client` vidaient
+  `entities.jsonl` avant de le réécrire ; une erreur en cours d'écriture effaçait toutes les
+  fiches. Réécriture désormais atomique (fichier temporaire puis `os.replace`). Le dossier est
+  créé en 0700 et les fichiers en 0600 sous POSIX.
+- **Documentation alignée sur le code** : le coffre n'est plus présenté comme « sécurisé »
+  (JSONL non chiffré, chiffrement au repos à confier au disque) ; `evals/` est décrit comme un
+  correcteur par mots-clés sans résultat publié ; superlatifs retirés du README.
 - **Échéance TVA trimestrielle** : dépôt et paiement le **25** du mois qui suit le trimestre,
   sans report si le 25 tombe un samedi, un dimanche ou un jour férié légal (au lieu du 20 ;
   SPF Finances, « La nouvelle chaîne TVA » §2 et §10.1 et calendrier TVA, vérifiés le

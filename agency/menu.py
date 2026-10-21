@@ -167,7 +167,7 @@ def menu_ubl():
 
 
 def menu_vault():
-    print("\n--- 🔐 COFFRE-FORT LOCAL RGPD (Clients enregistrés) ---")
+    print("\n--- 🔐 COFFRE LOCAL RGPD (Clients enregistrés) ---")
     clients = list_clients()
     if not clients:
         print("Aucun client enregistré pour l'instant dans ~/.agency/vault/\n")
@@ -202,7 +202,7 @@ def launch_interactive_menu():
         print("  [2] 💰 Simuler mes cotisations trimestrielles INASTI")
         print("  [3] 📅 Consulter mes prochaines échéances fiscales")
         print("  [4] 🧾 Générer une facture électronique Peppol BIS 3.0 UBL")
-        print("  [5] 🔐 Consulter mon coffre-fort local RGPD")
+        print("  [5] 🔐 Consulter mon coffre local RGPD")
         print("  [6] ⚙️  Configurer mes applications IA (Claude Desktop, Cursor...)")
         print("  [7] 📌 Créer un raccourci The Agency sur mon Bureau")
         print("  [0] 🚪 Quitter\n")

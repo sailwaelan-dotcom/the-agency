@@ -1,12 +1,15 @@
 """
 Vault RGPD & Mémoire Épistémique Locale pour The Agency.
 Stocke hors-dépôt (~/.agency/vault/) l'annuaire des clients et les règles métiers apprises (instincts).
-Conformité stricte APD / RGPD : droit à l'oubli, isolation locale, aucune transmission Cloud.
-Zéro dépendance tierce (json, os, pathlib, datetime, re).
+Fichiers JSONL locaux, non chiffrés : réservés à l'utilisateur (droits 0700/0600 sous POSIX,
+profil Windows ailleurs) ; le chiffrement au repos relève du disque (BitLocker, FileVault, LUKS).
+Droit à l'oubli via delete_client, aucune transmission réseau.
+Zéro dépendance tierce (json, os, pathlib, datetime, re, tempfile).
 """
 import json
 import os
 import re
+import tempfile
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, List, Optional
@@ -18,8 +21,31 @@ def get_vault_dir() -> Path:
     """Retourne le répertoire configuré du coffre-fort local."""
     custom = os.getenv("AGENCY_VAULT_DIR")
     target = Path(custom) if custom else DEFAULT_VAULT_DIR
-    target.mkdir(parents=True, exist_ok=True)
+    target.mkdir(mode=0o700, parents=True, exist_ok=True)
     return target
+
+
+def _write_jsonl_atomic(path: Path, records: List[Dict[str, Any]]) -> None:
+    """Réécrit `path` via un fichier temporaire privé (0600) puis un renommage atomique :
+    une erreur en cours d'écriture laisse l'ancien fichier intact."""
+    fd, tmp_name = tempfile.mkstemp(dir=path.parent, prefix=f".{path.name}.", suffix=".tmp")
+    try:
+        with os.fdopen(fd, "w", encoding="utf-8") as f:
+            for record in records:
+                f.write(json.dumps(record, ensure_ascii=False) + "\n")
+        os.replace(tmp_name, path)
+    except BaseException:
+        os.unlink(tmp_name)
+        raise
+
+
+def _append_jsonl_private(path: Path, record: Dict[str, Any]) -> None:
+    """Ajoute une ligne à `path`, créé si besoin avec des droits réservés à l'utilisateur."""
+    fd = os.open(path, os.O_WRONLY | os.O_CREAT | os.O_APPEND, 0o600)
+    if os.name != "nt":
+        os.chmod(path, 0o600)
+    with os.fdopen(fd, "a", encoding="utf-8") as f:
+        f.write(json.dumps(record, ensure_ascii=False) + "\n")
 
 
 def _normalize_bce(raw_number: str) -> str:
@@ -30,7 +56,7 @@ def _normalize_bce(raw_number: str) -> str:
 
 
 # =====================================================================
-# Compartiment 1 : Annuaire Sécurisé des Clients (entities.jsonl)
+# Compartiment 1 : Annuaire local des Clients (entities.jsonl)
 # =====================================================================
 
 def save_client(client_data: Dict[str, Any]) -> Dict[str, Any]:
@@ -72,10 +98,7 @@ def save_client(client_data: Dict[str, Any]) -> Dict[str, Any]:
 
     existing.append(record)
 
-    # Réécriture atomique
-    with entities_file.open("w", encoding="utf-8") as f:
-        for ent in existing:
-            f.write(json.dumps(ent, ensure_ascii=False) + "\n")
+    _write_jsonl_atomic(entities_file, existing)
 
     return record
 
@@ -150,9 +173,7 @@ def delete_client(raw_bce: str) -> bool:
                 continue
 
     if found:
-        with entities_file.open("w", encoding="utf-8") as f:
-            for ent in retained:
-                f.write(json.dumps(ent, ensure_ascii=False) + "\n")
+        _write_jsonl_atomic(entities_file, retained)
 
     return found
 
@@ -173,8 +194,7 @@ def record_instinct(topic: str, rule: str, confidence: float = 1.0) -> Dict[str,
         "created_at": datetime.now(timezone.utc).isoformat(),
     }
 
-    with instincts_file.open("a", encoding="utf-8") as f:
-        f.write(json.dumps(instinct, ensure_ascii=False) + "\n")
+    _append_jsonl_private(instincts_file, instinct)
 
     return instinct
 

@@ -62,9 +62,9 @@ The agency/
 └── tests/                     # suites complètes de tests unitaires, TDD et E2E
 ```
 
-## Démarrage Rapide & Installation Zéro-Friction 🚀
+## Démarrage rapide
 
-Pour les indépendants et solopreneurs (techniques ou non), The Agency propose une mise en route instantanée sans manipulation complexe de fichiers JSON :
+Deux façons d'installer, sans éditer de fichier JSON à la main :
 
 ### 1. Exécutable Windows autonome (`TheAgency.exe`) — Zéro Python requis
 Idéal pour les utilisateurs Windows ne disposant pas d'environnement de développement :
@@ -73,7 +73,7 @@ Idéal pour les utilisateurs Windows ne disposant pas d'environnement de dévelo
 - **Assistant d'installation Windows classique** : script `installer.iss` (Inno Setup) créant un installeur standard `TheAgency-Setup.exe` avec raccourci sur le Bureau et désinstalleur propre.
 - **Compilateur CI** : workflow GitHub Actions (`.github/workflows/build-exe.yml`) automatisant la création des binaires Windows à chaque release.
 
-### 2. Installateur 1-Clic Auto-Configurant (Claude Desktop, Cursor, Claude Code)
+### 2. Installateur auto-configurant (Claude Desktop, Cursor, Claude Code)
 Une commande unique détecte vos applications IA et fusionne la configuration du serveur MCP belge (`agency-be-mcp`) :
 
 ```powershell
@@ -90,7 +90,8 @@ Ce script automatisé :
 1. Détecte la présence de **Claude Desktop** (`%APPDATA%\Claude\claude_desktop_config.json` ou `~/Library/Application Support/Claude`), **Cursor** et **Claude Code**.
 2. Injecte et fusionne le serveur MCP `agency-be-mcp` sans écraser vos configurations existantes.
 3. Crée les liens symboliques vers les 22 skills du dépôt.
-4. Initialise la base d'entreprises KBO SQLite locale et le coffre-fort RGPD sécurisé (`~/.agency/vault/`).
+4. Initialise la base d'entreprises KBO SQLite locale et le coffre RGPD local (`~/.agency/vault/` : fichiers JSONL **non chiffrés**, réservés à
+   l'utilisateur ; pour le chiffrement au repos, activez BitLocker ou FileVault).
 
 ---
 
@@ -127,15 +128,18 @@ le skill `activate-agency` conduit l'onboarding (interview 8 questions, profil p
 
 ## Couche MCP & Architecture d'Agents (`agency-be-mcp`)
 
-Pour aller au-delà des prompts et des fichiers de contextes statiques, The Agency embarque son propre serveur **Model Context Protocol (MCP)** standardisé et zéro dépendance (`mcp/`) ainsi qu'une architecture d'exécution de pointe :
+Pour aller au-delà des prompts et des fichiers de contextes statiques, The Agency embarque son propre serveur **Model Context Protocol (MCP)** sans dépendance (`mcp/`) :
 
 - **Outils déterministes (Tools)** : validation Modulo 97 BCE/KBO (`validate_bce_number`), simulation cotisations provisionnelles INASTI (`calc_inasti_provision`), calendrier fiscal dynamique TVA/VA/INASTI avec alertes J-14/J-3 (`get_be_tax_calendar`), générateur UBL 2.1 XML (`generate_peppol_ubl`) et validateur Schematron Peppol BIS 3.0 (`validate_peppol_ubl`).
 - **Ressources en lecture directe (Resources)** : consultation des barèmes légaux sans surcoût d'outil (`belgian-tax://2026/rates`, `inasti://2026/brackets`, `cir92://deductibility/rules`).
 - **Prompts serveurs déclaratifs (Prompts)** : chaînes de travail prêtes à l'emploi (`audit_client_peppol`, `prepare_quarterly_tax_closing`).
 - **APIs officielles en direct** : vérification TVA intracommunautaire UE VIES (`check_vat_vies`), annuaire d'éligibilité facturation électronique OpenPeppol Directory (`lookup_peppol_participant`).
 - **Guardrails & Assainissement** : intercepteur pré-vol bloquant les numéros BCE corrompus et taux fiscaux non conformes, avec masquage automatique des PII et chemins locaux.
-- **Protocole A2A & Machine à états** : schémas JSON stricts (`.agents/schemas/`) pour orchestrer le passage fluide Devis ➔ Contrat ➔ Facture Peppol sans perte de contexte.
-- **Suite d'évaluation EDD (40 Cas d'Or)** : benchmark automatisé (`evals/`) validant la conformité légale et traquant les hallucinations étrangères (France).
+- **Protocole A2A & Machine à états** : schémas JSON stricts (`.agents/schemas/`) pour enchaîner Devis ➔ Contrat ➔ Facture Peppol.
+- **Cas d'évaluation (`evals/`)** : 40 questions réglementaires belges et un correcteur par
+  mots-clés (termes belges attendus, termes du droit français interdits, disclaimer). Il note
+  une réponse qu'on lui fournit : aucun modèle n'est appelé par défaut et aucun taux de
+  réussite n'est publié à ce jour.
 - **Configurations prêtes à l'emploi** : pour Claude Code, Cursor, Hermes et Kilocode dans `mcp/configs/`. Voir [mcp/README.md](mcp/README.md) pour le guide technique.
 
 ## Domaines couverts
