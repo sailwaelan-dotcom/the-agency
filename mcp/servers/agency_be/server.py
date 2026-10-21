@@ -150,7 +150,7 @@ def get_server_tools() -> List[Dict[str, Any]]:
                     },
                     "is_starter": {
                         "type": "boolean",
-                        "description": "True si indépendant débutant (3 premières années).",
+                        "description": "True si primostarter (4 premiers trimestres d'une première activité principale) : revenu minimum réduit.",
                         "default": False,
                     },
                     "year": {

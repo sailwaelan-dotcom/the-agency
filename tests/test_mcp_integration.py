@@ -185,7 +185,7 @@ def test_inasti_provision_calculation_minimum():
     res = calc_inasti_provision(annual_net_income=10000.0, is_starter=False, year=2026)
     assert res["is_minimum_applied"] is True
     assert res["annual_net_income"] == 10000.0
-    assert res["quarterly_base_contribution"] > 800.0  # ~864 € / trimestre minimum légal
+    assert res["quarterly_base_contribution"] > 800.0  # 890,42 € / trimestre minimum légal (2026)
     assert res["management_fee_rate"] > 0
     assert res["total_quarterly_due"] > res["quarterly_base_contribution"]
     assert res["as_of"] == "2026-01-01"
@@ -208,6 +208,54 @@ def test_inasti_provision_calculation_ceiling():
     res = calc_inasti_provision(annual_net_income=200000.0, is_starter=False, year=2026)
     assert res["is_ceiling_applied"] is True
     assert res["quarterly_base_contribution"] < 5500.0  # Plafond légal ~4900-5000 €
+
+
+# Montants 2026 hors frais de gestion, recalculés depuis les seuils publiés
+# (UCM, note d'info janvier 2026 ; Partena, barème 2026) et recoupés avec les
+# cotisations trimestrielles minimale (890,42 €) et maximale (5 103,05 €) de l'OECCBB.
+
+def test_inasti_2026_minimum_quarterly_contribution():
+    from agency_be.tools.inasti import calc_inasti_provision
+    res = calc_inasti_provision(annual_net_income=10000.0, year=2026)
+    assert res["quarterly_base_contribution"] == 890.42
+
+
+def test_inasti_2026_maximum_quarterly_contribution():
+    from agency_be.tools.inasti import calc_inasti_provision
+    res = calc_inasti_provision(annual_net_income=200000.0, year=2026)
+    assert res["quarterly_base_contribution"] == 5103.05
+
+
+def test_inasti_2026_first_bracket_ceiling():
+    from agency_be.tools.inasti import calc_inasti_provision
+    # 76 000 € dépasse le premier plafond 2026 (75 024,54 €) : 14,16 % sur l'excédent
+    res = calc_inasti_provision(annual_net_income=76000.0, year=2026)
+    expected = round((75024.54 * 0.205 + (76000.0 - 75024.54) * 0.1416) / 4.0, 2)
+    assert res["quarterly_base_contribution"] == expected
+
+
+def test_inasti_primostarter_reduced_floor():
+    from agency_be.tools.inasti import calc_inasti_provision
+    # Primostarter sous 8 972,07 € : plancher réduit (Partena, barème 2026)
+    starter = calc_inasti_provision(annual_net_income=5000.0, is_starter=True, year=2026)
+    assert starter["is_minimum_applied"] is True
+    assert starter["quarterly_base_contribution"] == 459.82
+    # Entre les deux planchers : le primostarter cotise sur son revenu, pas au minimum normal
+    starter_mid = calc_inasti_provision(annual_net_income=12000.0, is_starter=True, year=2026)
+    assert starter_mid["is_minimum_applied"] is False
+    assert starter_mid["quarterly_base_contribution"] == 615.0
+    normal_mid = calc_inasti_provision(annual_net_income=12000.0, is_starter=False, year=2026)
+    assert normal_mid["quarterly_base_contribution"] == 890.42
+
+
+def test_inasti_unsupported_year_raises():
+    from agency_be.tools.inasti import calc_inasti_provision
+    if pytest:
+        with pytest.raises(ValueError):
+            calc_inasti_provision(annual_net_income=40000.0, year=2027)
+    else:
+        with assert_raises(ValueError):
+            calc_inasti_provision(annual_net_income=40000.0, year=2027)
 
 
 # ============================================================================
@@ -408,6 +456,11 @@ if __name__ == "__main__":
         test_inasti_provision_calculation_minimum,
         test_inasti_provision_calculation_standard,
         test_inasti_provision_calculation_ceiling,
+        test_inasti_2026_minimum_quarterly_contribution,
+        test_inasti_2026_maximum_quarterly_contribution,
+        test_inasti_2026_first_bracket_ceiling,
+        test_inasti_primostarter_reduced_floor,
+        test_inasti_unsupported_year_raises,
         test_vies_request_url_builder,
         test_vies_offline_mock,
         test_peppol_participant_id,

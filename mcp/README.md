@@ -41,7 +41,7 @@ Le serveur `agency-be-mcp` résout ces problèmes en injectant des **outils dét
 Le serveur expose des données de référence en lecture directe sans consommer d'appel d'outil :
 
 - `belgian-tax://2026/rates` : Grille officielle des taux de TVA (21 %, 12 %, 6 %, 0 %), franchise Art. 56bis (25 000 €) et autoliquidation.
-- `inasti://2026/brackets` : Barème des tranches de cotisations sociales indépendant (seuil minimum 16 861,46 €, premier plafond 77 015,17 €, plafond max 107 300 €).
+- `inasti://2026/brackets` : Barème des tranches de cotisations sociales indépendant (seuil minimum 17 374,08 €, premier plafond 75 024,54 €, plafond max 110 562,42 €, plancher primostarter 8 972,07 €).
 - `cir92://deductibility/rules` : Règles de déductibilité des frais professionnels (CIR 92) : restaurant 69 %, réceptions 50 %, cadeaux d'affaires, bureau à domicile.
 
 ---

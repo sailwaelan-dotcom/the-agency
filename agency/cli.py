@@ -58,7 +58,7 @@ def cmd_inasti(args):
     )
     print(f"\n🇧🇪 Cotisations Trimestrielles INASTI (Année {args.year}) :")
     print(f"  • Revenu net imposable annuel : {res['annual_net_income']:,.2f} €")
-    print(f"  • Statut                      : {'Débutant (starter)' if res['is_starter'] else 'Normal'}")
+    print(f"  • Statut                      : {'Primostarter (plancher réduit)' if res['is_starter'] else 'Normal'}")
     print(f"  • Cotisation de base          : {res['quarterly_base_contribution']:,.2f} € / trimestre")
     print(f"  • Frais de gestion caisse     : {res['quarterly_management_fee']:,.2f} €")
     print(f"  ───────────────────────────────────────────────")
@@ -152,7 +152,7 @@ def build_parser() -> argparse.ArgumentParser:
     # inasti
     p_inasti = subparsers.add_parser("inasti", help="Simuler les cotisations sociales trimestrielles.")
     p_inasti.add_argument("--income", type=float, required=True, help="Revenu net imposable annuel en euros")
-    p_inasti.add_argument("--starter", action="store_true", help="Si indépendant débutant (< 3 ans)")
+    p_inasti.add_argument("--starter", action="store_true", help="Si primostarter (4 premiers trimestres d'une première activité principale)")
     p_inasti.add_argument("--year", type=int, default=2026, help="Année fiscale (défaut: 2026)")
 
     # deadlines

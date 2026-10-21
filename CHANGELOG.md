@@ -19,6 +19,17 @@ et ce projet adhère au [Versionnage sémantique](https://semver.org/lang/fr/).
 
 ### Corrigé
 
+- **Barème INASTI 2026** : les seuils codés (16 861,46 € / 77 015,17 € / 107 300 €) ne
+  correspondaient pas au barème 2026. Remplacés par revenu minimum 17 374,08 €, fin de tranche
+  à 20,5 % 75 024,54 €, plafond 110 562,42 € (UCM, note d'info janvier 2026 ; Partena, barème
+  2026 ; cotisations minimale 890,42 € et maximale 5 103,05 € recoupées avec l'OECCBB, consulté
+  le 2026-10-21). Corrigé dans `calc_inasti_provision`, la resource `inasti://2026/brackets`,
+  `regulatory_monitor.py`, `mcp/README.md` et les cas d'or `eval_09`, `eval_11`, `eval_12`.
+- **`is_starter` sans effet** : le paramètre était accepté et affiché mais n'entrait pas dans
+  le calcul. Il vise désormais le primostarter (4 premiers trimestres), dont le revenu minimum
+  est réduit à 8 972,07 € (Partena, barème 2026). Libellés CLI, menu et schéma MCP alignés.
+- `calc_inasti_provision` lève `ValueError` pour une autre année que 2026 au lieu d'appliquer
+  silencieusement le barème 2026.
 - **Échéance TVA trimestrielle** : dépôt et paiement le **25** du mois qui suit le trimestre,
   sans report si le 25 tombe un samedi, un dimanche ou un jour férié légal (au lieu du 20 ;
   SPF Finances, « La nouvelle chaîne TVA » §2 et §10.1 et calendrier TVA, vérifiés le

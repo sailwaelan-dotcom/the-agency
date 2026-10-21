@@ -76,19 +76,27 @@ TAX_RATES_DATA = {
 INASTI_BRACKETS_DATA = {
     "year": 2026,
     "as_of": "2026-01-01",
-    "minimum_annual_income": 16861.46,
-    "first_bracket_ceiling": 77015.17,
-    "maximum_annual_income": 107300.00,
+    "sources": [
+        "UCM, Calcul et barème des cotisations sociales dues en 2026 (note d'info, janvier 2026)",
+        "Partena Professional, Barème des cotisations trimestrielles indépendants pour 2026",
+    ],
+    "minimum_annual_income": 17374.08,
+    "primostarter_minimum_annual_income": 8972.07,
+    "first_bracket_ceiling": 75024.54,
+    "maximum_annual_income": 110562.42,
     "rate_bracket_1": 0.205,
     "rate_bracket_2": 0.1416,
     "average_management_fee_rate": 0.035,
     "starter_concession": (
-        "Les indépendants débutants (3 premières années) bénéficient d'une cotisation minimale "
-        "réduite sous conditions de revenus modestes."
+        "Primostarter (4 premiers trimestres d'une première activité principale, sous conditions) : "
+        "revenu minimum réduit à 8 972,07 €. Les autres débutants (jusqu'à la fin de la 3e année "
+        "civile complète) paient des cotisations provisoires sur un revenu fictif de 17 374,08 € "
+        "ou sur leur revenu estimé."
     ),
     "regularization_rule": (
-        "Les cotisations payées trimestriellement sont des provisions basées sur l'année N-3. "
-        "La régularisation définitive intervient 2 à 3 ans plus tard sur base de l'avertissement-extrait de rôle."
+        "Les cotisations trimestrielles sont des provisions (revenus N-3 réévalués, ou revenu "
+        "fictif en début d'activité), régularisées sur les revenus réels de l'année communiqués "
+        "par le SPF Finances."
     ),
 }
 

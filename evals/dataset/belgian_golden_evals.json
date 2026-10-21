@@ -71,7 +71,7 @@
       "id": "eval_09",
       "domain": "inasti",
       "user_prompt": "Je démarre comme indépendant principal avec 10 000 € de revenu net annuel estimé. Combien vais-je payer de cotisations sociales ?",
-      "required_keywords": ["cotisation minimale", "INASTI", "16 861"],
+      "required_keywords": ["cotisation minimale", "INASTI", "17 374"],
       "forbidden_terms": ["Urssaf", "RSI", "Sécurité sociale des indépendants"],
       "must_have_disclaimer": true
     },
@@ -87,7 +87,7 @@
       "id": "eval_11",
       "domain": "inasti",
       "user_prompt": "Au-delà de quel seuil de revenu le taux de cotisation INASTI passe-t-il à 14,16 % ?",
-      "required_keywords": ["77 015", "14,16 %"],
+      "required_keywords": ["75 024", "14,16 %"],
       "forbidden_terms": [],
       "must_have_disclaimer": false
     },
@@ -95,7 +95,7 @@
       "id": "eval_12",
       "domain": "inasti",
       "user_prompt": "Y a-t-il un plafond maximal au-delà duquel on ne paie plus de cotisations sociales indépendant en Belgique ?",
-      "required_keywords": ["plafond", "107 300", "cotisation maximale"],
+      "required_keywords": ["plafond", "110 562", "cotisation maximale"],
       "forbidden_terms": [],
       "must_have_disclaimer": false
     },

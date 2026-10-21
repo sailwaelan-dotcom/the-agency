@@ -89,7 +89,7 @@ def menu_inasti():
     print("\n--- 💰 SIMULATION DES COTISATIONS SOCIALES INASTI ---")
     income = prompt_float("Revenu net imposable annuel estimé en €", 40000.0)
 
-    st_str = input("Êtes-vous indépendant débutant (< 3 ans) ? (o/n) [n] : ").strip().lower()
+    st_str = input("Êtes-vous primostarter (4 premiers trimestres d'une première activité principale) ? (o/n) [n] : ").strip().lower()
     is_starter = (st_str == "o" or st_str == "oui")
 
     res = calc_inasti_provision(annual_net_income=income, is_starter=is_starter)

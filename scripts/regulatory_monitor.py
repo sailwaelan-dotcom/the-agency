@@ -22,8 +22,8 @@ REFERENCE_THRESHOLDS = {
     "tva_standard_rate": 21.0,
     "tva_franchise_56bis_threshold": 25000.0,
     "inasti_starter_rate": 20.5,
-    "inasti_standard_floor_income": 16861.46,
-    "inasti_max_ceiling_income": 107300.0,
+    "inasti_standard_floor_income": 17374.08,
+    "inasti_max_ceiling_income": 110562.42,
     "peppol_legal_deadline_year": 2026,
     "commercial_late_interest_law": "loi du 2 août 2002",
 }
@@ -77,7 +77,7 @@ def audit_repo_thresholds() -> Dict[str, Any]:
     mcp_resources = REPO_ROOT / "mcp" / "servers" / "agency_be" / "resources.py"
     if mcp_resources.exists():
         content = mcp_resources.read_text(encoding="utf-8")
-        if "21" not in content or "16861" not in content:
+        if "21" not in content or "17374.08" not in content:
             findings.append({
                 "severity": "CRITICAL",
                 "component": "mcp/resources.py",

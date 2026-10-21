@@ -69,7 +69,10 @@ def test_resource_read_inasti_brackets():
     res = handle_read_resource("inasti://2026/brackets")
     assert res["uri"] == "inasti://2026/brackets"
     data = json.loads(res["text"])
-    assert data["minimum_annual_income"] == 16861.46
+    assert data["minimum_annual_income"] == 17374.08
+    assert data["first_bracket_ceiling"] == 75024.54
+    assert data["maximum_annual_income"] == 110562.42
+    assert data["primostarter_minimum_annual_income"] == 8972.07
     assert data["rate_bracket_1"] == 0.205
     assert data["rate_bracket_2"] == 0.1416
 
