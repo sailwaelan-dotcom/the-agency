@@ -14,7 +14,12 @@ belges. Chaque skill doit être :
 
 ## Comment proposer un nouveau skill
 
-1. **Fork** le repo
+1. **Fork** le repo, puis activer le hook pre-commit (une fois par clone) :
+   ```bash
+   git config core.hooksPath .githooks
+   ```
+   Il lance le scan de sécurité et la validation des skills avant chaque commit : un secret
+   est bloqué sur votre machine, avant d'atteindre GitHub.
 2. **Copier** `.agents/skills/_template/SKILL.md` dans un nouveau dossier
 3. **Écrire** le skill (6-15k caractères, sections obligatoires : Overview, When to Use, Workflow, Pitfalls, Checklist)
 4. **Valider** localement :

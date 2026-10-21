@@ -10,7 +10,8 @@ Ne logue JAMAIS la ligne suspecte en clair — uniquement fichier + catégorie +
 Mécanismes anti faux-positifs :
 - Marqueur `<!-- nosec -->` ou `# nosec` en fin de ligne → ligne ignorée (usage restreint
   aux fichiers de politique/documentations de sécurité).
-- Heuristique de négation : si la ligne matchée contient un marqueur de politique
+- Heuristique de négation (pratiques dangereuses et injection de prompt uniquement, jamais
+  pour un secret, un chemin ou un identifiant réel) : si la ligne contient un marqueur de politique
   ("jamais", "ne doit", "interdit", "never", "do not"...), BLOCK → WARN.
 """
 import os
@@ -65,6 +66,12 @@ NEGATION_MARKERS = re.compile(
     r"|must\s+not|avoid|éviter|beware|avertissement|what\s+not\s+to\s+do|n'\w+\s+pas)",
     re.I,
 )
+# Seules ces catégories décrivent une pratique qu'un texte de politique peut citer pour l'interdire.
+# Un secret, un chemin machine ou un identifiant réel reste bloquant quel que soit le commentaire.
+NEGATABLE_CATEGORIES = {
+    "curl-pipe-shell", "wget-pipe-shell", "netcat-reverse", "eval-exec-danger",
+    "prompt-injection-ignore", "prompt-injection-roleplay", "prompt-injection-system",
+}
 # Suppression explicite d'une ligne (documentation de sécurité uniquement)
 NOSEC_MARKER = re.compile(r"(#\s*nosec\b|<!--\s*nosec\b)", re.I)
 
@@ -91,7 +98,7 @@ def scan_file(path: Path) -> list[tuple[str, str, int]]:
         for category, pattern, blocking in PATTERNS:
             if pattern.search(line):
                 sev = "BLOCK" if blocking else "WARN"
-                if blocking and NEGATION_MARKERS.search(line):
+                if blocking and category in NEGATABLE_CATEGORIES and NEGATION_MARKERS.search(line):
                     sev = "WARN"  # contexte de politique documentaire
                 findings.append((sev, category, lineno))
     return findings

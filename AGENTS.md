@@ -10,7 +10,8 @@ Tu lis ce fichier parce qu'un harness t'a déposé ici. Voici les règles du jeu
 - `.agents/agents/` — personas métier (comptable, secrétaire, R&D…) qui combinent plusieurs skills.
 - `SECURITY.md` — **à lire avant d'écrire quoi que ce soit** dans ce dépôt.
 - `scripts/validate_skills.py` — validation structurelle (exit 0 requis avant commit).
-- `scripts/security_scan.py` — scan anti-leak (exit 0 requis avant commit).
+- `scripts/security_scan.py` — scan anti-leak (exit 0 requis avant commit ; lancé
+  automatiquement par `.githooks/pre-commit` après `git config core.hooksPath .githooks`).
 - `scripts/build_index.py` — régénère `INDEX.md` + `catalog.json` (à relancer après tout
   ajout/retrait de skill).
 - `scripts/check_doc_sync.py` — vérifie que les chiffres du README matchent le repo
